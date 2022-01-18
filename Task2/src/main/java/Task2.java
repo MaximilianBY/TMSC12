@@ -10,6 +10,19 @@ public class Task2 {
     }
 
     private static void printLiterals() {
+        boolean boolLit = true;
+        System.out.println("True or False: " + boolLit + "\n");
+        String str = "My name Maximilian";
+        System.out.println("What is your name?" + "\n" + str + "\n");
+        char chLit = 'M';
+        System.out.println((byte)chLit + "\n");
+        int someNumInt = 156;
+        System.out.println("in Binary system " + Integer.toBinaryString(someNumInt) + "\n");
+        System.out.println("in Octal system " + Integer.toOctalString(someNumInt) + "\n");
+        System.out.println("in Normal system " + someNumInt + "\n");
+        System.out.println("in Hex system " + Integer.toHexString(someNumInt) + "\n");
+        System.out.println((float) Math.random() + "\n");
+        System.out.println(Math.random() + "\n");
 //        вывести на консоль литералы следующих видов:
 //        логический
 //        строковый
@@ -27,7 +40,10 @@ public class Task2 {
      * 2. Дополнительно: сделать проверку если сумма a и b больше чем максимальное значение int то вернуть -1
      **/
     public static int sum(int a, int b) {
-        return 0;
+        int sum = a + b;
+        if (sum > Integer.MAX_VALUE)
+            return -1;
+        else return sum;
     }
 
     /**
@@ -46,7 +62,7 @@ public class Task2 {
      * Метод должен вернуть 10
      */
     public static int max(int a, int b) {
-        return 0;
+        return Math.max(a, b);
     }
 
     /**
@@ -63,6 +79,7 @@ public class Task2 {
      * return 20
      */
     public static double calculateHypotenuse(int a, int b) {
-        return 0;
+        int hipotenuza = a * a + b * b;
+        return Math.round(Math.sqrt(hipotenuza));
     }
 }

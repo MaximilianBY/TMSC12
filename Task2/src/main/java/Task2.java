@@ -83,6 +83,6 @@ public class Task2 {
      */
     public static double calculateHypotenuse(int a, int b) {
         int hypotenuse = a * a + b * b;
-        return Math.round(Math.sqrt(hypotenuse));
+        return Math.sqrt(hypotenuse);
     }
 }

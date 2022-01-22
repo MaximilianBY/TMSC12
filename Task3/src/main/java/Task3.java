@@ -3,9 +3,11 @@ import java.util.Scanner;
 public class Task3 {
 
     private static void printABC() {
-        for (char i = 'a'; i <= 'z'; i++) {
+        System.out.println("Выводим алфавит:");
+        for (char i = 'A'; i <= 'Z'; i++) {
             System.out.print(i + " ");
         }
+        System.out.println();
     }
 
     private static void printNum() {
@@ -178,10 +180,15 @@ public class Task3 {
 
     public static void main(String[] args) {
         printABC();
+        System.out.println("Следующее задание:");
         printNum();
+        System.out.println("Следующее задание:");
         printNumABS();
+        System.out.println("Следующее задание:");
         printTime();
+        System.out.println("Следующее задание:");
         tableOfType();
+        System.out.println("Следующее задание:");
         int[] arrayOfNums = {1, 5, 7, 4, 7, 9, 20, 3};
         System.out.println(average(arrayOfNums));
         System.out.println(max(arrayOfNums));

@@ -2,6 +2,22 @@ import java.util.Scanner;
 
 public class Task3 {
 
+    public static void main(String[] args) {
+        printABC();
+        System.out.println("Следующее задание:");
+        printNum();
+        System.out.println("Следующее задание:");
+        printNumABS();
+        System.out.println("Следующее задание:");
+        printTime();
+        System.out.println("Следующее задание:");
+        tableOfType();
+        System.out.println("Следующее задание:");
+        int[] arrayOfNums = {1, 5, 7, 4, 7, 9, 20, 3};
+        System.out.println(average(arrayOfNums));
+        System.out.println(max(arrayOfNums));
+    }
+
     private static void printABC() {
         System.out.println("Выводим алфавит:");
         for (char i = 'A'; i <= 'Z'; i++) {
@@ -28,39 +44,30 @@ public class Task3 {
         }
     }
 
+    private static int readValueFromConsole(Scanner sc) {
+        int someNum = 0;
+        if (sc.hasNextInt()) {
+            someNum = sc.nextInt();
+        }
+        return someNum;
+    }
+
+    private static int findMinValue(int first, int second) {
+        return Math.abs(Math.min(first, second));
+    }
+
     private static void printNumABS() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Введите целое число или end для завершения:");
-        while (sc.hasNext()) {
-            int a = 0, b = 0, c = 0;
-            if (sc.hasNextInt()) {
-                a = sc.nextInt();
-            } else if (sc.next().equals("end")) {
-                break;
-            }
-            if (sc.hasNextInt()) {
-                b = sc.nextInt();
-            } else if (sc.next().equals("end")) {
-                break;
-            }
-            if (sc.hasNextInt()) {
-                c = sc.nextInt();
-            } else if (sc.next().equals("end")) {
-                break;
-            }
-            if (Math.abs(Math.min(a, b)) == Math.abs(Math.min(a, c))) {
-                System.out.println("Минимальное число: " + a);
-            } else if (Math.abs(Math.min(a, b)) == Math.abs(Math.min(b, c))) {
-                System.out.println("Минимальное число: " + b);
-            } else {
-                System.out.println("Минимальное число: " + c);
-            }
-        }
+        System.out.println("Введите 3 целых числа:");
+        int a = readValueFromConsole(sc);
+        int b = readValueFromConsole(sc);
+        int c = readValueFromConsole(sc);
+        System.out.println(findMinValue(findMinValue(a, b), c));
     }
 
     private static void printTime() {
         int millisWorkTime = 28800, millisInHour = millisWorkTime / 8, remainingTime;
-        int randomRemainTime = (int) (Math.random() * millisWorkTime);
+        int randomRemainTime = (int) Math.round(Math.random() * (millisWorkTime + 1));
         remainingTime = Math.round(randomRemainTime / millisInHour);
         if (remainingTime >= 5) {
             System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часов" + "\n");
@@ -69,7 +76,7 @@ public class Task3 {
             System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часа" + "\n");
             System.out.println("осталось " + remainingTime + " часа");
         } else if (remainingTime > 0) {
-            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " менее часа" + "\n");
+            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " час" + "\n");
             System.out.println("осталось менее часа");
         } else {
             System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часов" + "\n");
@@ -176,21 +183,5 @@ public class Task3 {
             }
         }
         return array[array.length - 1];
-    }
-
-    public static void main(String[] args) {
-        printABC();
-        System.out.println("Следующее задание:");
-        printNum();
-        System.out.println("Следующее задание:");
-        printNumABS();
-        System.out.println("Следующее задание:");
-        printTime();
-        System.out.println("Следующее задание:");
-        tableOfType();
-        System.out.println("Следующее задание:");
-        int[] arrayOfNums = {1, 5, 7, 4, 7, 9, 20, 3};
-        System.out.println(average(arrayOfNums));
-        System.out.println(max(arrayOfNums));
     }
 }

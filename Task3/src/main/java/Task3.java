@@ -2,6 +2,22 @@ import java.util.Scanner;
 
 public class Task3 {
 
+    public static void main(String[] args) {
+        printABC();
+        System.out.println("Следующее задание:");
+        printNum();
+        System.out.println("Следующее задание:");
+        printNumABS();
+        System.out.println("Следующее задание:");
+        printTime();
+        System.out.println("Следующее задание:");
+        tableOfType();
+        System.out.println("Следующее задание:");
+        int[] arrayOfNums = {1, 5, 7, 4, 7, 9, 20, 3};
+        System.out.println(average(arrayOfNums));
+        System.out.println(max(arrayOfNums));
+    }
+
     private static void printABC() {
         System.out.println("Выводим алфавит:");
         for (char i = 'A'; i <= 'Z'; i++) {
@@ -176,21 +192,5 @@ public class Task3 {
             }
         }
         return array[array.length - 1];
-    }
-
-    public static void main(String[] args) {
-        printABC();
-        System.out.println("Следующее задание:");
-        printNum();
-        System.out.println("Следующее задание:");
-        printNumABS();
-        System.out.println("Следующее задание:");
-        printTime();
-        System.out.println("Следующее задание:");
-        tableOfType();
-        System.out.println("Следующее задание:");
-        int[] arrayOfNums = {1, 5, 7, 4, 7, 9, 20, 3};
-        System.out.println(average(arrayOfNums));
-        System.out.println(max(arrayOfNums));
     }
 }

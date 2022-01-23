@@ -54,7 +54,7 @@ public class Task3 {
     }
 
     private static int findMinValue(int first, int second) {
-        return Math.abs(Math.min(first, second));
+        return Math.min(Math.abs(first), Math.abs(second));
     }
 
     private static void printNumABS() {

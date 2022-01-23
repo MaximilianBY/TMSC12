@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Task3 {
@@ -44,40 +45,32 @@ public class Task3 {
         }
     }
 
+    private static int readValueFromConsole(Scanner sc) {
+        int someNum = 0;
+        if (sc.hasNextInt()) {
+            someNum = sc.nextInt();
+        }
+        return someNum;
+    }
+
+    private static int findMinValue(int first, int second) {
+        return Math.abs(Math.min(first, second));
+    }
+
     private static void printNumABS() {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Введите целое число или end для завершения:");
-        while (sc.hasNext()) {
-            int a = 0, b = 0, c = 0;
-            if (sc.hasNextInt()) {
-                a = sc.nextInt();
-            } else if (sc.next().equals("end")) {
-                break;
-            }
-            if (sc.hasNextInt()) {
-                b = sc.nextInt();
-            } else if (sc.next().equals("end")) {
-                break;
-            }
-            if (sc.hasNextInt()) {
-                c = sc.nextInt();
-            } else if (sc.next().equals("end")) {
-                break;
-            }
-            if (Math.abs(Math.min(a, b)) == Math.abs(Math.min(a, c))) {
-                System.out.println("Минимальное число: " + a);
-            } else if (Math.abs(Math.min(a, b)) == Math.abs(Math.min(b, c))) {
-                System.out.println("Минимальное число: " + b);
-            } else {
-                System.out.println("Минимальное число: " + c);
-            }
-        }
+        System.out.println("Введите 3 целых числа:");
+        int a = readValueFromConsole(sc);
+        int b = readValueFromConsole(sc);
+        int c = readValueFromConsole(sc);
+        System.out.println(findMinValue(findMinValue(a, b), c));
     }
 
     private static void printTime() {
-        int millisWorkTime = 28800, millisInHour = millisWorkTime / 8, remainingTime;
-        int randomRemainTime = (int) (Math.random() * millisWorkTime);
-        remainingTime = Math.round(randomRemainTime / millisInHour);
+        int millisWorkTime = 28800, remainingTime;
+        int millisInHour = millisWorkTime / 8; //тут я вычислил сколько в одном часе секунд = 3600с
+        int randomRemainTime = (int) Math.round(Math.random() * (millisWorkTime + 1));
+        remainingTime = Math.round(randomRemainTime / millisInHour);//а тут я просто рандомное число делил на 3600 и получал часы
         if (remainingTime >= 5) {
             System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часов" + "\n");
             System.out.println("осталось " + remainingTime + " часов");
@@ -85,7 +78,7 @@ public class Task3 {
             System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часа" + "\n");
             System.out.println("осталось " + remainingTime + " часа");
         } else if (remainingTime > 0) {
-            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " менее часа" + "\n");
+            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " час" + "\n");
             System.out.println("осталось менее часа");
         } else {
             System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часов" + "\n");
@@ -94,27 +87,15 @@ public class Task3 {
     }
 
     private static void tableOfType() {
-        System.out.println("Первый вариант через print:");
-        System.out.print("\t\t|\tbyte\t|\tshort\t|\tchar\t|\tint\t|\tlong\t|\tfloat\t|\tdouble\t|\tboolean\n");
-        System.out.print("byte\t|\tx\t\t|\tня\t\t|\tя\t\t|\tня\t|\tня\t\t|\tня\t\t|\tня\t\t|\tх\n");
-        System.out.print("short\t|\tя\t\t|\tх\t\t|\tя\t\t|\tня\t|\tня\t\t|\tня\t\t|\tня\t\t|\tx\n");
-        System.out.print("char\t|\tя\t\t|\tя\t\t|\tх\t\t|\tня\t|\tня\t\t|\tня\t\t|\tня\t\t|\tx\n");
-        System.out.print("int\t\t|\tя\t\t|\tя\t\t|\tя\t\t|\tх\t|\tня\t\t|\tня\t\t|\tня\t\t|\tx\n");
-        System.out.print("long\t|\tя\t\t|\tя\t\t|\tя\t\t|\tя\t|\tх\t\t|\tня\t\t|\tня\t\t|\tx\n");
-        System.out.print("float\t|\tя\t\t|\tя\t\t|\tя\t\t|\tя\t|\tя\t\t|\tх\t\t|\tня\t\t|\tx\n");
-        System.out.print("double\t|\tя\t\t|\tя\t\t|\tя\t\t|\tя\t|\tя\t\t|\tя\t\t|\tх\t\t|\tx\n");
-        System.out.print("boolean\t|\tх\t\t|\tх\t\t|\tх\t\t|\tх\t|\tх\t\t|\tх\t\t|\tх\t\t|\tx\n");
-        System.out.println();
-        System.out.println("Второй вариант через println:");
-        System.out.println("\t\t|\tbyte\t|\tshort\t|\tchar\t|\tint\t|\tlong\t|\tfloat\t|\tdouble\t|\tboolean");
-        System.out.println("byte\t|\tx\t\t|\tня\t\t|\tя\t\t|\tня\t|\tня\t\t|\tня\t\t|\tня\t\t|\tх");
-        System.out.println("short\t|\tя\t\t|\tх\t\t|\tя\t\t|\tня\t|\tня\t\t|\tня\t\t|\tня\t\t|\tx");
-        System.out.println("char\t|\tя\t\t|\tя\t\t|\tх\t\t|\tня\t|\tня\t\t|\tня\t\t|\tня\t\t|\tx");
-        System.out.println("int\t\t|\tя\t\t|\tя\t\t|\tя\t\t|\tх\t|\tня\t\t|\tня\t\t|\tня\t\t|\tx");
-        System.out.println("long\t|\tя\t\t|\tя\t\t|\tя\t\t|\tя\t|\tх\t\t|\tня\t\t|\tня\t\t|\tx");
-        System.out.println("float\t|\tя\t\t|\tя\t\t|\tя\t\t|\tя\t|\tя\t\t|\tх\t\t|\tня\t\t|\tx");
-        System.out.println("double\t|\tя\t\t|\tя\t\t|\tя\t\t|\tя\t|\tя\t\t|\tя\t\t|\tх\t\t|\tx");
-        System.out.println("boolean\t|\tх\t\t|\tх\t\t|\tх\t\t|\tх\t|\tх\t\t|\tх\t\t|\tх\t\t|\tx");
+        System.out.printf("%12s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "byte", "short", "char", "int", "long", "float", "double", "boolean");
+        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "byte", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "short", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "char", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%9s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "int", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "long", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "float", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%6s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "double", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%5s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "boolean", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
     }
     //Задачи:
     //1) Используя тип данных char и операцию инкремента вывести на консоль все буквы английского алфавита
@@ -177,20 +158,7 @@ public class Task3 {
      * 7) Метод должен вернуть максимальый элемент массива. Пример: array = {1,2,10,3} метод возвращает 10
      **/
     public static int max(int[] array) {
-        boolean isSorted = false;
-        int buf;
-        while (!isSorted) {
-            isSorted = true;
-            for (int i = 0; i < array.length - 1; i++) {
-                if (array[i] > array[i + 1]) {
-                    isSorted = false;
-
-                    buf = array[i];
-                    array[i] = array[i + 1];
-                    array[i + 1] = buf;
-                }
-            }
-        }
+        Arrays.sort(array);
         return array[array.length - 1];
     }
 }

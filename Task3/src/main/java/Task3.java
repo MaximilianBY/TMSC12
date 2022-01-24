@@ -88,14 +88,14 @@ public class Task3 {
 
     private static void tableOfType() {
         System.out.printf("%12s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "byte", "short", "char", "int", "long", "float", "double", "boolean");
-        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "byte", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "short", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "char", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%9s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "int", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "long", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "float", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%6s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "double", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%5s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "boolean", "x", "ня", "tя", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "byte", "x", "ня", "ня", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "short", "я", "х", "ня", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "char", "я", "я", "х", "ня", "ня", "ня", "ня", "х");
+        System.out.printf("%s%9s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "int", "я", "я", "я", "х", "ня", "ня", "ня", "х");
+        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "long", "я", "я", "я", "я", "х", "ня", "ня", "х");
+        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "float", "я", "я", "я", "я", "я", "х", "ня", "х");
+        System.out.printf("%s%6s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "double", "я", "я", "я", "я", "я", "я", "х", "х");
+        System.out.printf("%s%5s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "boolean", "x", "x", "x", "x", "x", "x", "x", "х");
     }
     //Задачи:
     //1) Используя тип данных char и операцию инкремента вывести на консоль все буквы английского алфавита

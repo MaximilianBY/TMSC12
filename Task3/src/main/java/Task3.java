@@ -68,7 +68,7 @@ public class Task3 {
 
     private static void printTime() {
         int millisWorkTime = 28800, remainingTime;
-        int millisInHour = millisWorkTime / 8; //тут я вычислил сколько в одном часе секунд = 3600с
+        int millisInHour = 60 * 60; //тут я вычислил сколько в одном часе секунд = 3600с
         int randomRemainTime = (int) Math.round(Math.random() * (millisWorkTime + 1));
         remainingTime = Math.round(randomRemainTime / millisInHour);//а тут я просто рандомное число делил на 3600 и получал часы
         if (remainingTime >= 5) {

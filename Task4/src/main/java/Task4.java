@@ -19,11 +19,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Task4 {
+    private static int day = 0;
+    private static int month = 0;
+
     public static void main(String[] args) {
         System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
         System.out.println("Сколько Амеб получилось за сутки: " + countAmeba()); //вывод задача 2
         System.out.println(infoNum(randomNumber())); //вывод задача 3
-        System.out.println("Ваш знак задиака: " + zodiacSign(readNumConsole())); //вывод задача 4
+        readNumConsole();
+        System.out.println(zodiacSign(day, month)); //вывод задача 4
         System.out.println(Arrays.toString(arrayNum(readIntNum()))); //вывод задача 5
         System.out.println(operation()); //вывод задача 6
         System.out.println(calculateCountOfOddElementsInMatrix(arrayRandom())); //вывод задача 7
@@ -84,10 +88,8 @@ public class Task4 {
     private static String infoNum(int someNum) {
         String number = String.valueOf(someNum);
         String polarity = null;
-        if (someNum > 0) {
-            polarity = "положительное";
-        } else {
-            polarity = "отрицательное";
+        if (someNum != 0) {
+            polarity = someNum > 0 ? "положительное" : "отрицательное";
         }
         int numLength = 0;
         if (number.contains("-")) {
@@ -98,39 +100,39 @@ public class Task4 {
         return "Число на проверке: " + someNum + ". Количество цифр в числе: " + numLength + ", число: " + polarity;
     }
 
-    private static double readNumConsole() {
-        System.out.print("Введите день и месяц рождения(в формате 20,03 или 4,05), " +
-                "чтобы узнать свой знак зодиака: ");
+    private static void readNumConsole() {
+        System.out.print("Введите день и месяц рождения, чтобы узнать свой знак зодиака: ");
         Scanner sc = new Scanner(System.in);
-        double day = sc.nextDouble();
-        return day;
+        day = sc.nextInt();
+        month = sc.nextInt();
     }
 
-    private static String zodiacSign(double dateBirth) {
-        if (dateBirth >= 21.03 && dateBirth <= 31.03 || dateBirth >= 1.04 && dateBirth <= 20.04) {
-            return "Овен";
-        } else if (dateBirth >= 21.04 && dateBirth <= 30.04 || dateBirth >= 1.05 && dateBirth <= 21.05) {
-            return "Телец";
-        } else if (dateBirth >= 22.05 && dateBirth <= 31.05 || dateBirth >= 1.06 && dateBirth <= 21.06) {
-            return "Близнецы";
-        } else if (dateBirth >= 22.06 && dateBirth <= 30.06 || dateBirth >= 1.07 && dateBirth <= 22.07) {
-            return "Рак";
-        } else if (dateBirth >= 23.07 && dateBirth <= 31.07 || dateBirth >= 1.08 && dateBirth <= 21.08) {
-            return "Лев";
-        } else if (dateBirth >= 22.08 && dateBirth <= 31.08 || dateBirth >= 1.09 && dateBirth <= 23.09) {
-            return "Дева";
-        } else if (dateBirth >= 24.09 && dateBirth <= 30.09 || dateBirth >= 1.10 && dateBirth <= 23.10) {
-            return "Весы";
-        } else if (dateBirth >= 24.10 && dateBirth <= 31.10 || dateBirth >= 1.11 && dateBirth <= 23.11) {
-            return "Скорпион";
-        } else if (dateBirth >= 23.11 && dateBirth <= 30.11 || dateBirth >= 1.12 && dateBirth <= 22.12) {
-            return "Стрелец";
-        } else if (dateBirth >= 23.12 && dateBirth <= 31.12 || dateBirth >= 1.01 && dateBirth <= 20.01) {
-            return "Козерог";
-        } else if (dateBirth >= 21.01 && dateBirth <= 31.01 || dateBirth >= 1.02 && dateBirth <= 19.02) {
-            return "Водолей";
-        } else if (dateBirth >= 20.02 && dateBirth <= 29.02 || dateBirth >= 1.03 && dateBirth <= 22.03) {
-            return "Рыбы";
+    private static String zodiacSign(int day, int month) {
+        switch (month) {
+            case 1:
+                return day <= 20 ? "Козерог" : "Водолей";
+            case 2:
+                return day <= 19 ? "Водолей" : "Рыбы";
+            case 3:
+                return day <= 22 ? "Рыбы" : "Овен";
+            case 4:
+                return day <= 20 ? "Овен" : "Телец";
+            case 5:
+                return day <= 21 ? "Телец" : "Близнецы";
+            case 6:
+                return day <= 21 ? "Близнецы" : "Рак";
+            case 7:
+                return day <= 22 ? "Рак" : "Лев";
+            case 8:
+                return day <= 21 ? "Лев" : "Дева";
+            case 9:
+                return day <= 23 ? "Дева" : "Весы";
+            case 10:
+                return day <= 23 ? "Весы" : "Скорпион";
+            case 11:
+                return day <= 23 ? "Скорпион" : "Стрелец";
+            case 12:
+                return day <= 22 ? "Стрелец" : "Козерог";
         }
         return "Вы ввели недопустимое значение, попробуйте заново";
     }
@@ -152,7 +154,7 @@ public class Task4 {
             if (num > 0) {
                 break;
             } else {
-                System.out.println("Введено отрицательное число, повторите ввод");
+                System.out.println("Введено отрицательное число или ноль, повторите ввод");
             }
         }
         return num;
@@ -177,20 +179,8 @@ public class Task4 {
     public static int operation() {
         System.out.print("Введите целое число: ");
         Scanner scanner = new Scanner(System.in);
-        int num = 0;
-        while (scanner.hasNextInt()) {
-            num = scanner.nextInt();
-            if (num > 0) {
-                num++;
-                break;
-            } else if (num < 0) {
-                num -= 2;
-                break;
-            } else {
-                num = 10;
-                break;
-            }
-        }
+        int num = scanner.nextInt();
+        num = num == 0 ? num + 10 : num > 0 ? num + 1 : num - 2;
         return num;
     }
 
@@ -200,8 +190,8 @@ public class Task4 {
      * в котором это значение распечатается на консоль.
      */
     private static int[] arrayRandom() {
-        int[] arrayRandom = new int[6];
         Random random = new Random();
+        int[] arrayRandom = new int[random.nextInt(1000)];
         for (int i = 0; i < arrayRandom.length; i++) {
             arrayRandom[i] = random.nextInt();
         }
@@ -209,10 +199,10 @@ public class Task4 {
     }
 
     public static int calculateCountOfOddElementsInMatrix(int[] ints) {
-        System.out.print(Arrays.toString(ints)); //для проверки
+        System.out.println(Arrays.toString(ints)); //для проверки
         int count = 0;
-        for (Integer value : ints) {
-            if (value % 2 == 0) {
+        for (int i = 0; i < ints.length; i++) {
+            if (ints[i] % 2 != 0) {
                 count++;
             }
         }
@@ -230,12 +220,12 @@ public class Task4 {
      */
     public static void countDevs(int count) {
         int num = 0;
-        if (count == 1 || count == 101) {
-            num = 1;
-        } else if (count >= 2 && count <= 4 || count >= 102 && count <= 104) {
-            num = 2;
-        } else {
+        if (count == 0 || count % 100 == 0 || count % 10 >= 5 || count % 100 >= 5) {
             num = 3;
+        } else if (count % 10 >= 2 && count % 10 <= 4 || count % 100 >= 2 && count % 100 <= 4) {
+            num = 2;
+        } else if (count == 1 || count % 100 == 1) {
+            num = 1;
         }
         switch (num) {
             case 1:
@@ -273,9 +263,7 @@ public class Task4 {
      */
     public static void printPrimeNumbers() {
         for (int i = 2; i <= 1000; i++) {
-
             for (int j = 2; j <= i; j++) {
-
                 if (j < i && i % j == 0) {
                     break;
                 }

@@ -19,11 +19,15 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Task4 {
+    private static int day = 0;
+    private static int month = 0;
+
     public static void main(String[] args) {
         System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
         System.out.println("Сколько Амеб получилось за сутки: " + countAmeba()); //вывод задача 2
         System.out.println(infoNum(randomNumber())); //вывод задача 3
-        System.out.println("Ваш знак задиака: " + zodiacSign(12, 10)); //вывод задача 4
+        readNumConsole();
+        System.out.println(zodiacSign(day, month)); //вывод задача 4
         System.out.println(Arrays.toString(arrayNum(readIntNum()))); //вывод задача 5
         System.out.println(operation()); //вывод задача 6
         System.out.println(calculateCountOfOddElementsInMatrix(arrayRandom())); //вывод задача 7
@@ -84,10 +88,8 @@ public class Task4 {
     private static String infoNum(int someNum) {
         String number = String.valueOf(someNum);
         String polarity = null;
-        if (someNum > 0) {
-            polarity = "положительное";
-        } else {
-            polarity = "отрицательное";
+        if (someNum != 0) {
+            polarity = someNum > 0 ? "положительное" : "отрицательное";
         }
         int numLength = 0;
         if (number.contains("-")) {
@@ -98,12 +100,11 @@ public class Task4 {
         return "Число на проверке: " + someNum + ". Количество цифр в числе: " + numLength + ", число: " + polarity;
     }
 
-    private static double readNumConsole() {
-        System.out.print("Введите день и месяц рождения(в формате 20,03 или 4,05), " +
-                "чтобы узнать свой знак зодиака: ");
+    private static void readNumConsole() {
+        System.out.print("Введите день и месяц рождения, чтобы узнать свой знак зодиака: ");
         Scanner sc = new Scanner(System.in);
-        double day = sc.nextDouble();
-        return day;
+        day = sc.nextInt();
+        month = sc.nextInt();
     }
 
     private static String zodiacSign(int day, int month) {
@@ -153,7 +154,7 @@ public class Task4 {
             if (num > 0) {
                 break;
             } else {
-                System.out.println("Введено отрицательное число, повторите ввод");
+                System.out.println("Введено отрицательное число или ноль, повторите ввод");
             }
         }
         return num;
@@ -178,20 +179,8 @@ public class Task4 {
     public static int operation() {
         System.out.print("Введите целое число: ");
         Scanner scanner = new Scanner(System.in);
-        int num = 0;
-        while (scanner.hasNextInt()) {
-            num = scanner.nextInt();
-            if (num > 0) {
-                num++;
-                break;
-            } else if (num < 0) {
-                num -= 2;
-                break;
-            } else {
-                num = 10;
-                break;
-            }
-        }
+        int num = scanner.nextInt();
+        num = num == 0 ? num + 10 : num > 0 ? num + 1 : num - 2;
         return num;
     }
 
@@ -201,8 +190,8 @@ public class Task4 {
      * в котором это значение распечатается на консоль.
      */
     private static int[] arrayRandom() {
-        int[] arrayRandom = new int[6];
         Random random = new Random();
+        int[] arrayRandom = new int[random.nextInt(1000)];
         for (int i = 0; i < arrayRandom.length; i++) {
             arrayRandom[i] = random.nextInt();
         }
@@ -210,10 +199,10 @@ public class Task4 {
     }
 
     public static int calculateCountOfOddElementsInMatrix(int[] ints) {
-        System.out.print(Arrays.toString(ints)); //для проверки
+        System.out.println(Arrays.toString(ints)); //для проверки
         int count = 0;
-        for (Integer value : ints) {
-            if (value % 2 == 0) {
+        for (int i = 0; i < ints.length; i++) {
+            if (ints[i] % 2 != 0) {
                 count++;
             }
         }
@@ -274,9 +263,7 @@ public class Task4 {
      */
     public static void printPrimeNumbers() {
         for (int i = 2; i <= 1000; i++) {
-
             for (int j = 2; j <= i; j++) {
-
                 if (j < i && i % j == 0) {
                     break;
                 }

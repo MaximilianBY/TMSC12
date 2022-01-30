@@ -73,7 +73,7 @@ public class Task5_9 {
                 System.out.print(matrix[i][j] + " ");
             }
             System.out.println();
-        }// тут пишем логику
+        }
     }
 
     private static int[][] matrixCreator() {

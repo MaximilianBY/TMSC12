@@ -34,7 +34,7 @@ public class Task5_bonus {
                     indexStroke = i;
                     indexColumn = j;
                 }
-            }//пишем логику и выводим результат используя System.out.println
+            }
         }
         System.out.println(sumItog + " (" + indexStroke + ", " + indexColumn + ")");
     }

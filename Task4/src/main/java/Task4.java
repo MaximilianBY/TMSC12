@@ -24,14 +24,13 @@ public class Task4 {
         System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
         System.out.println("Сколько Амеб получилось за сутки: " + countAmeba()); //вывод задача 2
         System.out.println(infoNum(randomNumber())); //вывод задача 3
-        readNumConsole();
-        System.out.println("Введите день и месяц рождения, чтобы узнать свой знак зодиака: " + zodiacSign(5, 10)); //вывод задача 4
+        System.out.println("Введите день и месяц рождения, чтобы узнать свой знак зодиака: " + zodiacSign(0, 1)); //вывод задача 4
         System.out.println(Arrays.toString(arrayNum(readIntNum()))); //вывод задача 5
         System.out.println(operation()); //вывод задача 6
         System.out.println(calculateCountOfOddElementsInMatrix(arrayRandom())); //вывод задача 7
         System.out.println(calculateCountOfOddElementsInMatrix(new int[]{1, 2, 3, 4, 5, 6})); //вывод задача 7
-        countDevs(103);
-        countDevs(11);
+        countDevs(111);
+        countDevs(135);
         foobar(6); //вывод задача 9
         foobar(10); //вывод задача 9
         foobar(15); //вывод задача 9
@@ -104,16 +103,11 @@ public class Task4 {
         return numLength;
     }
 
-    private static void readNumConsole() {
-        System.out.print("Введите день и месяц рождения, чтобы узнать свой знак зодиака: ");
-        Scanner sc = new Scanner(System.in);
-        sc.nextInt();
-        sc.nextInt();
-    }
-
     private static String zodiacSign(int day, int month) {
-        if (day > 31 || month > 12) {
+        if (day > 31 || month > 12 || day <= 0 || month <= 0) {
             return "Вы ввели неверные данные";
+        } else if (day > 30 && month == 4 || day > 30 && month == 6 || day > 30 && month == 9 || day > 30 && month == 11 || day > 29 && month == 2) {
+            return "Вы ввели неверные данные для этого месяца";
         }
         switch (month) {
             case 1:
@@ -227,11 +221,15 @@ public class Task4 {
      */
     public static void countDevs(int count) {
         int num = 0;
-        if (count == 1 || count % 100 == 1 || count % 100 >= 21 || count > 20 && count % 10 == 1) {
+        int lastNum = count % 10;
+        System.out.println(lastNum);
+        int lastNum2 = count % 100;
+        System.out.println(lastNum2);
+        if (count == 1 || lastNum == 1 && lastNum2 != 11) {
             num = 1;
-        } else if (count % 10 >= 2 && count % 10 <= 4 || count % 100 >= 2 && count % 100 <= 4) {
+        } else if (lastNum2 % 10 >= 2 && lastNum2 % 10 <= 4 || lastNum >= 2 && lastNum <= 4) {
             num = 2;
-        } else if (count == 0 || count % 100 == 0 || count % 10 >= 5 || count % 100 >= 5) {
+        } else if (lastNum2 % 10 == 0 || lastNum == 0 || lastNum2 % 10 >= 5 || lastNum % 100 >= 5 || lastNum2 == 11) {
             num = 3;
         }
         switch (num) {

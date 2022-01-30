@@ -27,9 +27,8 @@ public class Task5_bonus {
         int sumItog = 0;
         int indexStroke = 0, indexColumn = 0;
         for (int i = 0; i < matrix.length; i++) {
-            int sumProv = 0;
-            for (int j = 0; j + 1 < matrix[i].length && j + 2 < matrix[i].length; j++) {
-                sumProv = matrix[i][j] + matrix[i][j + 1] + matrix[i][j + 2];
+            for (int j = 0; j < matrix[i].length - 2; j++) {
+                int sumProv = matrix[i][j] + matrix[i][j + 1] + matrix[i][j + 2];
                 if (sumItog < sumProv) {
                     sumItog = sumProv;
                     indexStroke = i;

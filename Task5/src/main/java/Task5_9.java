@@ -63,7 +63,7 @@ public class Task5_9 {
         }
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                if (Integer.parseInt(matrix[i][j]) % 3 == 0 && Integer.parseInt(matrix[i][j]) % 7 == 0 || Integer.parseInt(matrix[i][j]) % 3 == 0) {
+                if (Integer.parseInt(matrix[i][j]) % 3 == 0) {
                     matrix[i][j] = "+";
                 } else if (Integer.parseInt(matrix[i][j]) % 7 == 0) {
                     matrix[i][j] = "-";
@@ -73,7 +73,7 @@ public class Task5_9 {
                 System.out.print(matrix[i][j] + " ");
             }
             System.out.println();
-        }// тут пишем логику
+        }
     }
 
     private static int[][] matrixCreator() {

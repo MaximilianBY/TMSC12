@@ -8,8 +8,7 @@ import java.util.Arrays;
 
 public class Task5_4 {
     public static void main(String[] args) {
-        System.out.println("Введите число для определения индекса его последнего вхождения в массив: "
-                + getArrayLastOccurIndex(arrayInt(), 5));
+        getArrayLastOccurIndex(arrayInt());
     }
 
     private static int[] arrayInt() {
@@ -20,14 +19,15 @@ public class Task5_4 {
         return arrNum;
     }
 
-    private static int getArrayLastOccurIndex(int[] arr, int num) {
+    private static void getArrayLastOccurIndex(int[] arr) {
         System.out.println(Arrays.toString(arr));
-        int index = -1;
+        int index = -1, maxNum = 0;
         for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == num) {
+            if (arr[i] > maxNum) {
+                maxNum = arr[i];
                 index = i;
             }
         }
-        return index;
+        System.out.println("Максимальное значение массива: " + maxNum + ", индекс последнего вхождения: " + index);
     }
 }

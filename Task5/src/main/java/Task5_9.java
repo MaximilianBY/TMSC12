@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Task5_9 {
     public static void main(String[] args) {
         System.out.println("Введите параметры матрицы, для подсчета суммы главной диагонали: ");
-        System.out.println("Сумма диагонали равна: " + calculateSumOfDiagonalElements(matrixCreator()));
+        calculateSumOfDiagonalElements(matrixCreator());
         System.out.println();
         System.out.println("Введите параметры матрицы, для вывода матрицы: ");
         printMatrix(matrixCreatorString());
@@ -14,7 +14,7 @@ public class Task5_9 {
     /**
      * заполнить рандомно 2-х мерный массив и посчитать сумму элементов на диагонали
      */
-    private static int calculateSumOfDiagonalElements(int[][] matrix) {
+    private static void calculateSumOfDiagonalElements(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
                 System.out.print(matrix[i][j] + " ");
@@ -29,7 +29,7 @@ public class Task5_9 {
                 }
             }//пишем логику и выводим результат используя System.out.println
         }
-        return sum;
+        System.out.println("Сумма диагонали равна: " + sum);
     }
 
     /**
@@ -63,12 +63,10 @@ public class Task5_9 {
         }
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
-                if (Integer.parseInt(matrix[i][j]) % 3 == 0 && Integer.parseInt(matrix[i][j]) % 7 == 0) {
+                if (Integer.parseInt(matrix[i][j]) % 3 == 0 && Integer.parseInt(matrix[i][j]) % 7 == 0 || Integer.parseInt(matrix[i][j]) % 3 == 0) {
                     matrix[i][j] = "+";
                 } else if (Integer.parseInt(matrix[i][j]) % 7 == 0) {
                     matrix[i][j] = "-";
-                } else if (Integer.parseInt(matrix[i][j]) % 3 == 0) {
-                    matrix[i][j] = "+";
                 } else {
                     matrix[i][j] = "*";
                 }

@@ -25,12 +25,24 @@ public class Task5_7 {
 
     private static void countDublicates(int[] arr) {
         System.out.println(Arrays.toString(arr));
-        System.out.print("Повторяющиеся элементы массива: ");
+        int[] arrDublicates = new int[arrayInt().length];
         for (int i = 0; i < arr.length; i++) {
-            for (int j = i + 1; j < arr.length; j++) {
-                if (j < arr.length && arr[i] == arr[j] && !Arrays.equals(arr, 0, i, arr, j, j)) {
-                    System.out.print(arr[i] + " ");
+            int count = 0;
+            for (int j = i; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    count++;
                 }
+            }
+            if (count > 1) {
+                arrDublicates[i] = arr[i];
+            } else {
+                arrDublicates[i] = -1;
+            }
+        }
+        System.out.print("Повторяющиеся элементы массива: ");
+        for (int i = 1; i < arrDublicates.length; i++) {
+            if (arrDublicates[i] != arrDublicates[i - 1] && arrDublicates[i - 1] != -1) {
+                System.out.print(arrDublicates[i - 1] + " ");
             }
         }
     }

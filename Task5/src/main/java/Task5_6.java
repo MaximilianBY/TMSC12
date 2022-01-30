@@ -19,20 +19,17 @@ public class Task5_6 {
 
     private static void replaceCellArr(int[] arr) {
         System.out.println(Arrays.toString(arr));
-        int tmp = arr[0];
+        int tmp = 0;
+        int tmp2 = arr[0];
+        int index = 0;
         for (int i = 0; i < arr.length; i++) {
-            int tmp2 = arr[0];
-            int index = 0;
-            for (int j = 0; j < arr.length; j++) {
-                if (arr[j] > tmp) {
-                    tmp = arr[j];
-                    index = j;
-                }
+            if (arr[i] > tmp) {
+                tmp = arr[i];
+                index = i;
             }
-            arr[0] = tmp;
-            arr[index] = tmp2;
-            break;
         }
+        arr[0] = tmp;
+        arr[index] = tmp2;
         System.out.println(Arrays.toString(arr));
     }
 }

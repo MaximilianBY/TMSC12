@@ -6,12 +6,13 @@
 
 public class Task5_3 {
     public static void main(String[] args) {
-        arrayUp(arrayNum());
-        arrayDown(arrayNum());
+        int[] arr = arrayNum();
+        arrayUp(arr);
+        arrayDown(arr);
     }
 
     private static int[] arrayNum() {
-        int[] nums = new int[100];
+        int[] nums = new int[100]; //к сожалению у меня не получилось реализовать ваше предложение 100/2, у меня выдает ArrayIndexOutOfBoundsException
         for (int i = 1; i <= 100; i++) {
             if (i % 2 != 0) {
                 nums[i - 1] = i;

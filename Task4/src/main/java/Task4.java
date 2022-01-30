@@ -19,15 +19,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Task4 {
-    private static int day = 0;
-    private static int month = 0;
 
     public static void main(String[] args) {
         System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
         System.out.println("Сколько Амеб получилось за сутки: " + countAmeba()); //вывод задача 2
         System.out.println(infoNum(randomNumber())); //вывод задача 3
         readNumConsole();
-        System.out.println(zodiacSign(day, month)); //вывод задача 4
+        System.out.println("Введите день и месяц рождения, чтобы узнать свой знак зодиака: " + zodiacSign(5, 10)); //вывод задача 4
         System.out.println(Arrays.toString(arrayNum(readIntNum()))); //вывод задача 5
         System.out.println(operation()); //вывод задача 6
         System.out.println(calculateCountOfOddElementsInMatrix(arrayRandom())); //вывод задача 7
@@ -89,25 +87,34 @@ public class Task4 {
         String number = String.valueOf(someNum);
         String polarity = null;
         if (someNum != 0) {
-            polarity = someNum > 0 ? "положительное" : "отрицательное";
+            polarity = someNum > 0 ? "положительное" : someNum == 0 ?
+                    "не является положительным или отрицательным числом" : "отрицательное";
         }
+        return "Число на проверке: " + someNum + ". Количество цифр в числе: " + lengthNum(someNum) + ", число: " + polarity;
+    }
+
+    private static int lengthNum(int numIn) {
+        String number = String.valueOf(numIn);
         int numLength = 0;
         if (number.contains("-")) {
             numLength = number.length() - 1;
         } else {
             numLength = number.length();
         }
-        return "Число на проверке: " + someNum + ". Количество цифр в числе: " + numLength + ", число: " + polarity;
+        return numLength;
     }
 
     private static void readNumConsole() {
         System.out.print("Введите день и месяц рождения, чтобы узнать свой знак зодиака: ");
         Scanner sc = new Scanner(System.in);
-        day = sc.nextInt();
-        month = sc.nextInt();
+        sc.nextInt();
+        sc.nextInt();
     }
 
     private static String zodiacSign(int day, int month) {
+        if (day > 31 || month > 12) {
+            return "Вы ввели неверные данные";
+        }
         switch (month) {
             case 1:
                 return day <= 20 ? "Козерог" : "Водолей";
@@ -220,12 +227,12 @@ public class Task4 {
      */
     public static void countDevs(int count) {
         int num = 0;
-        if (count == 0 || count % 100 == 0 || count % 10 >= 5 || count % 100 >= 5) {
-            num = 3;
+        if (count == 1 || count % 100 == 1 || count % 100 >= 21 || count > 20 && count % 10 == 1) {
+            num = 1;
         } else if (count % 10 >= 2 && count % 10 <= 4 || count % 100 >= 2 && count % 100 <= 4) {
             num = 2;
-        } else if (count == 1 || count % 100 == 1) {
-            num = 1;
+        } else if (count == 0 || count % 100 == 0 || count % 10 >= 5 || count % 100 >= 5) {
+            num = 3;
         }
         switch (num) {
             case 1:

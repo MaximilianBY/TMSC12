@@ -221,13 +221,9 @@ public class Task4 {
      */
     public static void countDevs(int count) {
         int num = 0;
-        int lastNum = count % 10;
-        System.out.println(lastNum);
-        int lastNum2 = count % 100;
-        System.out.println(lastNum2);
-        if (count == 1 || lastNum == 1 && lastNum2 != 11) {
+        if (count % 10 == 1 && count % 100 != 11) {
             num = 1;
-        } else if (lastNum2 % 10 >= 2 && lastNum2 % 10 <= 4) {
+        } else if (count % 10 >= 2 && count % 10 <= 4 && !(count % 100 >= 12 && count % 100 <= 14)) {
             num = 2;
         } else {
             num = 3;

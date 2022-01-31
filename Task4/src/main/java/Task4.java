@@ -21,20 +21,20 @@ import java.util.Scanner;
 public class Task4 {
 
     public static void main(String[] args) {
-        System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
-        System.out.println("Сколько Амеб получилось за сутки: " + countAmeba()); //вывод задача 2
-        System.out.println(infoNum(randomNumber())); //вывод задача 3
-        System.out.println("Введите день и месяц рождения, чтобы узнать свой знак зодиака: " + zodiacSign(0, 1)); //вывод задача 4
-        System.out.println(Arrays.toString(arrayNum(readIntNum()))); //вывод задача 5
-        System.out.println(operation()); //вывод задача 6
-        System.out.println(calculateCountOfOddElementsInMatrix(arrayRandom())); //вывод задача 7
-        System.out.println(calculateCountOfOddElementsInMatrix(new int[]{1, 2, 3, 4, 5, 6})); //вывод задача 7
-        countDevs(111);
+//        System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
+//        System.out.println("Сколько Амеб получилось за сутки: " + countAmeba()); //вывод задача 2
+//        System.out.println(infoNum(randomNumber())); //вывод задача 3
+//        System.out.println("Введите день и месяц рождения, чтобы узнать свой знак зодиака: " + zodiacSign(0, 1)); //вывод задача 4
+//        System.out.println(Arrays.toString(arrayNum(readIntNum()))); //вывод задача 5
+//        System.out.println(operation()); //вывод задача 6
+//        System.out.println(calculateCountOfOddElementsInMatrix(arrayRandom())); //вывод задача 7
+//        System.out.println(calculateCountOfOddElementsInMatrix(new int[]{1, 2, 3, 4, 5, 6})); //вывод задача 7
+        countDevs(12);
         countDevs(135);
-        foobar(6); //вывод задача 9
-        foobar(10); //вывод задача 9
-        foobar(15); //вывод задача 9
-        printPrimeNumbers();
+//        foobar(6); //вывод задача 9
+//        foobar(10); //вывод задача 9
+//        foobar(15); //вывод задача 9
+//        printPrimeNumbers();
     }
 
     private static int randomDayOfWeek() {
@@ -227,9 +227,9 @@ public class Task4 {
         System.out.println(lastNum2);
         if (count == 1 || lastNum == 1 && lastNum2 != 11) {
             num = 1;
-        } else if (lastNum2 % 10 >= 2 && lastNum2 % 10 <= 4 || lastNum >= 2 && lastNum <= 4) {
+        } else if (lastNum2 % 10 >= 2 && lastNum2 % 10 <= 4) {
             num = 2;
-        } else if (lastNum2 % 10 == 0 || lastNum == 0 || lastNum2 % 10 >= 5 || lastNum % 100 >= 5 || lastNum2 == 11) {
+        } else {
             num = 3;
         }
         switch (num) {

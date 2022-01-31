@@ -5,8 +5,8 @@
 
 public class Task5_1 {
     public static void main(String[] args) {
-        System.out.println(summ(-10, 0));
-        System.out.println(summ2(-10, 0));
+        System.out.println(summ(-10, 6));
+        System.out.println(summ2(5, 6));
     }
 
     private static int summ(int a, int b) {
@@ -21,7 +21,7 @@ public class Task5_1 {
             for (int i = 0; i < a; i++) {
                 result += b;
             }
-        } else if (a < 0 && b < 0) {
+        } else if (a < 0) {
             for (int i = 0; i > b; i--) {
                 result -= a;
             }
@@ -34,17 +34,8 @@ public class Task5_1 {
         if (a == 0 || b == 0) {
             return 0;
         }
-        while (true) {
-            if (Math.abs(b) == 0) {
-                break;
-            }
-            if (a < 0 && b > 0) {
-                result -= a;
-            } else if (a > 0 && b < 0) {
-                result -= a;
-            } else if (a < 0 && b < 0) {
-                result -= a;
-            }
+        while (Math.abs(b) != 0) {
+            result -= a;
             b++;
         }
         return result;

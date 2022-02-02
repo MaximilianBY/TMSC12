@@ -18,14 +18,13 @@ public class User {
         this.sex = sex;
     }
 
-    public int grownUp() {
-        return this.age++;
+    public void increaseAge() {
+        this.age++;
     }
 
-    public char changeName() {
+    public void changeSex() {
         Character character = new Character('F');
-        return this.sex = character;
-//        choice.equals("YES")? return setFirstName(this.firstName):
+        this.sex = character;
     }
 
     @Override

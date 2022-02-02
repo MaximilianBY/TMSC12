@@ -8,7 +8,9 @@ public class Computer {
     private int ddr;
     private int hdd;
     private int resource;
-    private boolean burned = false;
+    private boolean burned;
+    Scanner scanner = new Scanner(System.in);
+    Random random = new Random();
 
     public Computer(String cpu, int ddr, int hdd, int resource) {
         this.cpu = cpu;
@@ -27,32 +29,24 @@ public class Computer {
     }
 
     public void switchOn() {
-        Scanner scanner = new Scanner(System.in);
         if (this.burned) {
             System.out.println("Computer burned out");
-            return;
-        }
-        System.out.println("Внимание! Введите 0 или 1: ");
-        while (!this.burned) {
-            switchOff(scanner.nextInt());
+        } else {
+            System.out.println("Computer switched on");
         }
     }
 
-    public void switchOff(int num) {
-        Random random = new Random();
-        int check = random.nextInt(2);
-        if (this.resource > 0) {
-            if (num == check) {
-                System.out.println(check);
+    public void switchOff() {
+        System.out.println("Внимание! Введите 0 или 1: ");
+        while (!this.burned) {
+            if (this.resource > 0 && scanner.nextInt() == random.nextInt(2)) {
                 System.out.println("Computer shutdown");
                 this.resource--;
+                switchOn();
             } else {
                 this.burned = true;
                 System.out.println("Computer burned out");
             }
-        } else {
-            this.burned = true;
-            System.out.println("Computer burned out");
         }
     }
 

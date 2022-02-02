@@ -6,14 +6,14 @@ public class Main {
         user2.setLastName("Петров");
         user2.setAge(35);
         user2.setSex('М');
-        System.out.println(user1.toString() + "\n");
-        System.out.println(user2.toString() + "\n");
-        user1.grownUp();
-        user2.grownUp();
-        System.out.println(user1.toString() + "\n");
-        System.out.println(user2.toString() + "\n");
-        user1.changeName();
-        System.out.println(user1.toString());
+        System.out.println(user1 + "\n");
+        System.out.println(user2 + "\n");
+        user1.increaseAge();
+        user2.increaseAge();
+        System.out.println(user1 + "\n");
+        System.out.println(user2 + "\n");
+        user1.changeSex();
+        System.out.println(user1);
     }
 
 }

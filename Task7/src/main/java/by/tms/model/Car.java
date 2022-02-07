@@ -1,16 +1,23 @@
-package by.tms.car;
+package by.tms.model;
+/*
 
-class Engine extends Car implements Movement {
+ */
+
+class Car implements Movement {
     public static final String BENZIN = "BENZIN";
     public static final String DIESEL = "DIESEL";
+    private String brand;
+    private String model;
+    private String type;
     private String typeFuel;
     private double tankVolume;
     private int maxSpeed;
     private double fuelConsumption;
 
-    public Engine(String brandCar, String modelCar, String typeCar, String colorCar, String typeFuel,
-                  double tankVolume, int maxSpeed, double fuelConsumption) {
-        super(brandCar, modelCar, typeCar, colorCar);
+    public Car(String brand, String model, String type, String typeFuel, double tankVolume, int maxSpeed, double fuelConsumption) {
+        this.brand = brand;
+        this.model = model;
+        this.type = type;
         this.typeFuel = typeFuel;
         this.tankVolume = tankVolume;
         this.maxSpeed = maxSpeed;
@@ -21,7 +28,6 @@ class Engine extends Car implements Movement {
     public void startEngine() {
         if (tankVolume > 0) {
             System.out.println("Двигатель запущен, можно ехать!" + "\n");
-            travel();
         } else {
             System.out.println("Двигатель не запущен, топливо закончилось, поездка окончена!");
         }
@@ -29,20 +35,42 @@ class Engine extends Car implements Movement {
 
     @Override
     public void stopEngine() {
-        System.out.println("Двигатель заглушен");
-        this.tankVolume = tankVolume - fuelConsumption;
-        System.out.println("Время остановки закончилось, в путь!");
-        startEngine();
+        System.out.println("Время остановки, двигатель заглушен!" + "\n");
+        System.out.println("Время остановки закончилось, в путь!" + "\n");
     }
 
     @Override
     public void travel() {
-        System.out.println(" Едем " + "\n");
+        System.out.println("Едем" + "\n");
     }
 
     @Override
-    public void checkTank() {
-        System.out.println("Топлива в баке осталось " + tankVolume);
+    public void refillBank() {
+        System.out.print("Заправляем полный бак! ");
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTypeFuel() {

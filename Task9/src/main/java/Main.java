@@ -10,7 +10,7 @@ public class Main {
         fordTransit.setQuantityPassengers(8);
         fordTransit.setConsumption(9);
         fordTransit.setQuantityWheels(4);
-        System.out.println(fordTransit.info() + "\n");
+        System.out.println(fordTransit.infoGroundTransport() + fordTransit.infoPassengerTransport());
         fordTransit.infoTravel(3);
         System.out.println();
 
@@ -23,8 +23,8 @@ public class Main {
         scania.setLoadCapacity(30);
         scania.setWeight(5000);
         scania.setQuantityWheels(6);
-        System.out.println(scania.info() + "\n");
-        scania.infoLoadCapacity(31);
+        System.out.println(scania.infoGroundTransport() + scania.infoFreightTransport());
+        scania.infoLoadCapacity(29, scania.getLoadCapacity());
         System.out.println();
 
         PassengerAir airBus = new PassengerAir();
@@ -37,8 +37,9 @@ public class Main {
         airBus.setWingspan(10);
         airBus.setMinRunLengthTakeoff(1000);
         airBus.setQuantityPassengers(200);
-        System.out.println(airBus.info() + "\n");
-        airBus.infoLoadPassanger(190, 5);
+        System.out.println(airBus.infoAirTransport() + airBus.infoPassengerAir());
+        airBus.infoLoadPassenger(190, 5, airBus.getQuantityBusinessPass(), airBus.getQuantityPassengers(),
+                airBus.isBusinessClass());
         System.out.println();
 
         MilitaryAir f18 = new MilitaryAir();
@@ -51,8 +52,8 @@ public class Main {
         f18.setWingspan(7);
         f18.setQuantityRockets(10);
         f18.setMinRunLengthTakeoff(600);
-        System.out.println(f18.info() + "\n");
-        f18.infoRocketLaunch(10);
-        f18.ejection();
+        System.out.println(f18.infoAirTransport() + f18.infoMilitaryAir());
+        f18.infoRocketLaunch(10, f18.getQuantityRockets());
+        f18.ejection(f18.isCatapult());
     }
 }

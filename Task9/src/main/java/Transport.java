@@ -3,6 +3,15 @@ public class Transport {
     private int maxSpeed; //км/ч
     private int weight; //измеряем в кг
     private String brand;
+    private double kWPower;
+
+    public double getkWPower() {
+        return kWPower;
+    }
+
+    public void setkWPower(double kWPower) {
+        this.kWPower = kWPower * 0.74;
+    }
 
     public int getHorsePower() {
         return horsePower;

@@ -1,29 +1,41 @@
 package by.tms.flowers.model.service;
 
-import by.tms.flowers.model.Flower;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Getter
 @Setter
 @ToString
 
 public class WarehouseFlower {
-    private static Map<String, Flower> flowersStock = new HashMap<>();
 
-    public WarehouseFlower() {
+  private Map<String, WarehouseFlower> flowersStock = new HashMap<>();
+  private double price;
+  private int purchasedFlowers;
+  private int quantityFlowers;
 
-    }
+  public WarehouseFlower(double price, int purchasedFlowers) {
+    this.price = price;
+    this.purchasedFlowers = purchasedFlowers;
+  }
 
-    public void purchaseFlower(String flowerConstants, Flower flower) {
-        flowersStock.put(flowerConstants, flower);
-    }
+  public int restFlower(int quantity) {
+    this.purchasedFlowers = purchasedFlowers - quantity;
+    return this.purchasedFlowers;
+  }
 
-    public static Map<String, Flower> getFlowersStock() {
-        return flowersStock;
-    }
+  public WarehouseFlower() {
+
+  }
+
+  public void purchaseFlower(String flower, WarehouseFlower warehouseFlower) {
+    flowersStock.put(flower, warehouseFlower);
+  }
+
+  public Map<String, WarehouseFlower> getFlowersStock() {
+    return this.flowersStock;
+  }
 }

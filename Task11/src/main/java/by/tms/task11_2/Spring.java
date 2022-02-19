@@ -12,7 +12,7 @@ public class Spring implements Season {
 
   @Override
   public void getDescription() {
-    if (month.equals(Season.Seasons.MARCH.name)) {
+    if (month.equals(Type.MARCH.name)) {
       System.out.println("Я люблю весну, потому что это " + Constants.COLD_TIME
           + " Средняя температура весной составляет " + temperature + " градусов");
     } else {

@@ -1,12 +1,14 @@
 package by.tms.task11_2;
 
+import by.tms.task11_2.Season.Type;
+
 public class Main {
 
   public static void main(String[] args) {
-    getSeason(Season.Seasons.MARCH).getDescription();
+    getSeason(Type.MARCH).getDescription();
   }
 
-  public static Season getSeason(Season.Seasons month) {
+  public static Season getSeason(Type month) {
     switch (month) {
       case JUNE:
       case JULY:

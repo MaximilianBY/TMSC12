@@ -12,7 +12,7 @@ public class Autumn implements Season {
 
   @Override
   public void getDescription() {
-    if (month.equals(Season.Seasons.SEPTEMBER.name)) {
+    if (month.equals(Type.SEPTEMBER.name)) {
       System.out.println("Я люблю осень, потому что это " + Constants.HOT_TIME
           + " Средняя температура осенью составляет " + temperature + " градусов");
     } else {

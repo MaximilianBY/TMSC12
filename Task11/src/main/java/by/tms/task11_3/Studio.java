@@ -4,7 +4,7 @@ public class Studio {
 
   public void dressMan(Clothes[] clothes) {
     for (Clothes clothing : clothes) {
-      if (clothing instanceof ClothingMens) {
+      if (ClothingMens.class.isAssignableFrom(clothing.getClass())) {
         ((ClothingMens) clothing).dressMan();
       }
     }
@@ -12,7 +12,7 @@ public class Studio {
 
   public void dressWoman(Clothes[] clothes) {
     for (Clothes clothing : clothes) {
-      if (clothing instanceof ClothingWomens) {
+      if (ClothingWomens.class.isAssignableFrom(clothing.getClass())) {
         ((ClothingWomens) clothing).dressWoman();
       }
     }

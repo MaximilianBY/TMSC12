@@ -1,36 +1,40 @@
 package by.tms.task11_5;
 
-public abstract class Figure implements Calculations {
+public abstract class Figure {
 
+  private Type type;
   private int sideA;
   private int sideB;
   private int sideC;
+  private int radius;
 
-  public Figure(int sideA, int sideB, int sideC) {
+  public Figure(Type type, int sideA, int sideB, int sideC, int radius) {
+    this.type = type;
     this.sideA = sideA;
     this.sideB = sideB;
     this.sideC = sideC;
+    this.radius = radius;
   }
 
-  public Figure(int sideA, int sideB) {
+  public Figure(Type type, int sideA, int sideB) {
+    this.type = type;
     this.sideA = sideA;
     this.sideB = sideB;
   }
 
-  @Override
-  public void getSquare() {
-
+  public void getSquare(Type type) {
+    if (type == Type.RECTANGLE) {
+      System.out.println("Площадь прямоугольника равна " + sideA * sideB);
+    } else if (type == Type.TRIANGLE) {
+      System.out.println("Площадь треугольника равна " + radius * (sideA + sideB + sideC) / 2);
+    }
   }
 
-  public int getSideA() {
-    return sideA;
+  public Type getType() {
+    return type;
   }
 
-  public int getSideB() {
-    return sideB;
-  }
-
-  public int getSideC() {
-    return sideC;
+  public void setType(Type type) {
+    this.type = type;
   }
 }

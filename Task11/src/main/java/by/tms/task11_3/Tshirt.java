@@ -21,19 +21,4 @@ public class Tshirt extends Clothes implements ClothingMens, ClothingWomens {
             + getSize().getDescription() + ". цвет " + getColor() + ". цена " + getPrice()
             + " рублей.");
   }
-
-  @Override
-  public ClothesSize getSize() {
-    return super.getSize();
-  }
-
-  @Override
-  public String getColor() {
-    return super.getColor();
-  }
-
-  @Override
-  public int getPrice() {
-    return super.getPrice();
-  }
 }

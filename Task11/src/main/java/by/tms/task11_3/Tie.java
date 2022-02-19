@@ -14,19 +14,4 @@ public class Tie extends Clothes implements ClothingMens {
             + getSize().getDescription() + ". цвет " + getColor() + ". цена " + getPrice()
             + " рублей.");
   }
-
-  @Override
-  public ClothesSize getSize() {
-    return super.getSize();
-  }
-
-  @Override
-  public String getColor() {
-    return super.getColor();
-  }
-
-  @Override
-  public int getPrice() {
-    return super.getPrice();
-  }
 }

@@ -1,7 +1,6 @@
 package by.tms.task11_3;
 
 public abstract class Clothes {
-
   private ClothesSize size;
   private String color;
   private int price;

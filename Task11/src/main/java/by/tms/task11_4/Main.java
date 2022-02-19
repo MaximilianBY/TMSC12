@@ -7,11 +7,16 @@ public class Main {
     Apricot apricot = new Apricot(1500, 4.99);
     Pear pear = new Pear(400, 3.89);
     Apple apple = new Apple(2000, 2.54);
-    apricot.pricePurchase();
-    pear.pricePurchase();
-    apple.pricePurchase();
+    purchaseInfo(apple);
+    purchaseInfo(apricot);
+    purchaseInfo(pear);
 
     totalPrice = apricot.getToPay() + pear.getToPay() + apple.getToPay();
     System.out.println("Общая стоимость покупки составила " + totalPrice + " рублей");
+  }
+
+  public static void purchaseInfo(Fruit fruit) {
+    System.out.println(
+        "С Вас " + fruit.getToPay() + " рублей, за " + fruit.getWeight() + " грамм яблок");
   }
 }

@@ -10,27 +10,27 @@ import lombok.Setter;
 
 public class Florist {
 
-  private WarehouseFlower warehouseFlower;
+  private FlowerWarehouse flowerWarehouse;
   private Scanner scanner = new Scanner(System.in);
-  private int count;
+  private int flowerCounter;
   private double totalPrice;
 
-  public Florist(WarehouseFlower warehouseFlower) {
-    this.warehouseFlower = warehouseFlower;
+  public Florist(FlowerWarehouse flowerWarehouse) {
+    this.flowerWarehouse = flowerWarehouse;
   }
 
   public void arrangementBouquet(String flowerName, List<String> sellList) {
-    if (warehouseFlower.getFlowersStock().get(flowerName).getPurchasedFlowers() > 0) {
+    if (flowerWarehouse.getFlowersStock().get(flowerName).getPurchasedFlowers() > 0) {
       System.out.println(
-          "Сколько цветов отобрать в букет? В наличии " + warehouseFlower.getFlowersStock()
+          "Сколько цветов отобрать в букет? В наличии " + flowerWarehouse.getFlowersStock()
               .get(flowerName).getPurchasedFlowers()
               + " шт.");
       int quantity = scanner.nextInt();
-      if (quantity <= warehouseFlower.getFlowersStock().get(flowerName).getPurchasedFlowers()) {
-        warehouseFlower.getFlowersStock().get(flowerName).restFlower(quantity);
-        count += quantity;
+      if (quantity <= flowerWarehouse.getFlowersStock().get(flowerName).getPurchasedFlowers()) {
+        flowerWarehouse.getFlowersStock().get(flowerName).restFlower(quantity);
+        flowerCounter += quantity;
         sellList.add(flowerName + " " + "в количестве " + quantity + " шт.");
-        setTotalPrice(getTotalPrice() + quantity * warehouseFlower.getFlowersStock().get(flowerName)
+        setTotalPrice(getTotalPrice() + quantity * flowerWarehouse.getFlowersStock().get(flowerName)
             .getPrice());
       } else {
         System.out.println("у нас столько нет " + flowerName);

@@ -8,14 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class WarehouseFlower {
+public class FlowerWarehouse {
 
-  private Map<String, WarehouseFlower> flowersStock = new HashMap<>();
+  private Map<String, FlowerWarehouse> flowersStock = new HashMap<>();
   private double price;
   private int purchasedFlowers;
   private int quantityFlowers;
 
-  public WarehouseFlower(double price, int purchasedFlowers) {
+  public FlowerWarehouse(double price, int purchasedFlowers) {
     this.price = price;
     this.purchasedFlowers = purchasedFlowers;
   }
@@ -25,15 +25,15 @@ public class WarehouseFlower {
     return this.purchasedFlowers;
   }
 
-  public WarehouseFlower() {
+  public FlowerWarehouse() {
 
   }
 
-  public void purchaseFlower(String flower, WarehouseFlower warehouseFlower) {
-    flowersStock.put(flower, warehouseFlower);
+  public void purchaseFlower(String flower, FlowerWarehouse flowerWarehouse) {
+    flowersStock.put(flower, flowerWarehouse);
   }
 
-  public Map<String, WarehouseFlower> getFlowersStock() {
+  public Map<String, FlowerWarehouse> getFlowersStock() {
     return this.flowersStock;
   }
 }

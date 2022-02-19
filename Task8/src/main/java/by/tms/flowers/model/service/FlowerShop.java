@@ -14,36 +14,36 @@ public class FlowerShop {
     this.florist = florist;
   }
 
-  private void greetings(FlowerConstants flowerConstants) {
+  private void greetings() {
     System.out.println("Из каких цветов собрать Вам букет?:" + "\n" +
-        "1. Роза " + flowerConstants.getPRICE_ROSE() + " цена за шт." + "\n" +
-        "2. Тюльпан " + flowerConstants.getPRICE_TULIP() + " цена за шт." + "\n" +
-        "3. Астра " + flowerConstants.getPRICE_ASTER() + " цена за шт." + "\n" +
-        "4. Гербера " + flowerConstants.getPRICE_HERBERA() + " цена за шт." + "\n" +
+        "1. Роза " + FlowerConstants.PRICE_ROSE + " цена за шт." + "\n" +
+        "2. Тюльпан " + FlowerConstants.PRICE_TULIP + " цена за шт." + "\n" +
+        "3. Астра " + FlowerConstants.PRICE_ASTER + " цена за шт." + "\n" +
+        "4. Гербера " + FlowerConstants.PRICE_HERBERA + " цена за шт." + "\n" +
         "5. Если Выбор окончен");
   }
 
-  public void order(FlowerConstants flowerConstants) {
+  public void order() {
     System.out.println("Добрый день!");
     List<String> sellList = new ArrayList<>();
     florist.setCount(0);
     florist.setTotalPrice(0);
     while (true) {
-      greetings(flowerConstants);
+      greetings();
       int caseNum = scanner.nextInt();
       if (caseNum >= 1 && caseNum <= 5) {
         switch (caseNum) {
           case 1:
-            florist.ArrangementBouquet(flowerConstants.getROSE(), sellList);
+            florist.arrangementBouquet(FlowerConstants.ROSE, sellList);
             continue;
           case 2:
-            florist.ArrangementBouquet(flowerConstants.getTULIP(), sellList);
+            florist.arrangementBouquet(FlowerConstants.TULIP, sellList);
             continue;
           case 3:
-            florist.ArrangementBouquet(flowerConstants.getASTER(), sellList);
+            florist.arrangementBouquet(FlowerConstants.ASTER, sellList);
             continue;
           case 4:
-            florist.ArrangementBouquet(flowerConstants.getHERBERA(), sellList);
+            florist.arrangementBouquet(FlowerConstants.HERBERA, sellList);
             continue;
           case 5:
             System.out.println("Спасибо за покупку!" + "\n");

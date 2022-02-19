@@ -1,27 +1,23 @@
 package by.tms.flowers.model.service;
 
 import by.tms.flowers.model.constants.FlowerConstants;
-import lombok.ToString;
-
-@ToString
 
 public class Main {
 
   public static void main(String[] args) {
-    FlowerConstants flowerConstants = new FlowerConstants();
     WarehouseFlower warehouseFlower = new WarehouseFlower();
-    warehouseFlower.purchaseFlower(flowerConstants.getROSE(),
-        new WarehouseFlower(flowerConstants.getPRICE_ROSE(), 100));
-    warehouseFlower.purchaseFlower(flowerConstants.getASTER(),
-        new WarehouseFlower(flowerConstants.getPRICE_ASTER(), 80));
-    warehouseFlower.purchaseFlower(flowerConstants.getTULIP(),
-        new WarehouseFlower(flowerConstants.getPRICE_TULIP(), 120));
-    warehouseFlower.purchaseFlower(flowerConstants.getHERBERA(),
-        new WarehouseFlower(flowerConstants.getPRICE_HERBERA(), 60));
+    warehouseFlower.purchaseFlower(FlowerConstants.ROSE,
+        new WarehouseFlower(FlowerConstants.PRICE_ROSE, 100));
+    warehouseFlower.purchaseFlower(FlowerConstants.ASTER,
+        new WarehouseFlower(FlowerConstants.PRICE_ASTER, 80));
+    warehouseFlower.purchaseFlower(FlowerConstants.TULIP,
+        new WarehouseFlower(FlowerConstants.PRICE_TULIP, 120));
+    warehouseFlower.purchaseFlower(FlowerConstants.HERBERA,
+        new WarehouseFlower(FlowerConstants.PRICE_HERBERA, 60));
     Florist florist = new Florist(warehouseFlower);
     FlowerShop buyer = new FlowerShop(florist);
-    buyer.order(flowerConstants);
+    buyer.order();
     FlowerShop buyer1 = new FlowerShop(florist);
-    buyer1.order(flowerConstants);
+    buyer1.order();
   }
 }

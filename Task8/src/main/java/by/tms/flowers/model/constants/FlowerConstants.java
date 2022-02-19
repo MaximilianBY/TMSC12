@@ -1,17 +1,13 @@
 package by.tms.flowers.model.constants;
 
-import lombok.Getter;
-
-@Getter
-
 public class FlowerConstants {
 
-  String ROSE = "Роза";
-  String TULIP = "Тюльпан";
-  String ASTER = "Астра";
-  String HERBERA = "Гербера";
-  double PRICE_ROSE = 4.5;
-  double PRICE_TULIP = 2.7;
-  double PRICE_ASTER = 3.1;
-  double PRICE_HERBERA = 1.9;
+  public static final String ROSE = "Роза";
+  public static final String TULIP = "Тюльпан";
+  public static final String ASTER = "Астра";
+  public static final String HERBERA = "Гербера";
+  public static final double PRICE_ROSE = 4.5;
+  public static final double PRICE_TULIP = 2.7;
+  public static final double PRICE_ASTER = 3.1;
+  public static final double PRICE_HERBERA = 1.9;
 }

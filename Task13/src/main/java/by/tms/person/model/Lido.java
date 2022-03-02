@@ -14,7 +14,7 @@ public class Lido implements Report {
     }
   }
 
-  public void setListEmployee(Employee employee) {
+  public void addEmployee(Employee employee) {
     this.listEmployee.add(employee);
   }
 }

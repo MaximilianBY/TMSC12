@@ -4,7 +4,7 @@ import java.util.regex.Pattern;
 
 public class StringOperation {
 
-  private static final String SYMBOL_MATCHER = "[,.!@#%& ]";
+  private static final String SYMBOL_MATCHER = ",.!@#%& ";
   private static final Pattern pattern = Pattern.compile(SYMBOL_MATCHER);
 
   public void midChar(String string) { //выводит средние символы строки с четной длиной
@@ -16,7 +16,7 @@ public class StringOperation {
   public void engABC(String string) { //ищем слова только из латинских букв
     String[] inArr = pattern.split(string);
     for (String value : inArr) {
-      if (value.matches("[\\w]+")) {
+      if (value.matches("\\w+")) {
         System.out.println(value);
       }
     }
@@ -47,13 +47,9 @@ public class StringOperation {
 
   public void printPalindromes(String string) { // выводим только слова полиндромы
     String[] inArr = pattern.split(string);
-    if (inArr == null) {
-      System.out.println("Массив не задан");
-    } else {
-      for (String value : inArr) {
-        if (isPalindrome(value)) {
-          System.out.println(value);
-        }
+    for (String value : inArr) {
+      if (isPalindrome(value)) {
+        System.out.println(value);
       }
     }
   }
@@ -69,7 +65,7 @@ public class StringOperation {
   }
 
   public void printStr(String inStr) { // выводим строку на экран
-    if (inStr.isEmpty() || inStr.isBlank()) {
+    if (inStr.isEmpty() || inStr.isBlank() || inStr == null) {
       System.out.println("Строка не введена!");
     } else {
       String[] inArr = pattern.split(inStr);

@@ -1,4 +1,4 @@
-package by.tms.textFormatter.model;
+package by.tms.textFormatter.utils;
 
 public final class StringOperation {
 
@@ -12,11 +12,11 @@ public final class StringOperation {
 
   //мне почему-то кажется, что в случае с русскими символами, сплит отработает неправильно и метод никогда не отработает
   public boolean countingWords(String string) {
-    String[] inputListString = string.split(" ,\\.!\\?-");
-    return inputListString.length >= 3 && inputListString.length <= 5 ? true : false;
+    String[] inputListString = string.split("[ ,\\.!\\?-]");
+    return inputListString.length >= 3 && inputListString.length <= 5;
   }
 
-  public boolean checkString(String inputString) {
+  public boolean isBlank(String inputString) {
     return inputString.isEmpty() || inputString.isBlank() || inputString == null;
   }
 

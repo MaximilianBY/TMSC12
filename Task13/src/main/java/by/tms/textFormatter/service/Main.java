@@ -1,6 +1,6 @@
 package by.tms.textFormatter.service;
 
-import by.tms.textFormatter.model.StringOperation;
+import by.tms.textFormatter.StringOperation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

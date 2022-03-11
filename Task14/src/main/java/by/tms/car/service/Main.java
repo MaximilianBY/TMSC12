@@ -12,19 +12,19 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class Main implements AutoCloseable {
+public class Main {
 
   public static void main(String[] args) {
     Car alfa = new Car("AlfaRomeo", new Engine(INLINE_TYPE_ENGINE, 4),
         new TankFuel(BENZIN, 64), 220, 5000);
-    try {
-      ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-          new FileOutputStream("Task14/src/main/resources/Alfa.dat"));
+    try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+        new FileOutputStream("Task14/src/main/resources/Alfa.dat"));
+        ObjectInputStream objectInputStream = new ObjectInputStream(
+            new FileInputStream("Task14/src/main/resources/Alfa.dat"))) {
+
       objectOutputStream.writeObject(alfa);
       objectOutputStream.close();
 
-      ObjectInputStream objectInputStream = new ObjectInputStream(
-          new FileInputStream("Task14/src/main/resources/Alfa.dat"));
       Car someCar = (Car) objectInputStream.readObject();
       objectInputStream.close();
 
@@ -36,10 +36,10 @@ public class Main implements AutoCloseable {
     } catch (IOException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override
-  public void close() throws Exception {
-
+//    try {
+//      System.out.println(Car.readJsonFile().printJsonFile());
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
   }
 }

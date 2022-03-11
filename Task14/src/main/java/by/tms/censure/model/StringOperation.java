@@ -1,6 +1,6 @@
 package by.tms.censure.model;
 
-import by.tms.textFormatter.model.FileOperation;
+import by.tms.textFormatter.model.FileOperation.FileRead;
 import by.tms.textFormatter.model.InputError;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,10 +9,8 @@ import java.util.List;
 public class StringOperation {
 
   private static final String[] BLACK_LIST = {".*аш.*", ".*чер.*", ".*ell.*"};
-  private FileOperation fileOperation = new FileOperation();
-  private int numOfBadWords;
+  private FileRead fileRead = new FileRead();
   private List<String> listInputString;
-  private List<String> listBadString = new ArrayList<>();
 
   private boolean checkString(String inputString) {
     for (String value : BLACK_LIST) {
@@ -24,7 +22,7 @@ public class StringOperation {
   }
 
   public List<String> getListFromFile() throws InputError, IOException {
-    return fileOperation.fileRead.readTextFileToList();
+    return fileRead.readTextFileToList();
   }
 
   public void downloadFileToList(List<String> inputList) throws InputError {
@@ -35,13 +33,12 @@ public class StringOperation {
     }
   }
 
-  private void countBadString() {
-    numOfBadWords = 0;
+  private List<String> countBadString() {
+    List<String> listBadString = new ArrayList<>();
     for (String readLine : listInputString) {
       int countBadElement = 0;
       for (String elementLine : readLine.split(" ")) {
         if (checkString(elementLine)) {
-          numOfBadWords++;
           countBadElement++;
         }
       }
@@ -49,14 +46,15 @@ public class StringOperation {
         listBadString.add(readLine);
       }
     }
+    return listBadString;
   }
 
   public void printMessage() {
-    countBadString();
-    if (numOfBadWords > 0) {
-      System.out.println("Текст не прошел проверку, количество нецензурных слов: " + numOfBadWords
-          + ". Исправьте следующие строки: ");
-      for (String value : listBadString) {
+    if (countBadString().size() > 0) {
+      System.out.println(
+          "Текст не прошел проверку, количество нецензурных строк: " + countBadString().size()
+              + ". Исправьте следующие строки: ");
+      for (String value : countBadString()) {
         System.out.println(value);
       }
     } else {

@@ -1,5 +1,6 @@
 package by.tms.car.model;
 
+import by.tms.car.utils.Constants;
 import java.io.Serializable;
 
 public class Car implements Serializable {
@@ -18,10 +19,10 @@ public class Car implements Serializable {
     this.price = price;
   }
 
-  public static class Engine implements Serializable {
+  public static class Engine implements Serializable, Constants {
 
     private String architectType;
-    transient private int numOfPiston;
+    private transient int numOfPiston;
 
     public Engine(String architectType, int numOfPiston) {
       this.architectType = architectType;
@@ -37,7 +38,7 @@ public class Car implements Serializable {
     }
   }
 
-  public static class TankFuel implements Serializable {
+  public static class TankFuel implements Serializable, Constants {
 
     private String typeFuel;
     private int capacityTank;

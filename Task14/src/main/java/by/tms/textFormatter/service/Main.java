@@ -9,12 +9,11 @@ public class Main {
   public static void main(String[] args) {
     StringReadWrite stringReadWrite = new StringReadWrite();
     try {
-      stringReadWrite.downloadFileToList(stringReadWrite.getListFromFile());
       stringReadWrite.loadListToFile();
     } catch (InputError e) {
       System.out.println(e.getMessage());
     } catch (IOException e) {
-
+      e.printStackTrace();
     }
   }
 }

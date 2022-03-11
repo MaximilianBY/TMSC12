@@ -1,68 +1,63 @@
 package by.tms.textFormatter.model;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class FileOperation {
 
-  private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-  public FileRead fileRead = new FileRead();
-  public FileWrite fileWrite = new FileWrite();
-  private String directory = "Task14/src/main/resources/";
+  private static final String DIRECTORY = "Task14/src/main/resources/";
 
-  private boolean checkFile(String nameFile) {
-    return Files.exists(Path.of(directory + nameFile));
+  private static boolean checkExistsFile(String nameFile) {
+    return Files.exists(Path.of(DIRECTORY + nameFile));
   }
 
-  public class FileRead {
-
-    private void listFileInDir() {
-      List<File> listFiles = Arrays.asList(new File(directory).listFiles());
-      for (File file : listFiles) {
-        System.out.println(file.getName());
-      }
+  private static void listFileInDir() {
+    List<File> listFiles = Arrays.asList(new File(DIRECTORY).listFiles());
+    for (File file : listFiles) {
+      System.out.println(file.getName());
     }
+  }
+
+  public static class FileRead {
 
     public List<String> readTextFileToList() throws InputError, IOException {
       listFileInDir();
       System.out.println("Введите интересующий вас файл");
-      String nameFile = reader.readLine().trim();
-      if (checkFile(nameFile)) {
-        return Files.readAllLines(Path.of(directory + nameFile));
+      Scanner scanner = new Scanner(System.in);
+      String nameFile = scanner.nextLine().trim();
+      if (checkExistsFile(nameFile)) {
+        return Files.readAllLines(Path.of(DIRECTORY + nameFile));
       } else {
-        reader.close();
-        throw new InputError("Файл не существует");
+        throw new InputError("Файл " + nameFile + " не существует");
       }
     }
   }
 
-  public class FileWrite {
-
-    private void writeFile(List<String> listString, String path) throws IOException {
-      FileWriter stringWriter = new FileWriter(String.valueOf(path));
-      for (String value : listString) {
-        stringWriter.append(value + "\n");
-      }
-      stringWriter.flush();
-      stringWriter.close();
-    }
+  public static class FileWrite {
 
     public void writeListInFile(List<String> listString, String nameFile) throws IOException {
       System.out.println("Заполнение файла.");
-      if (checkFile(nameFile)) {
-        Files.delete(Path.of(directory + nameFile));
-        Path path = Files.createFile(Path.of(directory + nameFile));
-        writeFile(listString, String.valueOf(path));
+      if (checkExistsFile(nameFile)) {
+        Files.delete(Path.of(DIRECTORY + nameFile));
+        writeDataToFile(listString, nameFile);
       } else {
-        Path path = Files.createFile(Path.of(directory + nameFile));
-        writeFile(listString, String.valueOf(path));
+        writeDataToFile(listString, nameFile);
+      }
+    }
+
+    private void writeDataToFile(List<String> listString, String nameFile) throws IOException {
+      Path path = Files.createFile(Path.of(DIRECTORY + nameFile));
+      try (FileWriter stringWriter = new FileWriter(String.valueOf(path))) {
+        for (String value : listString) {
+          stringWriter.append(value + "\n");
+        }
+        stringWriter.flush();
       }
     }
   }

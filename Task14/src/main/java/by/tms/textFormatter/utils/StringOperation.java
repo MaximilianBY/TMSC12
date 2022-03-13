@@ -12,12 +12,12 @@ public final class StringOperation {
 
   //мне почему-то кажется, что в случае с русскими символами, сплит отработает неправильно и метод никогда не отработает
   public boolean countingWords(String string) {
-    String[] inputListString = string.split("[ ,\\.!\\?-]");
+    String[] inputListString = string.split("[\\S\\s]");
     return inputListString.length >= 3 && inputListString.length <= 5;
   }
 
   public boolean isBlank(String inputString) {
-    return inputString.isEmpty() || inputString.isBlank() || inputString == null;
+    return inputString == null && inputString.isEmpty() && inputString.isBlank();
   }
 
   public boolean checkPalindrome(String[] inputString) {

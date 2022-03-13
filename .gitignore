@@ -1,6 +1,7 @@
 # Compiled class file
 *.xml
 *.class
+*.txt
 .idea
 target
 

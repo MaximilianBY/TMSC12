@@ -1,7 +1,7 @@
 package by.tms.censure.model;
 
-import by.tms.textFormatter.model.FileOperation.FileRead;
-import by.tms.textFormatter.model.InputError;
+import by.tms.text_formatter.model.FileOperation.FileRead;
+import by.tms.text_formatter.model.InputError;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package by.tms.textFormatter.utils;
+package by.tms.text_formatter.utils;
 
 public final class StringOperation {
 

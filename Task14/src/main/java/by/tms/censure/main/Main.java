@@ -1,7 +1,7 @@
 package by.tms.censure.main;
 
 import by.tms.censure.model.StringOperation;
-import by.tms.textFormatter.model.InputError;
+import by.tms.text_formatter.model.InputError;
 import java.io.IOException;
 
 public class Main {

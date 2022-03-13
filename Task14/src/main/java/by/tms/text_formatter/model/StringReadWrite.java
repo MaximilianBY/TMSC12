@@ -1,8 +1,8 @@
-package by.tms.textFormatter.model;
+package by.tms.text_formatter.model;
 
-import by.tms.textFormatter.model.FileOperation.FileRead;
-import by.tms.textFormatter.model.FileOperation.FileWrite;
-import by.tms.textFormatter.utils.StringOperation;
+import by.tms.text_formatter.model.FileOperation.FileRead;
+import by.tms.text_formatter.model.FileOperation.FileWrite;
+import by.tms.text_formatter.utils.StringOperation;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

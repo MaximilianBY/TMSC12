@@ -1,4 +1,4 @@
-package by.tms.textFormatter.model;
+package by.tms.text_formatter.model;
 
 public class StringIn {
 

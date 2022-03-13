@@ -1,10 +1,10 @@
-package by.tms.textFormatter.service;
+package by.tms.text_formatter.service;
 
-import static by.tms.textFormatter.utils.StringRegex.COUNT_ENG_WORDS;
-import static by.tms.textFormatter.utils.StringRegex.STRING_JAVA_VER;
-import static by.tms.textFormatter.utils.StringRegex.STRING_PAT;
+import static by.tms.text_formatter.utils.StringRegex.COUNT_ENG_WORDS;
+import static by.tms.text_formatter.utils.StringRegex.STRING_JAVA_VER;
+import static by.tms.text_formatter.utils.StringRegex.STRING_PAT;
 
-import by.tms.textFormatter.model.PrintStrings;
+import by.tms.text_formatter.model.PrintStrings;
 import java.util.regex.Pattern;
 
 public class Main {

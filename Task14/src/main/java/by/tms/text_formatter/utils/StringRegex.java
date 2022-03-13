@@ -1,4 +1,4 @@
-package by.tms.textFormatter.utils;
+package by.tms.text_formatter.utils;
 
 import lombok.experimental.UtilityClass;
 

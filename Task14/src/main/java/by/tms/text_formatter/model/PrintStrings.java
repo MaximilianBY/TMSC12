@@ -1,4 +1,4 @@
-package by.tms.textFormatter.model;
+package by.tms.text_formatter.model;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

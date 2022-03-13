@@ -1,10 +1,7 @@
 package by.tms.textFormatter.service;
 
-import static by.tms.textFormatter.utils.StringRegex.COUNT_ENG_WORDS;
-import static by.tms.textFormatter.utils.StringRegex.STRING_JAVA_VER;
-import static by.tms.textFormatter.utils.StringRegex.STRING_PAT;
-
-import by.tms.textFormatter.model.PrintStrings;
+import by.tms.textFormatter.model.Matcher;
+import by.tms.textFormatter.utils.StringRegex;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -22,13 +19,23 @@ public class Main {
 //    StringIn stringIn = new StringIn();
 //    stringIn.midChar("Казака");
     String stringCAB = "sdfdsfcabsdff dgdfccabfdrt bcvcccccccabfghgher323";
-    String stringJavaVer = "Versions: Java  5, Java 6, Java   17, Java 8, Java 12.";
+    String stringJAVAVer = "Versions: Java  5, Java 6, Java   7, Java 8, Java 12.";
     String stringENG = "Oneфыв two three раз два три one1 two2 123 ";
-    String stringEngSymbl = "fgds5ghfdgfd5";
-    PrintStrings printStrings = new PrintStrings();
-    printStrings.printMatches(Pattern.compile(STRING_PAT).matcher(stringCAB));
-    printStrings.printMatches(Pattern.compile(STRING_JAVA_VER).matcher(stringJavaVer));
-    printStrings.printMatches(Pattern.compile(COUNT_ENG_WORDS).matcher(stringENG));
-    System.out.println(printStrings.isEngSymbol(stringEngSymbl));
+    String stringEngSymbl = "fgdsghfdgfd5";
+    by.tms.textFormatter.model.Pattern patternCAB = new by.tms.textFormatter.model.Pattern();
+    by.tms.textFormatter.model.Pattern patternJAVA = new by.tms.textFormatter.model.Pattern();
+    by.tms.textFormatter.model.Pattern patternENG = new by.tms.textFormatter.model.Pattern();
+    patternCAB.setPattern(Pattern.compile(StringRegex.STRING_PAT));
+    patternJAVA.setPattern(Pattern.compile(StringRegex.STRING_JAVA_VER));
+    patternENG.setPattern(Pattern.compile(StringRegex.COUNT_ENG_WORDS));
+    Matcher matcher = new Matcher();
+//    matcher.setMatcher(patternCAB.getPattern(), stringCAB);
+//    matcher.printMatches();
+//    matcher.setMatcher(patternJAVA.getPattern(), stringJAVAVer);
+//    matcher.printMatches();
+//    matcher.setMatcher(patternENG.getPattern(), stringENG);
+//    matcher.printMatches();
+//    matcher.printString(patternENG, stringENG);
+    System.out.println(matcher.isEngSymbol(stringEngSymbl));
   }
 }

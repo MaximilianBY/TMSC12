@@ -17,17 +17,13 @@ public class Main {
   public static void main(String[] args) {
     Car alfa = new Car("AlfaRomeo", new Engine(INLINE_TYPE_ENGINE, 4),
         new TankFuel(BENZIN, 64), 220, 5000);
+
     try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(
         new FileOutputStream("Task14/src/main/resources/Alfa.dat"));
         ObjectInputStream objectInputStream = new ObjectInputStream(
             new FileInputStream("Task14/src/main/resources/Alfa.dat"))) {
-
       objectOutputStream.writeObject(alfa);
-      objectOutputStream.close();
-
       Car someCar = (Car) objectInputStream.readObject();
-      objectInputStream.close();
-
       System.out.println(someCar);
     } catch (ClassCastException e) { //у меня есть вопросы по этим кэтчам, они не работают.
       e.printStackTrace();
@@ -36,10 +32,10 @@ public class Main {
     } catch (IOException e) {
       e.printStackTrace();
     }
-//    try {
-//      System.out.println(Car.readJsonFile().printJsonFile());
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
+    try {
+      System.out.println(Car.readJsonFile().printJsonFile());
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }

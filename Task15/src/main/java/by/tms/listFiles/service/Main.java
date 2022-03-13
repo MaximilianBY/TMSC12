@@ -6,7 +6,7 @@ public class Main {
 
   public static void main(String[] args) {
     RootOperation rootOperation = new RootOperation();
-    rootOperation.listFileInDir(rootOperation.getListDir());
+    rootOperation.listFileInDir();
     rootOperation.printFiles();
   }
 }

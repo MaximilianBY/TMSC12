@@ -2,17 +2,17 @@ package by.tms.genericClass.model;
 
 import java.io.Serializable;
 
-public class Generics<T, V, K> {
+public class Generics<T extends Comparable<String>, V extends Serializable, K extends Number> {
 
   private T someString;
   private V someAnimal;
   private K someNum;
 
-  public <T extends Comparable> T getSomeString(Object obj, Class<String> clazz) {
+  public <T> T getSomeString(Object obj, Class<String> clazz) {
     return (T) obj;
   }
 
-  public <V extends Serializable> V getSomeAnimal(Object obj, Class<Animal> clazz) {
+  public <V> V getSomeAnimal(Object obj, Class<Animal> clazz) {
     return (V) obj;
   }
 

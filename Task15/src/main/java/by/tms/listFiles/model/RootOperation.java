@@ -7,18 +7,18 @@ import java.util.List;
 
 public class RootOperation {
 
-  private String directory = "D:\\Anna";
   private List<String> listFile = new ArrayList<>();
-  private List<File> listDir = Arrays.asList(new File(directory).listFiles());
+  private List<File> listDir = Arrays.asList(new File("D:\\Anna").listFiles());
 
-  public void listFileInDir(List<File> directory) {
-    for (File dir : directory) {
+  public void listFileInDir() {
+    for (File dir : listDir) {
       if (dir.isDirectory()) {
         for (File file : dir.listFiles()) {
           if (file.isFile()) {
             listFile.add(file.getAbsoluteFile().getPath());
           } else {
-            listFileInDir(Arrays.asList(file.listFiles()));
+            listDir = Arrays.asList(file.listFiles());
+            listFileInDir();
           }
         }
       } else {

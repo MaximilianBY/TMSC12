@@ -1,7 +1,8 @@
 package by.tms.shop.utils;
 
+import by.tms.shop.exception.InputException;
 import by.tms.shop.module.Product;
-import by.tms.shop.module.Shop;
+import by.tms.shop.module.ShopService;
 import java.util.List;
 import java.util.Scanner;
 import lombok.experimental.UtilityClass;
@@ -9,38 +10,38 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 
 public final class Application {
-
   private Scanner scanner = new Scanner(System.in);
 
-  public void start(Shop shop) throws Malfunction {
+  public void start(ShopService shopService) throws InputException {
     boolean isBreak = true;
     while (isBreak) {
       PrintList.messageChooseAction();
-      isBreak = chooseAction(shop);
+      isBreak = chooseAction(shopService);
     }
   }
 
-  private boolean chooseAction(Shop shop) throws Malfunction {
+  private boolean chooseAction(ShopService shopService) throws InputException {
     switch (Integer.parseInt(scanner.nextLine())) {
       case 1:
         PrintList.messageForInputProduct();
-        shop.addProductFromConsole();
-        PrintList.printProductList(shop.getProductList());
+        shopService.addProductFromConsole();
+        PrintList.printProductList(shopService.getProductList());
         return true;
       case 2:
         PrintList.messageForDelOrEditProduct();
-        shop.editProductInList();
-        PrintList.printProductList(shop.getProductList());
+        shopService.editProductInList();
+        PrintList.printProductList(shopService.getProductList());
         return true;
       case 3:
         PrintList.messageForDelOrEditProduct();
-        shop.deleteProductFromList();
-        PrintList.printProductList(shop.getProductList());
+        PrintList.printProductList(shopService.getProductList());
+        shopService.deleteProductFromList();
+        PrintList.printProductList(shopService.getProductList());
         return true;
       case 4:
         PrintList.messageForSortProductList();
-        shop.sortProductPriceList();
-        PrintList.printProductList(shop.getProductList());
+        shopService.sortProductPriceList();
+        PrintList.printProductList(shopService.getProductList());
         return true;
       case 5:
         return false;

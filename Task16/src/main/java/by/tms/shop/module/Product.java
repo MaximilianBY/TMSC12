@@ -19,28 +19,28 @@ public class Product {
     return "ID " + id + " Name " + name + " Price " + price;
   }
 
-  public static Comparator<Product> IDSorting = new Comparator<Product>() {
+  public static Comparator<Product> idSorting = new Comparator<Product>() {
     @Override
     public int compare(Product o1, Product o2) {
       return o1.id - o2.getId();
     }
   };
 
-  public static Comparator<Product> NameSorting = new Comparator<Product>() {
+  public static Comparator<Product> nameSorting = new Comparator<Product>() {
     @Override
     public int compare(Product o1, Product o2) {
       return o1.getName().compareTo(o2.getName());
     }
   };
 
-  public static Comparator<Product> PriceAscending = new Comparator<Product>() {
+  public static Comparator<Product> priceAscending = new Comparator<Product>() {
     @Override
     public int compare(Product o1, Product o2) {
       return o1.price - o2.getPrice();
     }
   };
 
-  public static Comparator<Product> PriceDescending = new Comparator<Product>() {
+  public static Comparator<Product> priceDescending = new Comparator<Product>() {
     @Override
     public int compare(Product o1, Product o2) {
       return o2.getPrice() - o1.price;

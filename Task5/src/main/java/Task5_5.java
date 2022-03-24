@@ -5,18 +5,19 @@
  */
 
 import java.util.Arrays;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Task5_5 {
+
     public static void main(String[] args) {
         replaceCellArr(arrayInt());
     }
 
     private static int[] arrayInt() {
-        int[] arrNum = new int[20];
-        for (int i = 0; i < 20; i++) {
-            arrNum[i] = (int) (Math.random() * 21);
-        }
-        return arrNum;
+        return IntStream.generate(() -> new Random().nextInt(0, 21))
+            .limit(20)
+            .toArray();
     }
 
     private static void replaceCellArr(int[] arr) {

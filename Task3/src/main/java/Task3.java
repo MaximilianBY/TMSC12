@@ -45,14 +45,9 @@ public class Task3 {
     }
   }
 
-
   private static int readValueFromConsole() {
     if (sc.hasNextInt()) {
       return sc.nextInt();
-
-    private static int findMinValue(int first, int second) {
-        return Math.min(Math.abs(first), Math.abs(second));
-
     }
     return 0;
   }
@@ -60,7 +55,6 @@ public class Task3 {
   private static int findMinValue(int first, int second) {
     return Math.abs(Math.min(first, second));
   }
-
 
   private static void printNumABS() {
     System.out.println("Введите 3 целых числа:");
@@ -86,38 +80,6 @@ public class Task3 {
       case 2, 3, 4, 5, 6, 7, 8:
         System.out.println("осталось " + remainingTime + " часа");
         break;
-=======
-    private static void printTime() {
-        int millisWorkTime = 28800, remainingTime;
-        int millisInHour = 60 * 60; //тут я вычислил сколько в одном часе секунд = 3600с
-        int randomRemainTime = (int) Math.round(Math.random() * (millisWorkTime + 1));
-        remainingTime = Math.round(randomRemainTime / millisInHour);//а тут я просто рандомное число делил на 3600 и получал часы
-        if (remainingTime >= 5) {
-            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часов" + "\n");
-            System.out.println("осталось " + remainingTime + " часов");
-        } else if (remainingTime >= 2) {
-            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часа" + "\n");
-            System.out.println("осталось " + remainingTime + " часа");
-        } else if (remainingTime > 0) {
-            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " час" + "\n");
-            System.out.println("осталось менее часа");
-        } else {
-            System.out.println("В " + randomRemainTime + " секундах " + remainingTime + " часов" + "\n");
-            System.out.println("рабочий день окончен");
-        }
-    }
-
-    private static void tableOfType() {
-        System.out.printf("%12s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "byte", "short", "char", "int", "long", "float", "double", "boolean");
-        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "byte", "x", "ня", "ня", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "short", "я", "х", "ня", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "char", "я", "я", "х", "ня", "ня", "ня", "ня", "х");
-        System.out.printf("%s%9s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "int", "я", "я", "я", "х", "ня", "ня", "ня", "х");
-        System.out.printf("%s%8s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "long", "я", "я", "я", "я", "х", "ня", "ня", "х");
-        System.out.printf("%s%7s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "float", "я", "я", "я", "я", "я", "х", "ня", "х");
-        System.out.printf("%s%6s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "double", "я", "я", "я", "я", "я", "я", "х", "х");
-        System.out.printf("%s%5s|%6s|%5s|%4s|%5s|%6s|%7s|%8s|%n", "boolean", "x", "x", "x", "x", "x", "x", "x", "х");
-
     }
   }
 

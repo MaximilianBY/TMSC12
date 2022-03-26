@@ -22,6 +22,23 @@ import java.util.stream.IntStream;
 public class Task4 {
 
   private static Scanner sc = new Scanner(System.in);
+=======
+    public static void main(String[] args) {
+//        System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
+//        System.out.println("Сколько Амеб получилось за сутки: " + countAmeba()); //вывод задача 2
+//        System.out.println(infoNum(randomNumber())); //вывод задача 3
+//        System.out.println("Введите день и месяц рождения, чтобы узнать свой знак зодиака: " + zodiacSign(0, 1)); //вывод задача 4
+//        System.out.println(Arrays.toString(arrayNum(readIntNum()))); //вывод задача 5
+//        System.out.println(operation()); //вывод задача 6
+//        System.out.println(calculateCountOfOddElementsInMatrix(arrayRandom())); //вывод задача 7
+//        System.out.println(calculateCountOfOddElementsInMatrix(new int[]{1, 2, 3, 4, 5, 6})); //вывод задача 7
+        countDevs(12);
+        countDevs(135);
+//        foobar(6); //вывод задача 9
+//        foobar(10); //вывод задача 9
+//        foobar(15); //вывод задача 9
+//        printPrimeNumbers();
+    }
 
   public static void main(String[] args) {
 //    System.out.println(dayOfWeek(randomDayOfWeek())); //вывод задача 1
@@ -176,6 +193,37 @@ public class Task4 {
     int num = sc.nextInt();
     return num == 0 ? num + 10 : num > 0 ? num + 1 : num - 2;
   }
+=======
+    /**
+     * На вход приходит число.
+     * Вывести в консоль фразу из разряда "_COUNT_ программистов",
+     * заменить _COUNT_ на число которое пришло на вход в метод и заменить окончание в слове "программистов" на
+     * уместное с точки зрения русского языка.
+     * Пример: 1 программист, 42 программиста, 50 программистов
+     *
+     * @param count - количество программистов
+     */
+    public static void countDevs(int count) {
+        int num = 0;
+        if (count % 10 == 1 && count % 100 != 11) {
+            num = 1;
+        } else if (count % 10 >= 2 && count % 10 <= 4 && !(count % 100 >= 12 && count % 100 <= 14)) {
+            num = 2;
+        } else {
+            num = 3;
+        }
+        switch (num) {
+            case 1:
+                System.out.println(count + " программист");
+                break;
+            case 2:
+                System.out.println(count + " программиста");
+                break;
+            case 3:
+                System.out.println(count + " программистов");
+                break;
+        }
+    }
 
   /**
    * На вход приходит массив целых чисел типа int Необходимо найти количество нечетных элементов в

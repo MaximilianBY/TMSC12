@@ -2,6 +2,7 @@
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Task5_6 {
     public static void main(String[] args) {
@@ -9,12 +10,9 @@ public class Task5_6 {
     }
 
     private static int[] arrayInt() {
-        int[] arrNum = new int[10];
-        Random randomNum = new Random();
-        for (int i = 0; i < 10; i++) {
-            arrNum[i] = randomNum.nextInt(100);
-        }
-        return arrNum;
+      return IntStream.generate(() -> new Random().nextInt(100))
+          .limit(10)
+          .toArray();
     }
 
     private static void replaceCellArr(int[] arr) {

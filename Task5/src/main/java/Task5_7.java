@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class Task5_7 {
 
     public static void main(String[] args) {
-        countDublicates(arrayInt());
+        printDublicates(countDublicates(arrayInt()));
     }
 
     private static List<Integer> arrayInt() {
@@ -38,8 +38,8 @@ public class Task5_7 {
 
     private static void printDublicates(List<Integer> list) {
         if (!list.isEmpty()) {
-            System.out.print("Повторяющиеся элементы массива: ");
-            list.stream().forEach(num -> System.out.print(num + " "));
+          System.out.print("\nПовторяющиеся элементы массива: ");
+          list.stream().forEach(num -> System.out.print(num + " "));
         } else {
             System.out.println("Массив не имеет повторяющихся элементов");
         }

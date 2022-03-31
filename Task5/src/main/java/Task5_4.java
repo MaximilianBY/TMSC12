@@ -5,29 +5,29 @@
  */
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Task5_4 {
+    public static void main(String[] args) {
+        getArrayLastOccurIndex(arrayInt());
+    }
 
-  public static void main(String[] args) {
-    getArrayLastOccurIndex(arrayInt());
-  }
+    private static int[] arrayInt() {
+        int[] arrNum = new int[15];
+        for (int i = 0; i < 15; i++) {
+            arrNum[i] = (int) (Math.random() * 16);
+        }
+        return arrNum;
+    }
 
-  private static int[] arrayInt() {
-    return IntStream.generate(() -> new Random()
-            .nextInt(0, 16))
-        .limit(12)
-        .toArray();
-  }
-
-  private static void getArrayLastOccurIndex(int[] arr) {
-    System.out.println(Arrays.toString(arr));
-    System.out.println(
-        "Максимальное значение массива: " + Arrays.stream(arr).max().getAsInt()
-            + ", индекс последнего вхождения: "
-            + Arrays.stream(arr).boxed().collect(Collectors.toList())
-            .lastIndexOf(Arrays.stream(arr).max().getAsInt()));
-  }
+    private static void getArrayLastOccurIndex(int[] arr) {
+        System.out.println(Arrays.toString(arr));
+        int index = -1, maxNum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] > maxNum) {
+                maxNum = arr[i];
+                index = i;
+            }
+        }
+        System.out.println("Максимальное значение массива: " + maxNum + ", индекс последнего вхождения: " + index);
+    }
 }

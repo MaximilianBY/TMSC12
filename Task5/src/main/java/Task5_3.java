@@ -4,36 +4,37 @@
 
  */
 
-import java.util.Arrays;
-import java.util.Random;
-import java.util.stream.IntStream;
-
 public class Task5_3 {
-
-  public static void main(String[] args) {
-    int[] arr = arrayNum();
-    arrayUp(arr);
-    arrayDown(arr);
-  }
-
-  private static int[] arrayNum() {
-    return IntStream.generate(() -> new Random()
-            .nextInt(1, 100))
-        .distinct()
-        .limit(50)
-        .sorted()
-        .filter(i -> i % 2 != 0)
-        .toArray();
-  }
-
-  private static void arrayUp(int[] arr) {
-    Arrays.stream(arr).forEach(i -> System.out.print(i + " "));
-  }
-
-  private static void arrayDown(int[] arr) {
-    System.out.println();
-    for (int i = arr.length - 1; i >= 0; i--) {
-      System.out.print(arr[i] + " ");
+    public static void main(String[] args) {
+        int[] arr = arrayNum();
+        arrayUp(arr);
+        arrayDown(arr);
     }
-  }
+
+    private static int[] arrayNum() {
+        int[] nums = new int[100]; //к сожалению у меня не получилось реализовать ваше предложение 100/2, у меня выдает ArrayIndexOutOfBoundsException
+        for (int i = 1; i <= 100; i++) {
+            if (i % 2 != 0) {
+                nums[i - 1] = i;
+            }
+        }
+        return nums;
+    }
+
+    private static void arrayUp(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] != 0) {
+                System.out.print(arr[i] + " ");
+            }
+        }
+    }
+
+    private static void arrayDown(int[] arr) {
+        System.out.println();
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i] != 0) {
+                System.out.print(arr[i] + " ");
+            }
+        }
+    }
 }

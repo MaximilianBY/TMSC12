@@ -6,42 +6,44 @@
 
  */
 
-import java.util.List;
-import java.util.Map.Entry;
+import java.util.Arrays;
 import java.util.Random;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class Task5_7 {
-
-  public static void main(String[] args) {
-    countDublicates(arrayInt());
-  }
-
-  private static List<Integer> arrayInt() {
-    return Stream.generate(() -> new Random().nextInt(0, 10))
-        .limit(10)
-        .collect(Collectors.toList());
-  }
-
-  private static List<Integer> countDublicates(List<Integer> list) {
-    list.forEach(num -> System.out.print(num + " "));
-    return list.stream()
-        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-        .entrySet()
-        .stream()
-        .filter(i -> i.getValue() > 1)
-        .map(Entry::getKey)
-        .toList();
-  }
-
-  private static void printDublicates(List<Integer> list) {
-    if (!list.isEmpty()) {
-      System.out.print("Повторяющиеся элементы массива: ");
-      list.stream().forEach(num -> System.out.print(num + " "));
-    } else {
-      System.out.println("Массив не имеет повторяющихся элементов");
+    public static void main(String[] args) {
+        countDublicates(arrayInt());
     }
-  }
+
+    private static int[] arrayInt() {
+        int[] arrNum = new int[10];
+        Random randomNum = new Random();
+        for (int i = 0; i < 10; i++) {
+            arrNum[i] = randomNum.nextInt(10);
+        }
+        return arrNum;
+    }
+
+    private static void countDublicates(int[] arr) {
+        System.out.println(Arrays.toString(arr));
+        int[] arrDublicates = new int[arrayInt().length];
+        for (int i = 0; i < arr.length; i++) {
+            int count = 0;
+            for (int j = i; j < arr.length; j++) {
+                if (arr[i] == arr[j]) {
+                    count++;
+                }
+            }
+            if (count > 1) {
+                arrDublicates[i] = arr[i];
+            } else {
+                arrDublicates[i] = -1;
+            }
+        }
+        System.out.print("Повторяющиеся элементы массива: ");
+        for (int i = 1; i < arrDublicates.length; i++) {
+            if (arrDublicates[i] != arrDublicates[i - 1] && arrDublicates[i - 1] != -1) {
+                System.out.print(arrDublicates[i - 1] + " ");
+            }
+        }
+    }
 }

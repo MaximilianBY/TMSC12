@@ -22,7 +22,7 @@ public class Task5_7 {
     private static List<Integer> arrayInt() {
         return Stream.generate(() -> new Random().nextInt(0, 10))
             .limit(10)
-            .collect(Collectors.toList());
+            .toList();
     }
 
     private static List<Integer> countDublicates(List<Integer> list) {
@@ -39,7 +39,7 @@ public class Task5_7 {
     private static void printDublicates(List<Integer> list) {
         if (!list.isEmpty()) {
           System.out.print("\nПовторяющиеся элементы массива: ");
-          list.stream().forEach(num -> System.out.print(num + " "));
+          list.forEach(num -> System.out.print(num + " "));
         } else {
             System.out.println("Массив не имеет повторяющихся элементов");
         }

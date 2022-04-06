@@ -1,7 +1,10 @@
 package by.tms.user.service;
 
+import static by.tms.user.model.UserMetrics.changeSex;
+import static by.tms.user.model.UserMetrics.increaseAge;
+import static by.tms.user.model.UserMetrics.printUserInfo;
+
 import by.tms.user.model.User;
-import by.tms.user.model.UserMetrics;
 
 public class Main {
 
@@ -12,13 +15,13 @@ public class Main {
     user2.setLastName("Петров");
     user2.setAge(35);
     user2.setSex('М');
-    System.out.println(UserMetrics.printUserInfo(user1) + "\n");
-    System.out.println(UserMetrics.printUserInfo(user2) + "\n");
-    UserMetrics.increaseAge(user1);
-    UserMetrics.increaseAge(user2);
-    System.out.println(UserMetrics.printUserInfo(user1) + "\n");
-    System.out.println(UserMetrics.printUserInfo(user2) + "\n");
-    UserMetrics.changeSex(user1);
-    System.out.println(UserMetrics.printUserInfo(user1) + "\n");
+    System.out.println(printUserInfo(user1) + "\n");
+    System.out.println(printUserInfo(user2) + "\n");
+    increaseAge(user1);
+    increaseAge(user2);
+    System.out.println(printUserInfo(user1) + "\n");
+    System.out.println(printUserInfo(user2) + "\n");
+    changeSex(user1);
+    System.out.println(printUserInfo(user1) + "\n");
   }
 }

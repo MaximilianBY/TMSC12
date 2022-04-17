@@ -1,6 +1,6 @@
 package by.tms.servlet_login;
 
-import by.tms.user.User;
+import by.tms.DBUtils.DBUtils;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,19 +20,14 @@ public class ServletLogin extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    User user = new User();
 
-    String username = req.getParameter("email");
+    String username = req.getParameter("user");
     String pass = req.getParameter("pass");
 
-    System.out.println("User: " + username);
-    System.out.println("Password: " + pass);
-
-    if (!user.getEmail().equals(username) || !user.getPassword().equals(pass)) {
+    if (!DBUtils.getDbUserName().equals(username) || !DBUtils.getDbPassword().equals(pass)) {
       resp.sendRedirect("/login.html");
     } else {
-      resp.getWriter().println(
-          "Пользователь с Email: " + username + " и паролем: " + pass + " вошёл в систему!");
+      req.getServletContext().getRequestDispatcher("/studentsDB.html").forward(req, resp);
     }
   }
 }

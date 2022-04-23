@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Devices")
+@WebServlet("/devices")
 public class ServletCategories extends HttpServlet {
 
   @Override
@@ -46,6 +46,6 @@ public class ServletCategories extends HttpServlet {
 
     req.setAttribute("categories", categories);
 
-    req.getServletContext().getRequestDispatcher("/Devices.jsp").forward(req, resp);
+    req.getServletContext().getRequestDispatcher("/devices.jsp").forward(req, resp);
   }
 }

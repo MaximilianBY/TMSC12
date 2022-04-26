@@ -28,7 +28,10 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="Devices">Devices</a>
+                <a class="nav-link" href="devices">Devices</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="basket">Basket</a>
             </li>
         </ul>
     </div>
@@ -38,7 +41,7 @@
     <div class="row">
         <div class="col-sm-4">
             <h5>Photo of me:</h5>
-            <div class="fakeimg"><img src="images/Me.jpg"></div>
+            <div class="fakeimg"><img src="images/users/Me.jpg"></div>
             <p>This foto was made on Sicily</p>
         </div>
         <div class="col-sm-8">

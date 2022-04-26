@@ -1,9 +1,17 @@
-package by.tms.servlets;
+package by.tms.model.categories.servlet;
 
-import by.tms.model.Category;
+import by.tms.DB_listener.DBConnectionManager;
+import by.tms.model.basket.ProductList;
+import by.tms.model.categories.Category;
+import by.tms.model.product.Product;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/devices")
 public class ServletCategories extends HttpServlet {
+
+  private static String GET_ALL_PRODUCT =
+      "SELECT * FROM online_shop_pc.product_db JOIN online_shop_pc.product_image_db scd on product_db.id = scd.id ";
 
   @Override
   protected void doGet(
@@ -45,7 +56,33 @@ public class ServletCategories extends HttpServlet {
     categories.add(camera);
 
     req.setAttribute("categories", categories);
+    getProductsFromDB();
 
     req.getServletContext().getRequestDispatcher("/devices.jsp").forward(req, resp);
+  }
+
+  private void getProductsFromDB() {
+    ServletContext ctx = getServletContext();
+    List<Product> products = new ArrayList<>();
+    try {
+      DBConnectionManager dbConnectionManager = (DBConnectionManager) ctx.getAttribute("DBManager");
+      Connection connection = dbConnectionManager.getConnection();
+      PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_PRODUCT);
+      ResultSet rs = preparedStatement.executeQuery();
+
+      while (rs.next()) {
+        int id = rs.getInt("id");
+        String brand = rs.getString("brand");
+        String model = rs.getString("model");
+        String description = rs.getString("description");
+        int price = rs.getInt("price");
+        String imageName = rs.getString("name_image");
+        int quantity = rs.getInt("quantity");
+        products.add(new Product(id, brand, model, description, price, imageName, quantity));
+      }
+      ProductList.addProductToListFromDB(products);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
+    }
   }
 }

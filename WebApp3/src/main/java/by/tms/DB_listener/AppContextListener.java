@@ -19,6 +19,7 @@ public class AppContextListener implements ServletContextListener {
     DBConnectionManager dbManager = new DBConnectionManager(url, login, password);
     ctx.setAttribute("DBManager", dbManager);
     System.out.println("Database connection initialized for application.");
+
   }
 
   @Override

@@ -3,10 +3,9 @@
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
-<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <title>Mobile Phones</title>
+    <title>Cart</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -32,9 +31,6 @@
                         <a class="nav-link" href="devices">Devices</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="basket">Basket</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="signin">Logout</a>
                     </li>
                 </ul>
@@ -43,7 +39,7 @@
     </nav>
 
     <div id="list-product" class="container-fluid mt-3">
-        <form method="post" action="mobPhones" accept-charset="UTF-8">
+        <form method="post" action="basket" accept-charset="UTF-8">
             <div class="container">
                 <h1>List phones</h1>
                 <table class="table">
@@ -52,14 +48,13 @@
                         <th><h3>Brand</h3></th>
                         <th><h3>Model</h3></th>
                         <th><h3>Price</h3></th>
-                        <th><h3>Available</h3></th>
                         <th><h3></h3></th>
                     </tr>
                     <c:if test="${not empty products}">
                         <c:forEach items="${products}" var="product">
                             <tr>
                                 <td><img class="card-img" style="width:150px;height:120px"
-                                         src="${contextPath}/images/products/${product.getImageName()}"
+                                         src="${contextPath}/images/${product.getImageName()}"
                                          alt="Card image">
                                 </td>
                                 <td style="font-style: italic">
@@ -71,14 +66,6 @@
                                 <td style="font-style: italic">
                                     <strong>${product.getPrice()}$</strong>
                                 </td>
-                                <td style="font-style: italic">
-                                    <strong>${product.getQuantity()}</strong>
-                                </td>
-                                <td>
-                                    <button type="submit" class="btn btn-primary" name="idProduct"
-                                            value="${product.getId()}">Buy
-                                    </button>
-                                </td>
                             </tr>
                         </c:forEach>
                     </c:if>
@@ -89,6 +76,13 @@
                             </td>
                         </tr>
                     </c:if>
+                    <tr>
+                        <td><input type="submit" class="btn btn-primary" name="basket-btn"
+                                   value="Reset"></td>
+                        <td></td>
+                        <td><input type="submit" class="btn btn-primary" name="basket-btn"
+                                   value="Order"></td>
+                    </tr>
                 </table>
             </div>
         </form>

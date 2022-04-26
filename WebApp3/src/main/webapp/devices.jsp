@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link">Basket</a>
+                    <a class="nav-link" href="basket">Basket</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="signin">Logout</a>
@@ -49,7 +49,7 @@
                         <div class="card-body">
                             <a href="${category.getLink()}">${category.getName()}</a>
                             <img class="card-img" style="width:150px;height:120px"
-                                 src="${contextPath}/images/${category.getImageName()}"
+                                 src="${contextPath}/images/categories/${category.getImageName()}"
                                  alt="Card image">
                         </div>
                     </div>

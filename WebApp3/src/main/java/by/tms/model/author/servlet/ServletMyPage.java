@@ -1,6 +1,6 @@
-package by.tms.servlets;
+package by.tms.model.author.servlet;
 
-import by.tms.model.Author;
+import by.tms.model.author.Author;
 import java.io.IOException;
 import java.util.Date;
 import javax.servlet.ServletException;

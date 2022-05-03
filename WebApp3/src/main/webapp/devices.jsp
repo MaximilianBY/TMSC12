@@ -1,71 +1,100 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Home Page</title>
+    <title>Devices</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="myPage">My account</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#mynavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mynavbar">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="basket">Basket</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="signin">Logout</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 <div>
-    <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-    <h2>Popular categories</h2>
-
-    <div class="container-fluid">
-        <c:if test="${not empty categories}">
-            <div class="row">
-                <c:forEach items="${categories}" var="category">
-                    <div class="card w-25 m-1" type="category">
-                        <div class="card-body">
-                            <a href="${category.getLink()}">${category.getName()}</a>
-                            <img class="card-img" style="width:150px;height:120px"
-                                 src="${contextPath}/images/categories/${category.getImageName()}"
-                                 alt="Card image">
-                        </div>
-                    </div>
-                    <%-- w-25 настройка определяет ширину карты (25% от ширины родительского элемента, т.е. строки)
-                    Больше информации вот здесь https://getbootstrap.com/docs/4.1/utilities/sizing/
-                    m-1 означает внешинй отступ (margin) со всех 4 сторон.
-                    Измеряется специальной переменной $spacer, значение по умолчанию у которой
-                    равно 1rem (16px в большинстве браузеров).
-                    1 = $spacer * .25 = 16 * 0.25 = 4px--%>
-                </c:forEach>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="myPage">My account</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#mynavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbar">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories">Category</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="basket">Basket</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="signin">Logout</a>
+                    </li>
+                </ul>
             </div>
-        </c:if>
+        </div>
+    </nav>
+
+    <div id="list-product" class="container-fluid mt-3">
+        <form method="post" action="devices" accept-charset="UTF-8">
+            <div class="container">
+                <h1>List devices</h1>
+                <table class="table">
+                    <tr>
+                        <th><h3>Foto</h3></th>
+                        <th><h3>Brand</h3></th>
+                        <th><h3>Model</h3></th>
+                        <th><h3>Price</h3></th>
+                        <th><h3>Available</h3></th>
+                        <th><h3></h3></th>
+                    </tr>
+                    <c:if test="${not empty products}">
+                        <c:forEach items="${products}" var="product">
+                            <tr>
+                                <td><a href="${contextPath}/product?id=${product.getId()}"><img
+                                        class="card-img" style="width:150px;height:120px"
+                                        src="${contextPath}/images/products/${product.getImageName()}"
+                                        alt="Card image">
+                                </a>
+                                </td>
+                                <td style="font-style: italic"><a
+                                        href="${contextPath}/product?id=${product.getId()}">
+                                    <strong>${product.getBrand()}</strong>
+                                </a>
+                                </td>
+                                <td style="font-style: italic"><a
+                                        href="${contextPath}/product?id=${product.getId()}">
+                                    <strong>${product.getModel()}</strong>
+                                </a>
+                                </td>
+                                <td style="font-style: italic"><a
+                                        href="${contextPath}/product?id=${product.getId()}">
+                                    <strong>${product.getPrice()}$</strong>
+                                </a>
+                                </td>
+                                <td style="font-style: italic"><a
+                                        href="${contextPath}/product?id=${product.getId()}">
+                                    <strong>${product.getQuantity()}</strong>
+                                </a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty products}">
+                        <tr>
+                            <td>
+                                <p>Список пуст</p>
+                            </td>
+                        </tr>
+                    </c:if>
+                </table>
+            </div>
+        </form>
     </div>
-    <form>
-        <button type="submit" class="btn btn-primary" formaction="myPage">Previews page</button>
-    </form>
 </div>
 </body>
 </html>

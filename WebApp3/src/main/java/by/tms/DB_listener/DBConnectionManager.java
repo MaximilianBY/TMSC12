@@ -17,7 +17,6 @@ public class DBConnectionManager {
     this.password = password;
 
     try {
-
       Class.forName("com.mysql.cj.jdbc.Driver");
       connection = DriverManager.getConnection(url, login, password);
     } catch (SQLException | ClassNotFoundException e) {

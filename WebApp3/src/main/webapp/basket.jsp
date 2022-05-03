@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="devices">Devices</a>
+                        <a class="nav-link" href="categories">Category</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="signin">Logout</a>
@@ -54,7 +54,7 @@
                         <c:forEach items="${products}" var="product">
                             <tr>
                                 <td><img class="card-img" style="width:150px;height:120px"
-                                         src="${contextPath}/images/${product.getImageName()}"
+                                         src="${contextPath}/images/products/${product.getImageName()}"
                                          alt="Card image">
                                 </td>
                                 <td style="font-style: italic">

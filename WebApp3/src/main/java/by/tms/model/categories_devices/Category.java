@@ -1,4 +1,4 @@
-package by.tms.model.categories;
+package by.tms.model.categories_devices;
 
 import java.util.Objects;
 
@@ -7,12 +7,12 @@ public class Category {
   private String name;
   private String imageName;
 
-  private String link;
+  private String type;
 
-  public Category(String name, String imageName, String link) {
+  public Category(String name, String imageName, String type) {
     this.name = name;
     this.imageName = imageName;
-    this.link = link;
+    this.type = type;
   }
 
   public String getName() {
@@ -23,8 +23,8 @@ public class Category {
     return imageName;
   }
 
-  public String getLink() {
-    return link;
+  public String getType() {
+    return type;
   }
 
   @Override
@@ -37,11 +37,11 @@ public class Category {
     }
     Category category = (Category) o;
     return getName().equals(category.getName()) && getImageName().equals(category.getImageName())
-        && getLink().equals(category.getLink());
+        && getType().equals(category.getType());
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(getName(), getImageName(), getLink());
+    return Objects.hash(getName(), getImageName(), getType());
   }
 }

@@ -38,17 +38,45 @@
                placeholder="Enter password" name="password"
                required>
         <div class="invalid-feedback">Password should be entered!</div>
+        <label for="confirm_password">Retype password:</label>
+        <input type="password" class="form-control w-25" id="confirm_password"
+               placeholder="Retype password" name="confirm_password" onChange="isPasswordMatch();"
+               required>
+        <div id="divCheckPassword"></div>
+        <div class="invalid-feedback">Password should be entered!</div>
       </div>
-      <button type="submit" class="btn btn-primary" id="saveBtn" name="saveBtn" value="saveUser">
-        Save user
-      </button>
-    </form>
-    <form method="post" action="registry">
-      <button type="submit" class="btn btn-primary" formaction="signin.html">Back to Login</button>
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" class="form-control w-25" name="email" placeholder="Enter E-mail"
+               id="email">
+      </div>
+      <div class="form-group">
+        <label for="phoneNumber">Phone number:</label>
+        <input type="tel" class="form-control w-25" name="phoneNumber"
+               placeholder="Enter phone number" id="phoneNumber">
+      </div>
+      <input type="submit" class="btn btn-primary" name="Registry-btn" value="Login" formnovalidate>
+      <input type="submit" class="btn btn-primary" id="saveBtn" name="Registry-btn"
+             value="Register">
     </form>
   </div>
 </div>
 <script>
+  function isPasswordMatch() {
+    var password = $("#password").val();
+    var confirmPassword = $("#confirm_password").val();
+
+    if (password !== confirmPassword) {
+      $("#divCheckPassword").html("Passwords do not match!");
+    } else {
+      $("#divCheckPassword").html("Passwords match.");
+    }
+  }
+
+  $(document).ready(function () {
+    $("#confirm_password").keyup(isPasswordMatch);
+  });
+
   document.getElementById('saveBtn').disabled = true;
   document.getElementById('username').addEventListener('keyup', e => {
     //Check for the input's value
@@ -56,12 +84,13 @@
       document.getElementById('saveBtn').disabled = true;
     } else {
       document.getElementById('password').addEventListener('keyup', e => {
-        //Check for the input's value
-        if (e.target.value === "") {
-          document.getElementById('saveBtn').disabled = true;
-        } else {
-          document.getElementById('saveBtn').disabled = false;
-        }
+        document.getElementById('confirm_password').addEventListener('keyup', c => {
+          if (e.target.value === "" && c.target.value === "" || e.target.value !== c.target.value) {
+            document.getElementById('saveBtn').disabled = true;
+          } else {
+            document.getElementById('saveBtn').disabled = false;
+          }
+        })
       });
     }
   });

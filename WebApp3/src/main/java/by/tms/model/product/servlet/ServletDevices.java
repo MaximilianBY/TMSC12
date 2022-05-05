@@ -1,8 +1,6 @@
-package by.tms.product.servlet;
+package by.tms.model.product.servlet;
 
-import static by.tms.product.ProductList.addProductsListFromDB;
-import static by.tms.product.ProductList.getProductListByType;
-
+import by.tms.model.product.ProductList;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +16,7 @@ public class ServletDevices extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    addProductsListFromDB();
+    ProductList.addProductsListFromDB();
     getDevicesFromType(req, resp);
   }
 
@@ -26,7 +24,7 @@ public class ServletDevices extends HttpServlet {
       throws ServletException, IOException {
     HttpSession session = req.getSession();
     String type = req.getParameter("type");
-    req.setAttribute("products", getProductListByType(type));
+    req.setAttribute("products", ProductList.getProductListByType(type));
     session.getServletContext().getRequestDispatcher("/devices.jsp").forward(req, resp);
   }
 }

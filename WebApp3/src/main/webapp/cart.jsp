@@ -1,4 +1,4 @@
-<%@ page import="by.tms.product.Product" %>
+<%@ page import="by.tms.model.product.Product" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

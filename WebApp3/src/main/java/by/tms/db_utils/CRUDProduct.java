@@ -2,7 +2,7 @@ package by.tms.db_utils;
 
 import static by.tms.db_utils.CRUDUser.getConnection;
 
-import by.tms.product.Product;
+import by.tms.model.product.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

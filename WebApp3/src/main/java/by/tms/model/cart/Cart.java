@@ -8,8 +8,8 @@ import static by.tms.db_utils.CRUDCart.updateOrder;
 import static by.tms.db_utils.CRUDProduct.updateQuantityProducts;
 import static by.tms.model.user.AccountData.findUser;
 
+import by.tms.model.product.Product;
 import by.tms.model.user.User;
-import by.tms.product.Product;
 import java.util.List;
 import java.util.Optional;
 

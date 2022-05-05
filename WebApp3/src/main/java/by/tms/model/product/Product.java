@@ -1,4 +1,4 @@
-package by.tms.product;
+package by.tms.model.product;
 
 import java.util.Objects;
 

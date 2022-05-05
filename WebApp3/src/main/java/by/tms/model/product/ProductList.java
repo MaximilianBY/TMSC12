@@ -1,4 +1,4 @@
-package by.tms.product;
+package by.tms.model.product;
 
 import static by.tms.db_utils.CRUDProduct.getProductsFromDB;
 

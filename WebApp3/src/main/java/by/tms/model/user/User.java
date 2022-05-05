@@ -1,6 +1,6 @@
 package by.tms.model.user;
 
-import by.tms.product.Product;
+import by.tms.model.product.Product;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

@@ -29,7 +29,7 @@
                         <a class="nav-link" href="categories">Category</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="basket">Basket</a>
+                        <a class="nav-link" href="cart">Cart</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="signin">Logout</a>

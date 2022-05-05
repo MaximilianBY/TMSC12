@@ -1,7 +1,7 @@
-package by.tms.model.product.servlet;
+package by.tms.product.servlet;
 
-import static by.tms.model.basket.ProductList.getProductByID;
-import static by.tms.model.registry.AccountData.addProductToUserBasket;
+import static by.tms.model.cart.Cart.addProductToUserCart;
+import static by.tms.product.ProductList.getProductByID;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -34,7 +34,7 @@ public class ServletProduct extends HttpServlet {
     HttpSession session = req.getSession();
     String userName = String.valueOf(session.getAttribute("currentUser"));
     if (Optional.ofNullable(userName).isPresent()) {
-      addProductToUserBasket(userName, getProductByID(idProduct), 0, 0);
+      addProductToUserCart(userName, getProductByID(idProduct), 0, 0);
       req.setAttribute("product", getProductByID(idProduct));
     }
     session.getServletContext().getRequestDispatcher("/product.jsp").forward(req, resp);

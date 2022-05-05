@@ -1,9 +1,10 @@
 package by.tms.model.user.servlet;
 
-import static by.tms.model.registry.AccountData.checkUser;
-import static by.tms.model.registry.AccountData.setUsersList;
+import static by.tms.model.user.AccountData.isExistUser;
+import static by.tms.model.user.AccountData.setUsersList;
 
-import by.tms.DB_listener.DBConnectionManager;
+import by.tms.db_listener_connector.DBConnectionManager;
+import by.tms.model.user.User;
 import java.io.IOException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -19,9 +20,8 @@ public class ServletSignIn extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    HttpSession session = req.getSession();
     getUsers();
-    session.getServletContext().getRequestDispatcher("/signin.html").forward(req, resp);
+    preLoadSignInPage(req, resp);
   }
 
   @Override
@@ -32,9 +32,9 @@ public class ServletSignIn extends HttpServlet {
       case "Login":
         checkInputUser(req, resp);
         break;
-      case "Register":
+      case "Registration":
         HttpSession session = req.getSession();
-        session.getServletContext().getRequestDispatcher("/registry.html").forward(req, resp);
+        session.getServletContext().getRequestDispatcher("/registration.html").forward(req, resp);
         break;
     }
   }
@@ -44,13 +44,20 @@ public class ServletSignIn extends HttpServlet {
     HttpSession session = req.getSession();
     String username = req.getParameter("username");
     String pass = req.getParameter("password");
-    if (!checkUser(username, pass)) {
+    User user = new User(username, pass);
+    if (!isExistUser(user)) {
       getUsers();
-      session.getServletContext().getRequestDispatcher("/signin.html").forward(req, resp);
+      preLoadSignInPage(req, resp);
     } else {
       session.setAttribute("currentUser", username);
       resp.sendRedirect("/myPage");
     }
+  }
+
+  public static void preLoadSignInPage(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    HttpSession session = req.getSession();
+    session.getServletContext().getRequestDispatcher("/signin.html").forward(req, resp);
   }
 
   private void getUsers() {

@@ -1,16 +1,18 @@
-package by.tms.model.basket;
+package by.tms.product;
 
 import static by.tms.db_utils.CRUDProduct.getProductsFromDB;
 
-import by.tms.model.product.Product;
 import java.util.List;
 import java.util.Optional;
-import lombok.experimental.UtilityClass;
 
-@UtilityClass
 public final class ProductList {
 
   private static List<Product> productListFromDB;
+
+  private ProductList() {
+    throw new java.lang.UnsupportedOperationException(
+        "This is a utility class and cannot be instantiated");
+  }
 
   public static List<Product> getProductListByType(String type) {
     return productListFromDB.stream()

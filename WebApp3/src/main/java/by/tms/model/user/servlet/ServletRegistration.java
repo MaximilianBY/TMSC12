@@ -1,7 +1,8 @@
-package by.tms.model.registry.servlet;
+package by.tms.model.user.servlet;
 
-import static by.tms.model.registry.AccountData.addUserToList;
-import static by.tms.model.registry.AccountData.isExistUser;
+import static by.tms.model.user.AccountData.addUserToList;
+import static by.tms.model.user.AccountData.isExistUser;
+import static by.tms.model.user.servlet.ServletSignIn.preLoadSignInPage;
 
 import by.tms.model.user.User;
 import java.io.IOException;
@@ -12,26 +13,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/registry")
-public class ServletRegistry extends HttpServlet {
+@WebServlet("/registration")
+public class ServletRegistration extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     HttpSession session = req.getSession();
-    session.getServletContext().getRequestDispatcher("/registry.html").forward(req, resp);
+    session.getServletContext().getRequestDispatcher("/registration.html").forward(req, resp);
   }
 
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    String chooseAction = req.getParameter("Registry-btn");
+    String chooseAction = req.getParameter("Registration-btn");
     switch (chooseAction) {
       case "Login":
-        HttpSession session = req.getSession();
-        session.getServletContext().getRequestDispatcher("/signin.html").forward(req, resp);
+        preLoadSignInPage(req, resp);
         break;
-      case "Register":
+      case "Registration":
         getNewUserData(req, resp);
         break;
     }
@@ -51,6 +51,6 @@ public class ServletRegistry extends HttpServlet {
         addUserToList(user);
       }
     }
-    session.getServletContext().getRequestDispatcher("/registry.html").forward(req, resp);
+    session.getServletContext().getRequestDispatcher("/registration.html").forward(req, resp);
   }
 }

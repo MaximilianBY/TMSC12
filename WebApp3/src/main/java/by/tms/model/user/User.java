@@ -1,6 +1,6 @@
 package by.tms.model.user;
 
-import by.tms.model.product.Product;
+import by.tms.product.Product;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -13,6 +13,11 @@ public class User {
   private String phoneNumber;
 
   private List<Product> productListFromBasket = new ArrayList<>();
+
+  public User(String name, String password) {
+    this.name = name;
+    this.password = password;
+  }
 
   public User(String name, String password, String email, String phoneNumber) {
     this.name = name;

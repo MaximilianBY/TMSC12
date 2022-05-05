@@ -1,7 +1,7 @@
-package by.tms.model.categories_devices.servlet;
+package by.tms.product.servlet;
 
-import static by.tms.model.basket.ProductList.addProductsListFromDB;
-import static by.tms.model.basket.ProductList.getProductListByType;
+import static by.tms.product.ProductList.addProductsListFromDB;
+import static by.tms.product.ProductList.getProductListByType;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

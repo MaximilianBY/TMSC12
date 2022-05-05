@@ -1,4 +1,4 @@
-package by.tms.model.categories_devices;
+package by.tms.model.categories;
 
 import java.util.Objects;
 

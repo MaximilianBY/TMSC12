@@ -1,4 +1,4 @@
-package by.tms.DB_listener;
+package by.tms.db_listener_connector;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

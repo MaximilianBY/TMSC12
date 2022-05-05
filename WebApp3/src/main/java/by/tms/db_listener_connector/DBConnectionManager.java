@@ -1,4 +1,4 @@
-package by.tms.DB_listener;
+package by.tms.db_listener_connector;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

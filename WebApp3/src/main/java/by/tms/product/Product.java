@@ -1,4 +1,4 @@
-package by.tms.model.product;
+package by.tms.product;
 
 import java.util.Objects;
 
@@ -15,8 +15,9 @@ public class Product {
   private String imageName;
   private int quantity;
 
-  public Product(int purchase_id, String brand, String model, String type,
+  public Product(int id, int purchase_id, String brand, String model, String type,
       String description, int price, String imageName) {
+    this.id = id;
     this.purchase_id = purchase_id;
     this.brand = brand;
     this.model = model;

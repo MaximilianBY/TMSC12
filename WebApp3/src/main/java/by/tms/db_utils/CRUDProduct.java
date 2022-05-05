@@ -2,16 +2,14 @@ package by.tms.db_utils;
 
 import static by.tms.db_utils.CRUDUser.getConnection;
 
-import by.tms.model.product.Product;
+import by.tms.product.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import lombok.experimental.UtilityClass;
 
-@UtilityClass
 public final class CRUDProduct {
 
   private static final String GET_ALL_PRODUCT =
@@ -19,6 +17,11 @@ public final class CRUDProduct {
   private static final String UPDATE_QUANTITY_PRODUCT = "UPDATE online_shop_product.product_db SET quantity = quantity - 1 WHERE description = ?";
 
   private static Connection connection = getConnection();
+
+  private CRUDProduct() {
+    throw new java.lang.UnsupportedOperationException(
+        "This is a utility class and cannot be instantiated");
+  }
 
   public static List<Product> getProductsFromDB() {
     List<Product> products = new ArrayList<>();

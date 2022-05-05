@@ -1,4 +1,4 @@
-<%@ page import="by.tms.model.product.Product" %>
+<%@ page import="by.tms.product.Product" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -39,7 +39,7 @@
     </nav>
 
     <div id="list-product" class="container-fluid mt-3">
-        <form method="post" action="basket" accept-charset="UTF-8">
+        <form method="post" action="cart" accept-charset="UTF-8">
             <div class="container">
                 <h1>List phones</h1>
                 <table class="table">
@@ -66,6 +66,13 @@
                                 <td style="font-style: italic">
                                     <strong>${product.getPrice()}$</strong>
                                 </td>
+                                <td>
+                                <td>
+                                    <button type="submit" class="btn btn-primary" name="del-product"
+                                            value="${product.getId()}">Delete
+                                    </button>
+                                </td>
+                                </td>
                             </tr>
                         </c:forEach>
                     </c:if>
@@ -77,10 +84,10 @@
                         </tr>
                     </c:if>
                     <tr>
-                        <td><input type="submit" class="btn btn-primary" name="basket-btn"
+                        <td><input type="submit" class="btn btn-primary" name="cart-btn"
                                    value="Reset"></td>
                         <td></td>
-                        <td><input type="submit" class="btn btn-primary" name="basket-btn"
+                        <td><input type="submit" class="btn btn-primary" name="cart-btn"
                                    value="Order"></td>
                     </tr>
                 </table>

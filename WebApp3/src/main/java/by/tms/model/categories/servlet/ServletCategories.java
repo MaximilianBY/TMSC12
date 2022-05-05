@@ -1,8 +1,8 @@
-package by.tms.model.categories_devices.servlet;
+package by.tms.model.categories.servlet;
 
 import static by.tms.db_utils.CRUDProduct.getProductsFromDB;
 
-import by.tms.model.categories_devices.Category;
+import by.tms.model.categories.Category;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

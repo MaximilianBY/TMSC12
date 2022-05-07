@@ -67,11 +67,9 @@
                                     <strong>${product.getPrice()}$</strong>
                                 </td>
                                 <td>
-                                <td>
                                     <button type="submit" class="btn btn-primary" name="del-product"
                                             value="${product.getId()}">Delete
                                     </button>
-                                </td>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -85,10 +83,14 @@
                     </c:if>
                     <tr>
                         <td><input type="submit" class="btn btn-primary" name="cart-btn"
-                                   value="Reset"></td>
-                        <td></td>
+                                   value="Reset">
+                        </td>
+                        <td>
+
+                        </td>
                         <td><input type="submit" class="btn btn-primary" name="cart-btn"
-                                   value="Order"></td>
+                                   value="Order">
+                        </td>
                     </tr>
                 </table>
             </div>

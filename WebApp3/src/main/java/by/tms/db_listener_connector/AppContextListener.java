@@ -1,4 +1,4 @@
-package by.tms.DB_listener;
+package by.tms.db_listener_connector;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -19,6 +19,7 @@ public class AppContextListener implements ServletContextListener {
     DBConnectionManager dbManager = new DBConnectionManager(url, login, password);
     ctx.setAttribute("DBManager", dbManager);
     System.out.println("Database connection initialized for application.");
+
   }
 
   @Override

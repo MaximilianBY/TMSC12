@@ -1,6 +1,8 @@
-package by.tms.servlets;
+package by.tms.model.categories.servlet;
 
-import by.tms.model.Category;
+import static by.tms.db_utils.CRUDProduct.getProductsFromDB;
+
+import by.tms.model.categories.Category;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +11,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-@WebServlet("/devices")
+@WebServlet("/categories")
 public class ServletCategories extends HttpServlet {
+
 
   @Override
   protected void doGet(
@@ -27,15 +31,16 @@ public class ServletCategories extends HttpServlet {
 
   private void checkReceivedUser(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    HttpSession session = req.getSession();
 
     List<Category> categories = new ArrayList<>();
 
-    Category mobilePhones = new Category("Mobile phones", "mobile.jpg", "mobPhones");
-    Category laptops = new Category("Laptops", "laptop.jpg", "laptops.html");
-    Category jpsNavigators = new Category("GPS Navigators", "jps_nav.jpg", "gpsNavigators.html");
-    Category fridges = new Category("Fridges", "fridge.jpg", "fridges.html");
-    Category car = new Category("Cars", "car.jpg", "cars.html");
-    Category camera = new Category("Cameras", "camera.jpg", "cameras.html");
+    Category mobilePhones = new Category("Mobile phones", "mobile.jpg", "Smartphone");
+    Category laptops = new Category("Laptops", "laptop.jpg", "Laptop");
+    Category jpsNavigators = new Category("GPS Navigators", "jps_nav.jpg", "GPS Navigator");
+    Category fridges = new Category("Fridges", "fridge.jpg", "Fridge");
+    Category car = new Category("Cars", "car.jpg", "Cars.html");
+    Category camera = new Category("Cameras", "camera.jpg", "Camera");
 
     categories.add(mobilePhones);
     categories.add(laptops);
@@ -44,8 +49,9 @@ public class ServletCategories extends HttpServlet {
     categories.add(car);
     categories.add(camera);
 
-    req.setAttribute("categories", categories);
+    session.setAttribute("categories", categories);
+    getProductsFromDB();
 
-    req.getServletContext().getRequestDispatcher("/devices.jsp").forward(req, resp);
+    session.getServletContext().getRequestDispatcher("/categories.jsp").forward(req, resp);
   }
 }

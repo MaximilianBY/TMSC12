@@ -8,7 +8,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public final class CRUDUser {
 
@@ -17,8 +19,8 @@ public final class CRUDUser {
   private static final String GET_USERS = "SELECT * FROM online_shop_users.users_data";
   private static final String ADD_NEW_USER = "INSERT INTO online_shop_users.users_data(user_name, password, email, phone_number) value (?, ?, ?, ?)";
   private static final String ADD_NEW_USER_BASKET =
-      "INSERT INTO online_shop_users.users_purchases(user_id, purchase_id, brand, model, type, description, price, image_name, status_order) "
-          + "value (?, null, null, null, null, null, null, null, null)";
+      "INSERT INTO online_shop_users.users_purchases(user_id, order_id, brand, model, type, description, price, quantity, image_name, status_order) "
+          + "value (?, null, null, null, null, null, null, null, null, null)";
 
   private CRUDUser() {
     throw new java.lang.UnsupportedOperationException(
@@ -32,13 +34,13 @@ public final class CRUDUser {
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
-        List<Product> userProductList = new ArrayList<>();
+        Map<Integer, Product> userProductMap = new HashMap<>();
         String name = rs.getString("user_name");
         System.out.println(name);
         String password = rs.getString("password");
         String email = rs.getString("email");
         String phone_number = rs.getString("phone_number");
-        userList.add(new User(name, password, email, phone_number, userProductList));
+        userList.add(new User(name, password, email, phone_number, userProductMap));
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());

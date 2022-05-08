@@ -1,6 +1,3 @@
-<%@ page import="by.tms.model.product.Product" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <html>
@@ -41,19 +38,21 @@
     <div id="list-product" class="container-fluid mt-3">
         <form method="post" action="cart" accept-charset="UTF-8">
             <div class="container">
-                <h1>List phones</h1>
+                <h1>Cart</h1>
                 <table class="table">
                     <tr>
                         <th><h3>Foto</h3></th>
                         <th><h3>Brand</h3></th>
                         <th><h3>Model</h3></th>
                         <th><h3>Price</h3></th>
+                        <th><h3>Quantity</h3></th>
                         <th><h3></h3></th>
                     </tr>
                     <c:if test="${not empty products}">
                         <c:forEach items="${products}" var="product">
                             <tr>
-                                <td><img class="card-img" style="width:150px;height:120px"
+                                <td>
+                                    <img class="card-img" style="width:150px;height:120px"
                                          src="${contextPath}/images/products/${product.getImageName()}"
                                          alt="Card image">
                                 </td>
@@ -65,6 +64,9 @@
                                 </td>
                                 <td style="font-style: italic">
                                     <strong>${product.getPrice()}$</strong>
+                                </td>
+                                <td>
+                                    <strong>${product.getQuantity()}</strong>
                                 </td>
                                 <td>
                                     <button type="submit" class="btn btn-primary" name="del-product"
@@ -82,14 +84,25 @@
                         </tr>
                     </c:if>
                     <tr>
-                        <td><input type="submit" class="btn btn-primary" name="cart-btn"
+                        <td>
+                            <input type="submit" class="btn btn-primary" name="cart-btn"
                                    value="Reset">
                         </td>
                         <td>
 
                         </td>
-                        <td><input type="submit" class="btn btn-primary" name="cart-btn"
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+                            <input type="submit" class="btn btn-primary" name="cart-btn"
                                    value="Order">
+                        </td>
+                        <td>
+                            <h3><strong>Total price: ${totalprice}$</strong></h3>
                         </td>
                     </tr>
                 </table>

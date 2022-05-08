@@ -27,16 +27,7 @@ public class ServletSignIn extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    String chooseAction = req.getParameter("login-btn");
-    switch (chooseAction) {
-      case "Login":
-        checkInputUser(req, resp);
-        break;
-      case "Registration":
-        HttpSession session = req.getSession();
-        session.getServletContext().getRequestDispatcher("/registration.html").forward(req, resp);
-        break;
-    }
+    checkInputUser(req, resp);
   }
 
   private void checkInputUser(HttpServletRequest req, HttpServletResponse resp)

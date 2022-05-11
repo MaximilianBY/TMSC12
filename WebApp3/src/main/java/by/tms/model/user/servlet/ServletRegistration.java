@@ -2,7 +2,6 @@ package by.tms.model.user.servlet;
 
 import static by.tms.model.user.AccountData.addUserToList;
 import static by.tms.model.user.AccountData.isExistUser;
-import static by.tms.model.user.servlet.ServletSignIn.preLoadSignInPage;
 
 import by.tms.model.user.User;
 import java.io.IOException;
@@ -26,15 +25,7 @@ public class ServletRegistration extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    String chooseAction = req.getParameter("Registration-btn");
-    switch (chooseAction) {
-      case "Login":
-        preLoadSignInPage(req, resp);
-        break;
-      case "Registration":
-        getNewUserData(req, resp);
-        break;
-    }
+    getNewUserData(req, resp);
   }
 
   private void getNewUserData(HttpServletRequest req, HttpServletResponse resp)

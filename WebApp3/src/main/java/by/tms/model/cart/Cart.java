@@ -11,6 +11,7 @@ import static by.tms.model.user.AccountData.findUser;
 import by.tms.model.product.Product;
 import by.tms.model.user.User;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class Cart {
@@ -23,7 +24,7 @@ public class Cart {
     }
   }
 
-  public static List<Product> getProductListFromUserCart(String userName) {
+  public static Map<Integer, Product> getProductListFromUserCart(String userName) {
     User user = findUser(userName);
     if (Optional.ofNullable(user).isPresent()) {
       return getUserCart(user);
@@ -31,11 +32,11 @@ public class Cart {
     return null;
   }
 
-  public static void confirmOrder(String userName, List<Product> userBasket) {
+  public static void confirmOrder(String userName, List<Product> userCart) {
     int orderID = getLastOrderID() + 1;
     User user = findUser(userName);
-    if (Optional.ofNullable(user).isPresent() && Optional.ofNullable(userBasket).isPresent()) {
-      for (Product product : userBasket) {
+    if (Optional.ofNullable(user).isPresent() && Optional.ofNullable(userCart).isPresent()) {
+      for (Product product : userCart) {
         updateQuantityProducts(product);
         updateOrder(user, product, orderID);
       }

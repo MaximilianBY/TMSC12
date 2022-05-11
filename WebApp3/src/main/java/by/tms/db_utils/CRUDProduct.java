@@ -14,7 +14,7 @@ public final class CRUDProduct {
 
   private static final String GET_ALL_PRODUCT =
       "SELECT * FROM online_shop_product.product_db JOIN online_shop_product.product_image_db scd on product_db.id = scd.id ";
-  private static final String UPDATE_QUANTITY_PRODUCT = "UPDATE online_shop_product.product_db SET quantity = quantity - 1 WHERE description = ?";
+  private static final String UPDATE_QUANTITY_PRODUCT = "UPDATE online_shop_product.product_db SET quantity = quantity - ? WHERE model = ? AND description = ?";
 
   private static Connection connection = getConnection();
 
@@ -53,7 +53,9 @@ public final class CRUDProduct {
     try {
       PreparedStatement updateProduct = connection.prepareStatement(UPDATE_QUANTITY_PRODUCT);
 
-      updateProduct.setString(1, product.getDescription());
+      updateProduct.setInt(1, product.getQuantity());
+      updateProduct.setString(2, product.getModel());
+      updateProduct.setString(3, product.getDescription());
 
       updateProduct.executeUpdate();
 

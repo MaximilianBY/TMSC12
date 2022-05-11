@@ -1,8 +1,7 @@
 package by.tms.model.user;
 
 import by.tms.model.product.Product;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class User {
@@ -12,7 +11,7 @@ public class User {
   private String email;
   private String phoneNumber;
 
-  private List<Product> productListFromBasket = new ArrayList<>();
+  private Map<Integer, Product> productMap;
 
   public User(String name, String password) {
     this.name = name;
@@ -27,24 +26,24 @@ public class User {
   }
 
   public User(String name, String password, String email, String phoneNumber,
-      List<Product> productListFromBasket) {
+      Map<Integer, Product> productMap) {
     this.name = name;
     this.password = password;
     this.email = email;
     this.phoneNumber = phoneNumber;
-    this.productListFromBasket = productListFromBasket;
+    this.productMap = productMap;
   }
 
-  public List<Product> getProductListFromBasket() {
-    return productListFromBasket;
+  public Map<Integer, Product> getProductsFromCart() {
+    return productMap;
   }
 
-  public void addProductToBasketList(Product product) {
-    productListFromBasket.add(product);
+  public void addProductToCart(int idPRoduct, Product product) {
+    productMap.put(idPRoduct, product);
   }
 
-  public void clearBasketList() {
-    productListFromBasket.clear();
+  public void clearCart() {
+    productMap.clear();
   }
 
   public String getName() {
@@ -86,12 +85,12 @@ public class User {
     User user = (User) o;
     return getName().equals(user.getName()) && getPassword().equals(user.getPassword())
         && getEmail().equals(user.getEmail()) && getPhoneNumber().equals(user.getPhoneNumber())
-        && getProductListFromBasket().equals(user.getProductListFromBasket());
+        && getProductsFromCart().equals(user.getProductsFromCart());
   }
 
   @Override
   public int hashCode() {
     return Objects.hash(getName(), getPassword(), getEmail(), getPhoneNumber(),
-        getProductListFromBasket());
+        getProductsFromCart());
   }
 }

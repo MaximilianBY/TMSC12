@@ -21,21 +21,25 @@ CREATE TABLE IF NOT EXISTS online_shop_users.users_purchases
 (
     id           INT         NOT NULL AUTO_INCREMENT UNIQUE,
     user_id      VARCHAR(50) NOT NULL,
-    purchase_id  INT,
+    order_id     INT,
     brand        VARCHAR(100),
     model        VARCHAR(100),
     type         VARCHAR(50),
     description  VARCHAR(1000),
     price        INT,
+    quantity     INT,
     image_name   VARCHAR(50),
     status_order BIT,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES online_shop_users.users_data (user_name) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO online_shop_users.users_purchases(user_id, purchase_id, brand, model, type, description,
-                                              price, image_name,
-                                              status_order) value ('Maximus', null, null, null, null, null, null, null, null);
-INSERT INTO online_shop_users.users_purchases(user_id, purchase_id, brand, model, type, description,
-                                              price, image_name,
-                                              status_order) value ('Max', null, null, null, null, null, null, null, null);
+INSERT INTO online_shop_users.users_purchases(user_id, order_id, brand, model, type, description,
+                                              price, quantity, image_name,
+                                              status_order) value ('Maximus', null, null, null,
+                                                                   null, null, null, null, null,
+                                                                   null);
+INSERT INTO online_shop_users.users_purchases(user_id, order_id, brand, model, type, description,
+                                              price, quantity, image_name,
+                                              status_order) value ('Max', null, null, null, null,
+                                                                   null, null, null, null, null);

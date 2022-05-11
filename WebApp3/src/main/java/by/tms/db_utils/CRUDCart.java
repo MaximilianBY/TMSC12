@@ -10,7 +10,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class CRUDCart {
@@ -18,23 +20,23 @@ public class CRUDCart {
   private static Connection connection = getConnection();
 
   private static final String ADD_PRODUCT_TO_CART =
-      "INSERT INTO online_shop_users.users_purchases(user_id, purchase_id, brand, model, type, description, price, image_name, status_order)"
-          + "value (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO online_shop_users.users_purchases(user_id, order_id, brand, model, type, description, price, quantity, image_name, status_order)"
+          + "value (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
   private static final String GET_USER_CART = "SELECT * FROM online_shop_users.users_purchases WHERE status_order = 0";
 
   private static final String DELETE_ALL_PRODUCTS_FROM_CART =
-      "DELETE FROM online_shop_users.users_purchases WHERE user_id=? AND purchase_id = 0 "
+      "DELETE FROM online_shop_users.users_purchases WHERE user_id = ? AND order_id = 0 "
           + "AND status_order = 0";
   private static final String DELETE_SOME_PRODUCT_FROM_CART =
-      "DELETE FROM online_shop_users.users_purchases WHERE user_id = ? AND id = ? AND purchase_id = 0 "
+      "DELETE FROM online_shop_users.users_purchases WHERE user_id = ? AND id = ? AND order_id = 0 "
           + "AND status_order = 0";
 
-  private static final String GET_LAST_ORDER_ID = "SELECT * FROM online_shop_users.users_purchases WHERE purchase_id is not null";
+  private static final String GET_LAST_ORDER_ID = "SELECT * FROM online_shop_users.users_purchases WHERE order_id is not null";
 
   private static final String UPDATE_USER_ORDER =
-      "UPDATE online_shop_users.users_purchases SET status_order = 1, purchase_id = ? "
-          + "WHERE user_id =? AND description = ?";
+      "UPDATE online_shop_users.users_purchases SET status_order = 1, order_id = ? "
+          + "WHERE user_id = ? AND id = ? AND model = ? AND description = ?";
 
   private CRUDCart() {
     throw new java.lang.UnsupportedOperationException(
@@ -53,8 +55,9 @@ public class CRUDCart {
       addProduct.setString(5, product.getType());
       addProduct.setString(6, product.getDescription());
       addProduct.setInt(7, product.getPrice());
-      addProduct.setString(8, product.getImageName());
-      addProduct.setInt(9, statusOrder);
+      addProduct.setInt(8, 1);
+      addProduct.setString(9, product.getImageName());
+      addProduct.setInt(10, statusOrder);
 
       addProduct.executeUpdate();
 
@@ -63,8 +66,8 @@ public class CRUDCart {
     }
   }
 
-  public static List<Product> getUserCart(User user) {
-    List<Product> userBasket = new ArrayList<>();
+  public static Map<Integer, Product> getUserCart(User user) {
+    Map<Integer, Product> userCart = new HashMap<>();
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_CART);
       ResultSet rs = preparedStatement.executeQuery();
@@ -72,21 +75,23 @@ public class CRUDCart {
       while (rs.next()) {
         if (rs.getString("user_id").equals(user.getName())) {
           int id = rs.getInt("id");
-          int purchase_id = rs.getInt("purchase_id");
+          int order_id = rs.getInt("order_id");
           String brand = rs.getString("brand");
           String model = rs.getString("model");
           String type = rs.getString("type");
           String description = rs.getString("description");
           int price = rs.getInt("price");
+          int quantity = rs.getInt("quantity");
           String imageName = rs.getString("image_name");
-          userBasket.add(
-              new Product(id, purchase_id, brand, model, type, description, price, imageName));
+          Product product = new Product(id, order_id, brand, model, type, description, price,
+              quantity, imageName);
+          userCart.put(id, product);
         }
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
-    return userBasket;
+    return userCart;
   }
 
   public static void delAllUnnecessaryProducts(User user, int id) {
@@ -116,7 +121,7 @@ public class CRUDCart {
       ResultSet rs = getOrderID.executeQuery();
 
       while (rs.next()) {
-        allOrderID.add(rs.getInt("purchase_id"));
+        allOrderID.add(rs.getInt("order_id"));
       }
 
     } catch (SQLException e) {
@@ -132,7 +137,9 @@ public class CRUDCart {
 
       updateProduct.setInt(1, order_id);
       updateProduct.setString(2, user.getName());
-      updateProduct.setString(3, product.getDescription());
+      updateProduct.setInt(3, product.getId());
+      updateProduct.setString(4, product.getModel());
+      updateProduct.setString(5, product.getDescription());
 
       updateProduct.executeUpdate();
 

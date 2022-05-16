@@ -1,6 +1,7 @@
 # Compiled class file
 *.class
 *.txt
+*.ini
 .idea
 target
 

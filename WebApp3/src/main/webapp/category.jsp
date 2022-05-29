@@ -1,30 +1,23 @@
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>My Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-      .fakeimg {
-        width: 100px;
-        height: 200px;
-        background: #aaa;
-      }
-    </style>
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
-<div class="jumbotron text-center" style="margin-bottom:0">
-    <h1>Welcome to my personal web page</h1>
-</div>
-
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="${contextPath}/eshop?command=user-account">My account</a>
@@ -34,9 +27,6 @@
         </button>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/eshop?command=category-redirect">Category</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link"
                        href="${contextPath}/eshop?command=redirect-to-shopping-cart">Cart</a>
@@ -48,24 +38,27 @@
         </div>
     </div>
 </nav>
+<div>
+    <h2>Popular categories</h2>
 
-<div class="container" style="margin-top:30px">
-    <div class="row">
-        <div class="col-sm-4">
-            <h5>Photo of me:</h5>
-            <div class="fakeimg"><img src="images/users/Me.jpg"></div>
-            <p>This photo was made on Sicily</p>
-        </div>
-        <div class="col-sm-8">
-            <h2>Information about me</h2>
-            <p><h5>Today: <fmt:formatDate type="date" dateStyle="long"
-                                          value="${actualDate}"/></h5></p>
-            <p>My name is: ${fullName}</p>
-            <p>I'm: ${age} years old</p>
-            <p>My nationality is ${nationality}</p>
-            <p>${aboutMe}</p>
-            <br>
-        </div>
+    <div class="container-fluid">
+        <form method="post">
+            <c:if test="${not empty category}">
+                <div class="row">
+                    <c:forEach items="${category}" var="category">
+                        <div class="card w-25 m-1" type="category">
+                            <div class="card-body">
+                                <a href="${contextPath}/eshop?command=devices-redirect&category_id=${category.getId()}">${category.getName()}
+                                    <img class="card-img" style="width:150px;height:120px"
+                                         src="${contextPath}/images/category-img/${category.getImageName()}"
+                                         alt="Card image">
+                                </a>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+            </c:if>
+        </form>
     </div>
 </div>
 </body>

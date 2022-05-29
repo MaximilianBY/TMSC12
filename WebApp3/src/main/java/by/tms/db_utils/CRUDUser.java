@@ -1,46 +1,45 @@
 package by.tms.db_utils;
 
-import by.tms.db_listener_connector.DBConnectionManager;
-import by.tms.model.product.Product;
-import by.tms.model.user.User;
+import by.tms.model.Cart;
+import by.tms.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public final class CRUDUser {
 
   private static Connection connection;
 
-  private static final String GET_USERS = "SELECT * FROM online_shop_users.users_data";
-  private static final String ADD_NEW_USER = "INSERT INTO online_shop_users.users_data(user_name, password, email, phone_number) value (?, ?, ?, ?)";
-  private static final String ADD_NEW_USER_BASKET =
-      "INSERT INTO online_shop_users.users_purchases(user_id, order_id, brand, model, type, description, price, quantity, image_name, status_order) "
-          + "value (?, null, null, null, null, null, null, null, null, null)";
+  private static final String GET_USERS = "SELECT * FROM eshop.user";
+  private static final String ADD_NEW_USER = "INSERT INTO eshop.user(login, user_name, surname, birthday, email, phoneNumber, password) value (?, ?, ?, ?, ?, ?, ?)";
 
   private CRUDUser() {
     throw new java.lang.UnsupportedOperationException(
         "This is a utility class and cannot be instantiated");
   }
 
-  public static List<User> getUsersFromDB() {
-    List<User> userList = new ArrayList<>();
+  public static Map<Integer, User> getUsersFromDB() {
+    Map<Integer, User> userList = new HashMap<>();
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(GET_USERS);
       ResultSet rs = preparedStatement.executeQuery();
 
       while (rs.next()) {
-        Map<Integer, Product> userProductMap = new HashMap<>();
+        int userID = rs.getInt("id");
+        String login = rs.getString("login");
+        System.out.printf(login);
         String name = rs.getString("user_name");
-        System.out.println(name);
-        String password = rs.getString("password");
+        String surname = rs.getString("surname");
+        String birthday = rs.getString("birthday");
         String email = rs.getString("email");
-        String phone_number = rs.getString("phone_number");
-        userList.add(new User(name, password, email, phone_number, userProductMap));
+        String phone_number = rs.getString("phoneNumber");
+        String password = rs.getString("password");
+        userList.put(userID,
+            new User(userID, login, name, surname, birthday, email, phone_number, password,
+                new Cart()));
       }
     } catch (SQLException e) {
       System.out.println(e.getMessage());
@@ -48,31 +47,34 @@ public final class CRUDUser {
     return userList;
   }
 
-  public static void addNewUser(User user) {
+  public static Map<Integer, User> addNewUser(User user) {
+    Map<Integer, User> userList = new HashMap<>();
     try {
       PreparedStatement newUser = connection.prepareStatement(ADD_NEW_USER);
-      PreparedStatement newUserBasket = connection.prepareStatement(ADD_NEW_USER_BASKET);
 
-      newUser.setString(1, user.getName());
-      newUser.setString(2, user.getPassword());
-      newUser.setString(3, user.getEmail());
-      newUser.setString(4, user.getPhoneNumber());
-
-      newUserBasket.setString(1, user.getName());
+      newUser.setString(1, user.getLogin());
+      newUser.setString(2, user.getName());
+      newUser.setString(3, user.getSurname());
+      newUser.setString(4, user.getBirthday());
+      newUser.setString(5, user.getEmail());
+      newUser.setString(6, user.getPhoneNumber());
+      newUser.setString(7, user.getPassword());
 
       newUser.executeUpdate();
-      newUserBasket.executeUpdate();
+
+      userList = getUsersFromDB();
 
     } catch (SQLException e) {
       System.out.println(e.getMessage());
     }
+    return userList;
   }
 
   public static Connection getConnection() {
     return connection;
   }
 
-  public static void setConnection(DBConnectionManager dbManager) {
-    connection = dbManager.getConnection();
+  public static void setConnection(Connection connection1) {
+    connection = connection1;
   }
 }

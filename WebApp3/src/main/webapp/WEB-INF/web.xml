@@ -5,16 +5,4 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 
-  <context-param>
-    <param-name>DBUSER</param-name>
-    <param-value>root</param-value>
-  </context-param>
-  <context-param>
-    <param-name>DBPWD</param-name>
-    <param-value>1234</param-value>
-  </context-param>
-  <context-param>
-    <param-name>DBURL</param-name>
-    <param-value>jdbc:mysql://localhost:3306/</param-value>
-  </context-param>
 </web-app>

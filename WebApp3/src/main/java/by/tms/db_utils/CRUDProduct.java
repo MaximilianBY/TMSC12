@@ -2,19 +2,19 @@ package by.tms.db_utils;
 
 import static by.tms.db_utils.CRUDUser.getConnection;
 
-import by.tms.model.product.Product;
+import by.tms.model.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class CRUDProduct {
 
   private static final String GET_ALL_PRODUCT =
-      "SELECT * FROM online_shop_product.product_db JOIN online_shop_product.product_image_db scd on product_db.id = scd.id ";
-  private static final String UPDATE_QUANTITY_PRODUCT = "UPDATE online_shop_product.product_db SET quantity = quantity - ? WHERE model = ? AND description = ?";
+      "SELECT * FROM eshop.product JOIN eshop.images scd_img ON product.id = scd_img.product_id";
+  private static final String UPDATE_QUANTITY_PRODUCT = "UPDATE eshop.product SET quantity = quantity - ? WHERE id = ?";
 
   private static Connection connection = getConnection();
 
@@ -23,8 +23,8 @@ public final class CRUDProduct {
         "This is a utility class and cannot be instantiated");
   }
 
-  public static List<Product> getProductsFromDB() {
-    List<Product> products = new ArrayList<>();
+  public static Map<Integer, Product> getProductsFromDB() {
+    Map<Integer, Product> products = new HashMap<>();
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_PRODUCT);
       ResultSet rs = preparedStatement.executeQuery();
@@ -33,14 +33,14 @@ public final class CRUDProduct {
         int id = rs.getInt("id");
         String brand = rs.getString("brand");
         String model = rs.getString("model");
-        String type = rs.getString("type");
         String description = rs.getString("description");
         int price = rs.getInt("price");
-        String imageName = rs.getString("name_image");
+        String imageName = rs.getString("image_path");
         int quantity = rs.getInt("quantity");
+        int category = rs.getInt("category_id");
         if (quantity > 0) {
-          products.add(
-              new Product(id, brand, model, type, description, price, imageName, quantity));
+          products.put(id,
+              new Product(id, brand, model, description, price, imageName, quantity, category));
         }
       }
     } catch (SQLException e) {
@@ -54,8 +54,7 @@ public final class CRUDProduct {
       PreparedStatement updateProduct = connection.prepareStatement(UPDATE_QUANTITY_PRODUCT);
 
       updateProduct.setInt(1, product.getQuantity());
-      updateProduct.setString(2, product.getModel());
-      updateProduct.setString(3, product.getDescription());
+      updateProduct.setInt(2, product.getId());
 
       updateProduct.executeUpdate();
 

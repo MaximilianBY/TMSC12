@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Devices</title>
+    <title>My Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -15,10 +15,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="myPage">My account</a>
+            <a class="navbar-brand" href="${contextPath}/eshop?command=user-account">My account</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#mynavbar">
                 <span class="navbar-toggler-icon"></span>
@@ -26,13 +27,15 @@
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="categories">Category</a>
+                        <a class="nav-link"
+                           href="${contextPath}/eshop?command=category-redirect">Category</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cart">Cart</a>
+                        <a class="nav-link"
+                           href="${contextPath}/eshop?command=redirect-to-shopping-cart">Cart</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="signin">Logout</a>
+                        <a class="nav-link" href="${contextPath}/eshop?command=sign-in">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -40,60 +43,59 @@
     </nav>
 
     <div id="list-product" class="container-fluid mt-3">
-        <form method="post" action="devices" accept-charset="UTF-8">
-            <div class="container">
-                <h1>List devices</h1>
-                <table class="table">
-                    <tr>
-                        <th><h3>Foto</h3></th>
-                        <th><h3>Brand</h3></th>
-                        <th><h3>Model</h3></th>
-                        <th><h3>Price</h3></th>
-                        <th><h3>Available</h3></th>
-                        <th><h3></h3></th>
-                    </tr>
-                    <c:if test="${not empty products}">
-                        <c:forEach items="${products}" var="product">
-                            <tr>
-                                <td><a href="${contextPath}/product?id=${product.getId()}"><img
+        <div class="container">
+            <h1>List devices</h1>
+            <table class="table">
+                <tr>
+                    <th><h3>Photo</h3></th>
+                    <th><h3>Brand</h3></th>
+                    <th><h3>Model</h3></th>
+                    <th><h3>Price</h3></th>
+                    <th><h3>Available</h3></th>
+                    <th><h3></h3></th>
+                </tr>
+                <c:if test="${not empty devices}">
+                    <c:forEach items="${devices}" var="product">
+                        <tr>
+                            <td>
+                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${product.getId()}"><img
                                         class="card-img" style="width:150px;height:120px"
                                         src="${contextPath}/images/products/${product.getImageName()}"
                                         alt="Card image">
                                 </a>
-                                </td>
-                                <td style="font-style: italic"><a
-                                        href="${contextPath}/product?id=${product.getId()}">
+                            </td>
+                            <td style="font-style: italic">
+                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${product.getId()}">
                                     <strong>${product.getBrand()}</strong>
                                 </a>
-                                </td>
-                                <td style="font-style: italic"><a
-                                        href="${contextPath}/product?id=${product.getId()}">
+                            </td>
+                            <td style="font-style: italic">
+                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${product.getId()}">
                                     <strong>${product.getModel()}</strong>
                                 </a>
-                                </td>
-                                <td style="font-style: italic"><a
-                                        href="${contextPath}/product?id=${product.getId()}">
+                            </td>
+                            <td style="font-style: italic">
+                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${product.getId()}">
                                     <strong>${product.getPrice()}$</strong>
                                 </a>
-                                </td>
-                                <td style="font-style: italic"><a
-                                        href="${contextPath}/product?id=${product.getId()}">
+                            </td>
+                            <td style="font-style: italic">
+                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${product.getId()}">
                                     <strong>${product.getQuantity()}</strong>
                                 </a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </c:if>
-                    <c:if test="${empty products}">
-                        <tr>
-                            <td>
-                                <p>Список пуст</p>
                             </td>
                         </tr>
+                    </c:forEach>
                     </c:if>
-                </table>
-            </div>
-        </form>
+                <c:if test="${empty devices}">
+                    <tr>
+                        <td>
+                            <p>Список пуст</p>
+                        </td>
+                    </tr>
+                </c:if>
+            </table>
+        </div>
     </div>
 </div>
 </body>

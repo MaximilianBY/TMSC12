@@ -1,5 +1,8 @@
 package by.tms;
 
+import java.util.Objects;
+import java.util.Optional;
+
 public class PassengerCar extends Car {
 
   private String bodyType;
@@ -14,28 +17,25 @@ public class PassengerCar extends Car {
     this.color = color;
   }
 
-  public String getBodyType() {
-    return bodyType;
+  public PassengerCar(PassengerCar pc) {
+    super(pc);
+    if (Optional.ofNullable(pc).isPresent()) {
+      this.bodyType = pc.getBodyType();
+      this.quantityDoors = pc.getQuantityDoors();
+      this.color = pc.getColor();
+    }
   }
 
-  public void setBodyType(String bodyType) {
-    this.bodyType = bodyType;
+  public String getBodyType() {
+    return bodyType;
   }
 
   public int getQuantityDoors() {
     return quantityDoors;
   }
 
-  public void setQuantityDoors(int quantityDoors) {
-    this.quantityDoors = quantityDoors;
-  }
-
   public String getColor() {
     return color;
-  }
-
-  public void setColor(String color) {
-    this.color = color;
   }
 
   @Override
@@ -44,5 +44,20 @@ public class PassengerCar extends Car {
         getTypeFuel() + "\n" + getTypeEngine() + "\n" + getEngineCC() + "\n" + getBodyType() + "\n"
         +
         getQuantityDoors() + "\n" + getColor();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (!(o instanceof PassengerCar) || !super.equals(o)) {
+      return false;
+    }
+    PassengerCar car = (PassengerCar) o;
+    return Objects.equals(car.getBodyType(), bodyType) && Objects.equals(car.getColor(), color)
+        && car.getQuantityDoors() == quantityDoors;
+  }
+
+  @Override
+  public Car clone() {
+    return new PassengerCar(this);
   }
 }

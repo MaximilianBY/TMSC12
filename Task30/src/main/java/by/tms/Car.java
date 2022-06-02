@@ -1,15 +1,15 @@
 package by.tms;
 
-public abstract class Car implements Cloneable {
+import java.util.Objects;
+import java.util.Optional;
+
+public abstract class Car {
 
   private String brand;
   private String model;
   private String typeFuel;
   private String typeEngine;
   private int engineCC;
-
-  public Car() {
-  }
 
   public Car(String brand, String model, String typeFuel, String typeEngine, int engineCC) {
     this.brand = brand;
@@ -19,48 +19,47 @@ public abstract class Car implements Cloneable {
     this.engineCC = engineCC;
   }
 
-  public String getBrand() {
-    return brand;
+  public Car(Car car) {
+    if (Optional.ofNullable(car).isPresent()) {
+      this.brand = car.getBrand();
+      this.model = car.getModel();
+      this.typeFuel = car.getTypeFuel();
+      this.typeEngine = car.getTypeEngine();
+      this.engineCC = car.getEngineCC();
+    }
   }
 
-  public void setBrand(String brand) {
-    this.brand = brand;
+  public String getBrand() {
+    return brand;
   }
 
   public String getModel() {
     return model;
   }
 
-  public void setModel(String model) {
-    this.model = model;
-  }
-
   public String getTypeFuel() {
     return typeFuel;
-  }
-
-  public void setTypeFuel(String typeFuel) {
-    this.typeFuel = typeFuel;
   }
 
   public String getTypeEngine() {
     return typeEngine;
   }
 
-  public void setTypeEngine(String typeEngine) {
-    this.typeEngine = typeEngine;
-  }
-
   public int getEngineCC() {
     return engineCC;
   }
 
-  public void setEngineCC(int engineCC) {
-    this.engineCC = engineCC;
-  }
+  public abstract Car clone();
 
   @Override
-  protected Object clone() throws CloneNotSupportedException {
-    return super.clone();
+  public boolean equals(Object o) {
+    if (!(o instanceof Car)) {
+      return false;
+    }
+    Car car2 = (Car) o;
+    return car2.getEngineCC() == engineCC && Objects.equals(car2.getBrand(), brand)
+        && Objects.equals(
+        car2.getModel(), model) && Objects.equals(car2.getTypeFuel(), typeFuel)
+        && Objects.equals(car2.getTypeEngine(), typeEngine);
   }
 }

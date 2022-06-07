@@ -1,37 +1,55 @@
 DROP SCHEMA IF EXISTS eshop;
 CREATE SCHEMA IF NOT EXISTS eshop;
 
-DROP TABLE IF EXISTS eshop.category, eshop.product, eshop.orders, eshop.order_product, eshop.user, eshop.images;
+DROP TABLE IF EXISTS eshop.user;
 
 CREATE TABLE IF NOT EXISTS eshop.user
 (
-    id          SERIAL UNIQUE,
-    login       VARCHAR(20) NOT NULL UNIQUE,
-    user_name   VARCHAR(20) NOT NULL,
-    surname     VARCHAR(20) NOT NULL,
-    birthday    VARCHAR(10),
-    email       VARCHAR(30) NOT NULL UNIQUE,
-    phoneNumber VARCHAR(13) UNIQUE,
-    password    VARCHAR(20) NOT NULL,
+    id           SERIAL UNIQUE,
+    login        VARCHAR(20) NOT NULL UNIQUE,
+    user_name    VARCHAR(20) NOT NULL,
+    surname      VARCHAR(20) NOT NULL,
+    birthday     VARCHAR(10),
+    email        VARCHAR(30) NOT NULL UNIQUE,
+    phone_number VARCHAR(13) UNIQUE,
+    password     VARCHAR(20) NOT NULL,
     PRIMARY KEY (id)
 );
 
-INSERT INTO eshop.user (login, user_name, surname, birthday, email, phoneNumber,
+INSERT INTO eshop.user (login, user_name, surname, birthday, email, phone_number,
                         password) VALUE ('Max',
                                          'Maximilian',
                                          'Poltorzhickiy',
                                          '1990.01.01',
                                          'max@gmail.com',
-                                         NULL,
+                                         '+375259457864',
                                          '1234');
-INSERT INTO eshop.user (login, user_name, surname, birthday, email, phoneNumber,
+INSERT INTO eshop.user (login, user_name, surname, birthday, email, phone_number,
                         password) VALUE ('Anna',
                                          'Anna',
                                          'Kovrizhnih',
                                          '1992.07.14',
                                          'anna@gmail.com',
-                                         NULL,
-                                         '1234');
+                                         '+375252542354',
+                                         '12345');
+INSERT INTO eshop.user (login, user_name, surname, birthday, email, phone_number,
+                        password) VALUE ('Alia',
+                                         'Alina',
+                                         'Poltorzhickaya',
+                                         '1988.10.15',
+                                         'alina.box@gmail.com',
+                                         '+375293569784',
+                                         '4321');
+INSERT INTO eshop.user (login, user_name, surname, birthday, email, phone_number,
+                        password) VALUE ('Vas',
+                                         'Vasya',
+                                         'Ivanov',
+                                         '1986.02.21',
+                                         'vasya.boss@gmail.com',
+                                         '+375337854312',
+                                         '54321');
+
+DROP TABLE IF EXISTS eshop.category;
 
 CREATE TABLE IF NOT EXISTS eshop.category
 (
@@ -48,6 +66,8 @@ INSERT INTO eshop.category (name) VALUE ('Cars');
 INSERT INTO eshop.category (name) VALUE ('Cameras');
 INSERT INTO eshop.category (name) VALUE ('TV-BOX');
 
+DROP TABLE IF EXISTS eshop.product;
+
 CREATE TABLE IF NOT EXISTS eshop.product
 (
     id          SERIAL UNIQUE,
@@ -58,7 +78,8 @@ CREATE TABLE IF NOT EXISTS eshop.product
     quantity    BIGINT UNSIGNED NOT NULL,
     category_id BIGINT UNSIGNED NOT NULL,
     primary key (id),
-    FOREIGN KEY (category_id) REFERENCES category (id)
+    CONSTRAINT FK_PRODUCT_CATEGORY_ID_CATEGORY_ID
+        FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 INSERT INTO eshop.product (brand, model, description, price, quantity, category_id) VALUE ('Asus',
@@ -98,51 +119,81 @@ INSERT INTO eshop.product (brand, model, description, price, quantity, category_
                                                                                            12,
                                                                                            2);
 
+DROP TABLE IF EXISTS eshop.images;
+
 CREATE TABLE IF NOT EXISTS eshop.images
 (
     category_id BIGINT UNSIGNED,
     product_id  BIGINT UNSIGNED,
     image_path  VARCHAR(100) NOT NULL,
-    FOREIGN KEY (category_id) REFERENCES category (id),
-    FOREIGN KEY (product_id) REFERENCES product (id)
+    CONSTRAINT FK_IMAGES_CATEGORY_ID_CATEGORY_ID
+        FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_IMAGES_PRODUCT_ID_PRODUCT_ID
+        FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (1, NULL,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (1,
+                                                                      NULL,
                                                                       'mobile.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (2, NULL,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (2,
+                                                                      NULL,
                                                                       'laptop.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (3, NULL,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (3,
+                                                                      NULL,
                                                                       'jps_nav.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (4, NULL,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (4,
+                                                                      NULL,
                                                                       'fridge.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (5, NULL,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (5,
+                                                                      NULL,
                                                                       'car.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (6, NULL,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (6,
+                                                                      NULL,
                                                                       'camera.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (7, NULL, 'tv-box.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL, 1, 'asus_n75sf.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL, 2, 'asus_tufgaminga17.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL, 3,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (7,
+                                                                      NULL,
+                                                                      'tv-box.jpg');
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL,
+                                                                      1,
+                                                                      'asus_n75sf.jpg');
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL,
+                                                                      2,
+                                                                      'asus_tufgaminga17.jpg');
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL,
+                                                                      3,
                                                                       'xiaomi_rn8.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL, 4, 'xiaomi_mibox4s.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL, 5,
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL,
+                                                                      4,
+                                                                      'xiaomi_mibox4s.jpg');
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL,
+                                                                      5,
                                                                       'xiaomi_pocof1.jpg');
-INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL, 6, 'honor_mbx15.jpg');
+INSERT INTO eshop.images (category_id, product_id, image_path) VALUE (NULL,
+                                                                      6,
+                                                                      'honor_mbx15.jpg');
+
+DROP TABLE IF EXISTS eshop.orders;
 
 CREATE TABLE IF NOT EXISTS eshop.orders
 (
     id          SERIAL UNIQUE,
-    order_price BIGINT UNSIGNED NOT NULL,
     user_id     BIGINT UNSIGNED NOT NULL,
+    order_date  date            NOT NULL,
+    order_price BIGINT UNSIGNED NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES user (id)
+    CONSTRAINT FK_USER_ID_ORDERS_USER_ID
+        FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+DROP TABLE IF EXISTS eshop.order_product;
 
 CREATE TABLE IF NOT EXISTS eshop.order_product
 (
+    order_id         BIGINT UNSIGNED NOT NULL,
     product_id       BIGINT UNSIGNED NOT NULL,
     product_quantity BIGINT UNSIGNED NOT NULL,
-    order_id         BIGINT UNSIGNED NOT NULL,
-    FOREIGN KEY (product_id) REFERENCES eshop.product (id),
-    FOREIGN KEY (order_id) REFERENCES eshop.orders (id)
+    CONSTRAINT FK_ORDER_PRODUCT_PRODUCT_ID_PRODUCT_ID
+        FOREIGN KEY (product_id) REFERENCES eshop.product (id) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT FK_ORDER_PRODUCT_ORDER_ID_ORDERS_ID
+        FOREIGN KEY (order_id) REFERENCES eshop.orders (id) ON DELETE CASCADE ON UPDATE CASCADE
 );

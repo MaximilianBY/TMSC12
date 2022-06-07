@@ -13,6 +13,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet">
 </head>
 <body>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -36,7 +38,30 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${contextPath}/eshop?command=sign-in">Logout</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop"
+                           data-toggle="dropdown">
+                            Category
+                        </a>
+                        <div class="dropdown-menu">
+                            <c:if test="${not empty category}">
+                                <c:forEach items="${category}" var="category">
+                                    <a class="dropdown-item"
+                                       href="${contextPath}/eshop?command=devices-redirect&category_id=${category.getId()}">${category.getName()}
+                                        <img class="card-img" style="width:150px;height:120px"
+                                             src="${contextPath}/images/category-img/${category.getImageName()}"
+                                             alt="Card image">
+                                    </a>
+                                </c:forEach>
+                            </c:if>
+                        </div>
+                    </li>
                 </ul>
+                <form class="d-flex">
+                    <input type="hidden" name="command" value="search-product">
+                    <input class="form-control me-2" type="text" name="search" placeholder="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -48,7 +73,7 @@
                     <!-- Media top -->
                     <div class="media">
                         <img img class="card-img" style="width:150px;height:120px"
-                             src="${contextPath}/images/products/${product.getImageName()}"
+                             src="${contextPath}/images/products/${product.getImagePath()}"
                              alt="Card image">
                         <div class="media-body">
                             <h4>${product.getBrand()} ${product.getModel()}</h4>
@@ -72,5 +97,6 @@
     window.confirm("Product added to cart!");
   }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -35,6 +35,11 @@
                     <a class="nav-link" href="${contextPath}/eshop?command=sign-in">Logout</a>
                 </li>
             </ul>
+            <form class="d-flex">
+                <input type="hidden" name="command" value="search-product">
+                <input class="form-control me-2" type="text" name="search" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
         </div>
     </div>
 </nav>

@@ -11,6 +11,7 @@ public enum RequestParamsEnum {
   EMAIL("email"),
   PHONE_NUMBER("phone_number"),
   CURRENT_USER("current_user"),
+  CURRENT_USER_CART("user_cart"),
   COMMAND("command"),
   CATEGORY("category"),
   CATEGORY_ID("category_id"),
@@ -18,6 +19,7 @@ public enum RequestParamsEnum {
   PRODUCT_ID("product_id"),
   PRODUCT("product"),
   SHOPPING_CART_PRODUCTS("user_shopping_cart"),
+  ORDER_STORY("order_story"),
   STATUS("status"),
   TOTAL_PRICE("total_price");
 

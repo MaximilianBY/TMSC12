@@ -1,6 +1,7 @@
 package by.tms.servlet;
 
 import by.tms.commands.BaseCommand;
+import by.tms.exceptions.CommandException;
 import by.tms.utils.CommandFactory;
 import by.tms.utils.PagesPathEnum;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class ApplicationServlet extends HttpServlet {
       path = command.execute(req);
       RequestDispatcher requestDispatcher = req.getRequestDispatcher(path);
       requestDispatcher.forward(req, resp);
-    } catch (Exception e) {
+    } catch (CommandException e) {
       log.info("some problem in request params: " + e.getMessage());
       req.getRequestDispatcher(PagesPathEnum.SIGN_IN_PAGE.getPath()).forward(req, resp);
     }

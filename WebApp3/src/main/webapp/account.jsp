@@ -1,5 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
+<html lang="en">
 <html>
 <head>
     <title>My Shop</title>
@@ -30,7 +33,30 @@
                     <li class="nav-item">
                         <a class="nav-link" href="${contextPath}/eshop?command=sign-in">Logout</a>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop"
+                           data-toggle="dropdown">
+                            Category
+                        </a>
+                        <div class="dropdown-menu">
+                            <c:if test="${not empty category}">
+                                <c:forEach items="${category}" var="category">
+                                    <a class="dropdown-item"
+                                       href="${contextPath}/eshop?command=devices-redirect&category_id=${category.getId()}">${category.getName()}
+                                        <img class="card-img" style="width:150px;height:120px"
+                                             src="${contextPath}/images/category-img/${category.getImageName()}"
+                                             alt="Card image">
+                                    </a>
+                                </c:forEach>
+                            </c:if>
+                        </div>
+                    </li>
                 </ul>
+                <form class="d-flex">
+                    <input type="hidden" name="command" value="search-product">
+                    <input class="form-control me-2" type="text" name="search" placeholder="Search">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -67,37 +93,33 @@
         <h1>Redeemed products</h1>
         <table class="table">
             <tr>
-                <th><h3>Photo</h3></th>
-                <th><h3>Brand</h3></th>
-                <th><h3>Model</h3></th>
-                <th><h3>Price</h3></th>
+                <th><h3>Date of order</h3></th>
+                <th><h3>Price of order</h3></th>
+                <th><h3>Code of product in the shop</h3></th>
                 <th><h3>Quantity</h3></th>
                 <th><h3></h3></th>
             </tr>
-            <c:if test="${not empty user_shopping_cart}">
-                <c:forEach items="${user_shopping_cart}" var="product">
+            <c:if test="${not empty order_story}">
+                <c:forEach items="${order_story}" var="order">
                     <tr>
-                        <td>
-                            <img class="card-img" style="width:150px;height:120px"
-                                 src="${contextPath}/images/products/${product.getImageName()}"
-                                 alt="Card image">
+                        <td style="font-style: italic">
+                            <strong>
+                                <fmt:formatDate type="date" value="${order.getOrderDate()}"/>
+                            </strong>
                         </td>
                         <td style="font-style: italic">
-                            <strong>${product.getBrand()}</strong>
+                            <strong>${order.getOrderPrice()}$</strong>
                         </td>
                         <td style="font-style: italic">
-                            <strong>${product.getModel()}</strong>
-                        </td>
-                        <td style="font-style: italic">
-                            <strong>${product.getPrice()}$</strong>
+                            <strong>${order.getProductID()}</strong>
                         </td>
                         <td>
-                            <strong>${product.getQuantity()}</strong>
+                            <strong>${order.getProductQuantity()}</strong>
                         </td>
                     </tr>
                 </c:forEach>
             </c:if>
-            <c:if test="${empty user_shopping_cart}">
+            <c:if test="${empty order_story}">
                 <tr>
                     <td>
                         <p>Список пуст</p>

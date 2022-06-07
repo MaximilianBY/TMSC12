@@ -2,17 +2,18 @@ package by.tms.utils;
 
 import static by.tms.utils.CommandsEnum.SIGN_IN_COMMAND;
 
-import by.tms.commands.AccountPage;
-import by.tms.commands.ActionWithUserCart;
-import by.tms.commands.AddProductToCart;
-import by.tms.commands.AllCategoryPage;
-import by.tms.commands.AuthorPage;
+import by.tms.commands.AccountCommandPageImpl;
+import by.tms.commands.ActionWithUserCartCommandPageImpl;
+import by.tms.commands.AddProductToCartCommandPageImpl;
+import by.tms.commands.AllCategoryCommandPageImpl;
+import by.tms.commands.AuthorCommandPageImpl;
 import by.tms.commands.BaseCommand;
-import by.tms.commands.DevicesByCategoryPage;
-import by.tms.commands.ProductPage;
-import by.tms.commands.RegistrationPage;
-import by.tms.commands.SignInPage;
-import by.tms.commands.UserCartPage;
+import by.tms.commands.DevicesByCategoryCommandPageImpl;
+import by.tms.commands.ProductCommandPageImpl;
+import by.tms.commands.RegistrationCommandPageImpl;
+import by.tms.commands.SearchProductCommandPageImpl;
+import by.tms.commands.SignInCommandPageImpl;
+import by.tms.commands.UserCartCommandPageImpl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -28,18 +29,23 @@ public class CommandFactory {
    * */
 
   static {
-    COMMAND_LIST.put(SIGN_IN_COMMAND.getCommand(), new SignInPage());
+    COMMAND_LIST.put(SIGN_IN_COMMAND.getCommand(), new SignInCommandPageImpl());
     COMMAND_LIST.put(CommandsEnum.REGISTRATION_COMMAND.getCommand(),
-        new RegistrationPage());
-    COMMAND_LIST.put(CommandsEnum.HOME_COMMAND.getCommand(), new AuthorPage());
-    COMMAND_LIST.put(CommandsEnum.ACCOUNT_COMMAND.getCommand(), new AccountPage());
-    COMMAND_LIST.put(CommandsEnum.CATEGORY_COMMAND.getCommand(), new AllCategoryPage());
-    COMMAND_LIST.put(CommandsEnum.DEVICES_COMMAND.getCommand(), new DevicesByCategoryPage());
-    COMMAND_LIST.put(CommandsEnum.REDIRECT_PRODUCT_COMMAND.getCommand(), new ProductPage());
-    COMMAND_LIST.put(CommandsEnum.ADD_PRODUCT_TO_CART_COMMAND.getCommand(), new AddProductToCart());
-    COMMAND_LIST.put(CommandsEnum.REDIRECT_SHOPPING_CART_COMMAND.getCommand(), new UserCartPage());
+        new RegistrationCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.HOME_COMMAND.getCommand(), new AuthorCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.ACCOUNT_COMMAND.getCommand(), new AccountCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.CATEGORY_COMMAND.getCommand(), new AllCategoryCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.DEVICES_COMMAND.getCommand(),
+        new DevicesByCategoryCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.REDIRECT_PRODUCT_COMMAND.getCommand(),
+        new ProductCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.ADD_PRODUCT_TO_CART_COMMAND.getCommand(),
+        new AddProductToCartCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.REDIRECT_SHOPPING_CART_COMMAND.getCommand(),
+        new UserCartCommandPageImpl());
     COMMAND_LIST.put(CommandsEnum.ACTION_SHOPPING_CART_COMMAND.getCommand(),
-        new ActionWithUserCart());
+        new ActionWithUserCartCommandPageImpl());
+    COMMAND_LIST.put(CommandsEnum.SEARCH_PRODUCT.getCommand(), new SearchProductCommandPageImpl());
   }
 
   /**

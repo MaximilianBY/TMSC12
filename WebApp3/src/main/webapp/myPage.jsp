@@ -1,9 +1,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>My first personal web page</title>
+    <title>My Shop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
@@ -19,21 +20,55 @@
     </style>
 </head>
 <body>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <div class="jumbotron text-center" style="margin-bottom:0">
     <h1>Welcome to my personal web page</h1>
 </div>
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand">Navbar</a>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="categories">Category</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="cart">Cart</a>
-            </li>
-        </ul>
+    <div class="container-fluid">
+        <a class="navbar-brand" href="${contextPath}/eshop?command=user-account">My account</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#mynavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/eshop?command=category-redirect">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"
+                       href="${contextPath}/eshop?command=redirect-to-shopping-cart">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="${contextPath}/eshop?command=sign-in">Logout</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbardrop"
+                       data-toggle="dropdown">
+                        Category
+                    </a>
+                    <div class="dropdown-menu">
+                        <c:if test="${not empty category}">
+                            <c:forEach items="${category}" var="category">
+                                <a class="dropdown-item"
+                                   href="${contextPath}/eshop?command=devices-redirect&category_id=${category.getId()}">${category.getName()}
+                                    <img class="card-img" style="width:150px;height:120px"
+                                         src="${contextPath}/images/category-img/${category.getImageName()}"
+                                         alt="Card image">
+                                </a>
+                            </c:forEach>
+                        </c:if>
+                    </div>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <input type="hidden" name="command" value="search-product">
+                <input class="form-control me-2" type="text" name="search" placeholder="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </form>
+        </div>
     </div>
 </nav>
 
@@ -42,7 +77,7 @@
         <div class="col-sm-4">
             <h5>Photo of me:</h5>
             <div class="fakeimg"><img src="images/users/Me.jpg"></div>
-            <p>This foto was made on Sicily</p>
+            <p>This photo was made on Sicily</p>
         </div>
         <div class="col-sm-8">
             <h2>Information about me</h2>

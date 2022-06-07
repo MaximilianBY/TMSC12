@@ -1,10 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Index Page</title>
+    <title>Title</title>
 </head>
 <body>
-<jsp:forward page="/signin"/>
+<jsp:forward page="/eshop"/>
 </body>
 </html>

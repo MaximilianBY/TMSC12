@@ -1,5 +1,6 @@
 package by.tms.users;
 
+import by.tms.entities.Cart;
 import by.tms.entities.User;
 import by.tms.services.impl.UserServiceImpl;
 import java.util.HashMap;
@@ -31,6 +32,7 @@ public class UserTests {
         .email("max@gmail.com")
         .phoneNumber("+375259457864")
         .password("1234")
+        .cart(new Cart())
         .build();
     user2 = User.builder()
         .id(2)
@@ -41,6 +43,7 @@ public class UserTests {
         .email("anna@gmail.com")
         .phoneNumber("+375252542354")
         .password("12345")
+        .cart(new Cart())
         .build();
     user3 = User.builder()
         .id(3)
@@ -51,6 +54,7 @@ public class UserTests {
         .email("alina.box@gmail.com")
         .phoneNumber("+375293569784")
         .password("4321")
+        .cart(new Cart())
         .build();
     user4 = User.builder()
         .id(4)
@@ -61,6 +65,7 @@ public class UserTests {
         .email("vasya.boss@gmail.com")
         .phoneNumber("+375337854312")
         .password("54321")
+        .cart(new Cart())
         .build();
 
     actual = new HashMap<>();

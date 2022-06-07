@@ -41,7 +41,7 @@ public class SignInCommandPageImpl implements BaseCommand {
     System.out.println(user.getName());
     if (Optional.ofNullable(user).isPresent()) {
       HttpSession session = req.getSession();
-      Cart cart = new Cart(user.getId());
+      Cart cart = new Cart();
       session.setAttribute(CURRENT_USER.getValue(), user);
       session.setAttribute(CURRENT_USER_CART.getValue(), cart);
       return HOME_PAGE.getPath();

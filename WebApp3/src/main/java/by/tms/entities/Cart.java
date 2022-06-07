@@ -1,45 +1,36 @@
 package by.tms.entities;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 public class Cart {
 
   private Set<Product> productInCart;
-  private Map<Integer, Set<Product>> usersCart;
-  private int userID;
 
-  public Cart(int userID) {
-    this.usersCart = new HashMap<>();
+  public Cart() {
     this.productInCart = new HashSet<>();
-    this.userID = userID;
-    this.usersCart.put(userID, productInCart);
   }
 
   public List<Product> getUsersCart() {
-    return usersCart.get(userID).stream().toList();
+    return productInCart.stream().toList();
   }
 
   public void addProductToCart(Product product1) {
     Product cloneProduct = new Product(product1);
-    if (usersCart.containsKey(userID)) {
-      if (usersCart.get(userID).contains(cloneProduct)) {
-        usersCart.get(userID).stream()
-            .filter(product -> product.equals(cloneProduct))
-            .forEach(product -> {
-              product.setQuantity(product.getQuantity() + 1);
-              product.setPrice(product.getPrice() + cloneProduct.getPrice());
-            });
-      } else {
-        usersCart.get(userID).add(cloneProduct);
-        usersCart.get(userID).stream()
-            .filter(product -> product.equals(cloneProduct))
-            .forEach(product -> product.setQuantity(1));
-      }
+    if (productInCart.contains(cloneProduct)) {
+      productInCart.stream()
+          .filter(product -> product.equals(cloneProduct))
+          .forEach(product -> {
+            product.setQuantity(product.getQuantity() + 1);
+            product.setPrice(product.getPrice() + cloneProduct.getPrice());
+          });
+    } else {
+      productInCart.add(cloneProduct);
+      productInCart.stream()
+          .filter(product -> product.equals(cloneProduct))
+          .forEach(product -> product.setQuantity(1));
     }
 //    if (usersCart.containsKey(userID) && usersCart.get(userID).containsKey(product1.getId())) {
 //      usersCart.get(userID).values().stream()
@@ -57,22 +48,18 @@ public class Cart {
   }
 
   public void flushUserCart() {
-    usersCart.get(userID).clear();
+    productInCart.clear();
   }
 
   public void delUnnecessaryProduct(Product product1) {
     Product cloneProduct = new Product(product1);
-    if (usersCart.containsKey(userID)) {
-      usersCart.get(userID).stream()
-          .filter(product -> product.equals(cloneProduct) && product.getQuantity() > 1)
-          .forEach(product -> {
-            product.setQuantity(product.getQuantity() - 1);
-            product.setPrice(product.getPrice() - cloneProduct.getPrice());
-          });
-    } else {
-      usersCart.get(userID)
-          .removeIf(product -> product.equals(cloneProduct) && product.getQuantity() <= 1);
-    }
+    productInCart.removeIf(product -> product.equals(cloneProduct) && product.getQuantity() <= 1);
+    productInCart.stream()
+        .filter(product -> product.equals(cloneProduct) && product.getQuantity() > 1)
+        .forEach(product -> {
+          product.setQuantity(product.getQuantity() - 1);
+          product.setPrice(product.getPrice() - cloneProduct.getPrice());
+        });
 //    if (usersCart.containsKey(userID)
 //        && usersCart.get(userID).get(product1.getId()).getQuantity() == 1) {
 //      usersCart.get(userID).remove(product1.getId());
@@ -87,8 +74,8 @@ public class Cart {
   }
 
   public int getUserCartTotalPrice() {
-    if (Optional.ofNullable(usersCart.get(userID)).isPresent()) {
-      return usersCart.get(userID).stream()
+    if (Optional.ofNullable(productInCart).isPresent()) {
+      return productInCart.stream()
           .mapToInt(Product::getPrice)
           .sum();
     }
@@ -104,7 +91,6 @@ public class Cart {
       return false;
     }
     Cart cart = (Cart) o;
-    return userID == cart.userID && usersCart.get(userID).equals(cart.usersCart.get(userID))
-        && productInCart.equals(cart.productInCart);
+    return productInCart.equals(cart.productInCart);
   }
 }

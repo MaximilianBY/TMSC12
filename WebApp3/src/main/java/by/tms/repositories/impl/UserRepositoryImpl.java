@@ -1,5 +1,6 @@
 package by.tms.repositories.impl;
 
+import by.tms.entities.Cart;
 import by.tms.entities.User;
 import by.tms.repositories.UserRepository;
 import java.sql.Connection;
@@ -69,6 +70,7 @@ public class UserRepositoryImpl implements UserRepository {
             .email(email)
             .phoneNumber(phoneNumber)
             .password(password)
+            .cart(new Cart())
             .build());
       }
     } catch (Exception e) {
@@ -162,6 +164,7 @@ public class UserRepositoryImpl implements UserRepository {
             .email(email)
             .phoneNumber(phoneNumber)
             .password(password)
+            .cart(new Cart())
             .build();
       }
     } catch (SQLException e) {

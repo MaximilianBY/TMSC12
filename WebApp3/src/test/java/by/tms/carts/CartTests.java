@@ -42,9 +42,9 @@ public class CartTests {
         .categoryID(2)
         .build();
 
-    cart1 = new Cart(1);
-    cart2 = new Cart(2);
-    cart3 = new Cart(3);
+    cart1 = new Cart();
+    cart2 = new Cart();
+    cart3 = new Cart();
 
     cart1.addProductToCart(product1);
     cart2.addProductToCart(product2);
@@ -57,26 +57,27 @@ public class CartTests {
 
   @Test
   public void getUsersCart() {
-    Cart cart = new Cart(1);
+    Cart cart = new Cart();
     cart.addProductToCart(product1);
     Assertions.assertEquals(cart, cart1);
   }
 
   @Test
   public void addProductToUserCart() {
-//    cart2.addProductToCart(product2);
-    Cart cart = new Cart(2);
+    cart2.addProductToCart(product2);
+    Cart cart = new Cart();
     cart.addProductToCart(product2);
     Assertions.assertEquals(cart, cart2);
   }
 
   @Test
   public void deleteProductFromUserCart() {
-    Cart cart = new Cart(3);
+    Cart cart = new Cart();
     cart.addProductToCart(product1);
     cart.addProductToCart(product2);
     cart.addProductToCart(product1);
     cart.delUnnecessaryProduct(product1);
+//    cart.delUnnecessaryProduct(product1);
     Assertions.assertEquals(cart, cart3);
   }
 }

@@ -40,20 +40,18 @@ public class Product extends BaseEntity {
 
   @Override
   public boolean equals(Object o) {
-//    if (this == o) {
-//      return true;
-//    }
-//    if (o == null || getClass() != o.getClass()) {
-//      return false;
-//    }
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     if (!super.equals(o)) {
       return false;
     }
-//    Product product = (Product) o;
-//    return /*getQuantity() == product.getQuantity() &&*/ getCategoryID() == product.getCategoryID() && getBrand().equals(product.getBrand())
-//        && getModel().equals(product.getModel()) && getDescription().equals(
-//        product.getDescription())
-//        && getImagePath().equals(product.getImagePath());
-    return true;
+    Product product = (Product) o;
+    return getCategoryID() == product.getCategoryID() && getBrand().equals(product.getBrand())
+        && getModel().equals(product.getModel()) && getDescription().equals(
+        product.getDescription());
   }
 }

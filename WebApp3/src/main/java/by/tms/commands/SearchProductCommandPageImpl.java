@@ -24,7 +24,7 @@ public class SearchProductCommandPageImpl implements BaseCommand {
       request.setAttribute(DEVICES.getValue(),
           productService.findProductByRequestFromSearch(search).values().stream().toList());
     }
-    request.setAttribute(CATEGORY.getValue(), categoryService.getAllCategories());
+    request.setAttribute(CATEGORY.getValue(), categoryService.read().values().stream().toList());
     log.info("log search class");
     return SEARCH_PAGE.getPath();
   }

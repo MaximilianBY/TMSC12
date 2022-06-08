@@ -1,15 +1,12 @@
 package by.tms.entities;
 
+import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@EqualsAndHashCode
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
@@ -25,4 +22,21 @@ public abstract class BaseEntity {
   }
 
   public abstract BaseEntity clone();
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    BaseEntity that = (BaseEntity) o;
+    return getId() == that.getId();
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(getId());
+  }
 }

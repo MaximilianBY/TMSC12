@@ -12,12 +12,12 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public void create(Product entity) {
-
+    productRepository.create(entity);
   }
 
   @Override
   public Map<Integer, Product> read() {
-    return null;
+    return productRepository.read();
   }
 
   @Override
@@ -27,7 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public void delete(int id) {
-
+    productRepository.delete(id);
   }
 
   @Override

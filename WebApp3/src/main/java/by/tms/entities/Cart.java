@@ -2,6 +2,7 @@ package by.tms.entities;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -18,33 +19,19 @@ public class Cart {
   }
 
   public void addProductToCart(Product product1) {
-    Product cloneProduct = new Product(product1);
-    if (productInCart.contains(cloneProduct)) {
+    if (productInCart.contains(product1)) {
       productInCart.stream()
-          .filter(product -> product.equals(cloneProduct))
+          .filter(product -> product.equals(product1))
           .forEach(product -> {
             product.setQuantity(product.getQuantity() + 1);
-            product.setPrice(product.getPrice() + cloneProduct.getPrice());
+            product.setPrice(product.getQuantity() * product1.getPrice());
           });
     } else {
-      productInCart.add(cloneProduct);
+      productInCart.add(product1);
       productInCart.stream()
-          .filter(product -> product.equals(cloneProduct))
+          .filter(product -> product.equals(product1))
           .forEach(product -> product.setQuantity(1));
     }
-//    if (usersCart.containsKey(userID) && usersCart.get(userID).containsKey(product1.getId())) {
-//      usersCart.get(userID).values().stream()
-//          .filter(product -> product.getId() == product1.getId())
-//          .forEach(product -> {
-//            product.setQuantity(product.getQuantity() + 1);
-//            product.setPrice(product.getPrice() + product1.getPrice());
-//          });
-//    } else {
-//      usersCart.get(userID).put(product1.getId(), product1);
-//      usersCart.get(userID).values().stream()
-//          .filter(product -> product.getId() == product1.getId())
-//          .forEach(product -> product.setQuantity(1));
-//    }
   }
 
   public void flushUserCart() {
@@ -52,25 +39,15 @@ public class Cart {
   }
 
   public void delUnnecessaryProduct(Product product1) {
-    Product cloneProduct = new Product(product1);
-    productInCart.removeIf(product -> product.equals(cloneProduct) && product.getQuantity() <= 1);
-    productInCart.stream()
-        .filter(product -> product.equals(cloneProduct) && product.getQuantity() > 1)
-        .forEach(product -> {
-          product.setQuantity(product.getQuantity() - 1);
-          product.setPrice(product.getPrice() - cloneProduct.getPrice());
-        });
-//    if (usersCart.containsKey(userID)
-//        && usersCart.get(userID).get(product1.getId()).getQuantity() == 1) {
-//      usersCart.get(userID).remove(product1.getId());
-//    } else {
-//      usersCart.get(userID).values().stream()
-//          .filter(product -> product.getId() == product1.getId() && product.getQuantity() > 1)
-//          .forEach(product -> {
-//            product.setQuantity(product.getQuantity() - 1);
-//            product.setPrice(product.getPrice() - product1.getPrice());
-//          });
-//    }
+    productInCart.removeIf(product -> {
+      if (product.equals(product1) && product.getQuantity() <= 1) {
+        return true;
+      } else {
+        product.setQuantity(product.getQuantity() - 1);
+        product.setPrice(product.getPrice() - product1.getPrice());
+        return false;
+      }
+    });
   }
 
   public int getUserCartTotalPrice() {
@@ -92,5 +69,10 @@ public class Cart {
     }
     Cart cart = (Cart) o;
     return productInCart.equals(cart.productInCart);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(productInCart);
   }
 }

@@ -1,17 +1,13 @@
 package by.tms.services.impl;
 
-import static by.tms.utils.RequestParamsEnum.ORDER_STORY;
-import static by.tms.utils.RequestParamsEnum.TOTAL_PRICE;
-
-import by.tms.entities.Cart;
 import by.tms.entities.Order;
 import by.tms.entities.Product;
 import by.tms.entities.User;
 import by.tms.repositories.impl.OrderRepositoryImpl;
 import by.tms.services.OrderService;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
 
 public class OrderServiceImpl implements OrderService {
 
@@ -20,22 +16,22 @@ public class OrderServiceImpl implements OrderService {
 
   @Override
   public void create(Order entity) {
-
+    orderRepository.create(entity);
   }
 
   @Override
   public Map<Integer, Order> read() {
-    return null;
+    return orderRepository.read();
   }
 
   @Override
   public Order update(Order entity) {
-    return null;
+    return orderRepository.update(entity).get(entity.getId());
   }
 
   @Override
   public void delete(int id) {
-
+    orderRepository.delete(id);
   }
 
   @Override
@@ -44,29 +40,21 @@ public class OrderServiceImpl implements OrderService {
   }
 
   @Override
-  public int getOrderTotalPrice(Map<Integer, Order> sumPriceOfProducts) {
+  public int getOrderTotalPrice(List<Order> sumPriceOfProducts) {
     if (Optional.ofNullable(sumPriceOfProducts).isPresent()) {
-      return sumPriceOfProducts.values().stream()
+      return sumPriceOfProducts.stream()
           .mapToInt(Order::getOrderPrice)
           .sum();
     }
     return 0;
   }
 
-  public String getRedeemedProduct(HttpServletRequest request, int userID, String url) {
-    Map<Integer, Order> redeemedProducts = getUserOrders(userID);
-    request.setAttribute(ORDER_STORY.getValue(), redeemedProducts.values().stream().toList());
-    request.setAttribute(TOTAL_PRICE.getValue(), getOrderTotalPrice(redeemedProducts));
-
-    return url;
-  }
-
   @Override
-  public void confirmOrder(User user, Cart cart) {
-    for (Product product : cart.getUsersCart()) {
+  public void confirmOrder(User user) {
+    for (Product product : user.getCart().getUsersCart()) {
       productService.update(product);
       orderRepository.addNewUserOrder(user.getId(), product);
     }
-    cart.flushUserCart();
+    user.getCart().flushUserCart();
   }
 }

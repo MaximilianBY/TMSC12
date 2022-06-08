@@ -96,6 +96,7 @@
                 <th><h3>Date of order</h3></th>
                 <th><h3>Price of order</h3></th>
                 <th><h3>Code of product in the shop</h3></th>
+                <th><h3>Product info</h3></th>
                 <th><h3>Quantity</h3></th>
                 <th><h3></h3></th>
             </tr>
@@ -112,6 +113,30 @@
                         </td>
                         <td style="font-style: italic">
                             <strong>${order.getProductID()}</strong>
+                        </td>
+                        <td>
+                            <div class="container-fluid mt-3">
+                                <div class="container">
+                                    <div class="container mt-3">
+                                        <!-- Media top -->
+                                        <div class="media">
+                                            <a href="${contextPath}/eshop?command=product-redirect&product_id=${order.getProduct().getId()}">
+                                                <img img class="card-img"
+                                                     style="width:150px;height:120px"
+                                                     src="${contextPath}/images/products/${order.getProduct().getImagePath()}"
+                                                     alt="Card image">
+                                            </a>
+                                            <div class="media-body">
+                                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${order.getProduct().getId()}">
+                                                    <h4>${order.getProduct().getBrand()} ${order.getProduct().getModel()}</h4>
+                                                    <p>${order.getProduct().getDescription()}</p>
+                                                    <p>${order.getProduct().getPrice()}$</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                         <td>
                             <strong>${order.getProductQuantity()}</strong>

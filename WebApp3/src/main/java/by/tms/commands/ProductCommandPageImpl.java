@@ -27,7 +27,7 @@ public class ProductCommandPageImpl implements BaseCommand {
     if (Optional.ofNullable(product).isPresent()) {
       request.setAttribute(PRODUCT.getValue(), product);
     }
-    request.setAttribute(CATEGORY.getValue(), categoryService.getAllCategories());
+    request.setAttribute(CATEGORY.getValue(), categoryService.read().values().stream().toList());
     log.info("taking product: " + product.getBrand() + " " + product.getModel());
     return PRODUCT_PAGE.getPath();
   }

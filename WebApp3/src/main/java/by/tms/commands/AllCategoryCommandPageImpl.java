@@ -13,7 +13,7 @@ public class AllCategoryCommandPageImpl implements BaseCommand {
 
   @Override
   public String execute(HttpServletRequest request) throws CommandException {
-    request.setAttribute(CATEGORY.getValue(), categoryService.getAllCategories());
+    request.setAttribute(CATEGORY.getValue(), categoryService.read().values().stream().toList());
     return CATEGORY_PAGE.getPath();
   }
 }

@@ -1,30 +1,43 @@
 package by.tms.entities;
 
-import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-@Data
+@Getter
 @AllArgsConstructor
 @SuperBuilder
-public class User extends BaseEntity implements Serializable {
+public class User extends BaseEntity {
 
-  @Getter
   private String login;
-  private String name;
-  private String surname;
-  private String birthday;
-  private String email;
-  private String phoneNumber;
-  private String password;
+  private @Setter String name;
+  private @Setter String surname;
+  private @Setter String birthday;
+  private @Setter String email;
+  private @Setter String phoneNumber;
+  private @Setter String password;
   private Cart cart;
+
+  public User(User user) {
+    super(user);
+    if (Optional.ofNullable(user).isPresent()) {
+      this.login = user.getLogin();
+      this.name = user.getName();
+      this.surname = user.surname;
+      this.birthday = user.getBirthday();
+      this.email = user.getEmail();
+      this.phoneNumber = user.getPhoneNumber();
+      this.password = user.getPassword();
+      this.cart = user.getCart();
+    }
+  }
 
   @Override
   public BaseEntity clone() {
-    return null;
+    return new User(this);
   }
 
   @Override

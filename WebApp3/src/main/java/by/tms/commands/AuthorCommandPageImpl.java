@@ -24,7 +24,7 @@ public class AuthorCommandPageImpl implements BaseCommand {
     req.setAttribute("age", Author.getAge());
     req.setAttribute("nationality", Author.getCitizenship());
     req.setAttribute("aboutMe", Author.getAboutMe());
-    req.setAttribute(CATEGORY.getValue(), categoryService.getAllCategories());
+    req.setAttribute(CATEGORY.getValue(), categoryService.read().values().stream().toList());
     return HOME_PAGE.getPath();
   }
 }

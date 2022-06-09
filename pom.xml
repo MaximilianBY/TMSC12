@@ -35,7 +35,6 @@
     <module>Task18</module>
     <module>Task19</module>
     <module>Task30</module>
-    <module>Doubly_Linked_List</module>
   </modules>
 
   <dependencies>

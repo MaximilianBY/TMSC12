@@ -81,10 +81,10 @@
                     <c:forEach items="${devices}" var="product">
                         <tr>
                             <td>
-                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${product.getId()}"><img
-                                        class="card-img" style="width:150px;height:120px"
-                                        src="${contextPath}/images/products/${product.getImagePath()}"
-                                        alt="Card image">
+                                <a href="${contextPath}/eshop?command=product-redirect&product_id=${product.getId()}">
+                                    <img class="card-img" style="width:150px;height:120px"
+                                         src="${contextPath}/images/products/${product.getImagePath()}"
+                                         alt="Card image"/>
                                 </a>
                             </td>
                             <td style="font-style: italic">

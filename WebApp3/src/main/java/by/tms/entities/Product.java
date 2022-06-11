@@ -1,5 +1,6 @@
 package by.tms.entities;
 
+import java.util.Objects;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,5 +54,11 @@ public class Product extends BaseEntity {
     return getCategoryID() == product.getCategoryID() && getBrand().equals(product.getBrand())
         && getModel().equals(product.getModel()) && getDescription().equals(
         product.getDescription());
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(super.hashCode(), getBrand(), getModel(), getDescription(), getImagePath(),
+        getCategoryID());
   }
 }

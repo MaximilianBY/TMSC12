@@ -28,7 +28,7 @@ public class DevicesByCategoryCommandPageImpl implements BaseCommand {
     int category_id = Integer.parseInt(request.getParameter(CATEGORY_ID.getValue()));
     request.setAttribute(DEVICES.getValue(),
         productService.getAllProductsByCategory(category_id).values().stream().toList());
-    request.setAttribute(CATEGORY.getValue(), categoryService.getAllCategories());
+    request.setAttribute(CATEGORY.getValue(), categoryService.read().values().stream().toList());
     log.info("taking category id: " + category_id);
     return DEVICES_PAGE.getPath();
   }

@@ -4,11 +4,9 @@ import static by.tms.utils.HttpRequestParamValidator.validateParamNotNull;
 import static by.tms.utils.PagesPathEnum.HOME_PAGE;
 import static by.tms.utils.PagesPathEnum.SIGN_IN_PAGE;
 import static by.tms.utils.RequestParamsEnum.CURRENT_USER;
-import static by.tms.utils.RequestParamsEnum.CURRENT_USER_CART;
 import static by.tms.utils.RequestParamsEnum.LOGIN;
 import static by.tms.utils.RequestParamsEnum.PASSWORD;
 
-import by.tms.entities.Cart;
 import by.tms.entities.User;
 import by.tms.exceptions.RequestParamNullException;
 import by.tms.services.impl.UserServiceImpl;
@@ -41,9 +39,7 @@ public class SignInCommandPageImpl implements BaseCommand {
     System.out.println(user.getName());
     if (Optional.ofNullable(user).isPresent()) {
       HttpSession session = req.getSession();
-      Cart cart = new Cart();
       session.setAttribute(CURRENT_USER.getValue(), user);
-      session.setAttribute(CURRENT_USER_CART.getValue(), cart);
       return HOME_PAGE.getPath();
     }
     log.info("wrong credentials");

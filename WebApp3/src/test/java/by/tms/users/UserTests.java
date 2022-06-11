@@ -6,23 +6,23 @@ import by.tms.services.impl.UserServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class UserTests {
 
   private UserServiceImpl userService = new UserServiceImpl();
-  private static User user1;
-  private static User user2;
-  private static User user3;
-  private static User user4;
+  private User user1;
+  private User user2;
+  private User user3;
+  private User user4;
 
-  private static Map<Integer, User> actual;
-  private static User actualByLoginAndPassword;
-  private static int actualIDByLogin;
+  private Map<Integer, User> actual;
+  private User actualByLoginAndPassword;
+  private int actualIDByLogin;
 
-  @BeforeAll
-  public static void setUp() {
+  @BeforeEach
+  public void setUp() {
     user1 = User.builder()
         .id(1)
         .login("Max")

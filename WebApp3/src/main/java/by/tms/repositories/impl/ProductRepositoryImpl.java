@@ -15,10 +15,37 @@ public class ProductRepositoryImpl implements ProductRepository {
   private static final String UPDATE_QUANTITY_PRODUCT = "UPDATE eshop.product SET quantity = quantity - ? WHERE id = ?";
   private static final String GET_PRODUCTS_BY_CATEGORY = "SELECT * FROM eshop.product JOIN images i on product.id = i.product_id WHERE product.category_id=?";
   private static final String GET_PRODUCT_BY_ID = "SELECT * FROM eshop.product JOIN images i on product.id = i.product_id WHERE id=?";
+  private static final String ADD_NEW_PRODUCT = "INSERT INTO eshop.product(brand, model, description, price, quantity, category_id) VALUE (?, ?, ?, ?, ?, ?)";
+  private static final String ADD_IMAGEPATH_OF_PRODUCT = "INSERT INTO eshop.images(product_id, image_path) VALUE (LAST_INSERT_ID(), ?)";
+  private static final String DELETE_PRODUCT = "DELETE FROM eshop.product WHERE id=?";
 
   @Override
   public Map<Integer, Product> create(Product entity) {
-    return null;
+    Map<Integer, Product> productMap;
+    try (Connection connection = pool.getConnection()) {
+      PreparedStatement addNewProduct = connection.prepareStatement(ADD_NEW_PRODUCT);
+      PreparedStatement addImagePathOfProduct = connection.prepareStatement(
+          ADD_IMAGEPATH_OF_PRODUCT);
+
+      addNewProduct.setString(1, entity.getBrand());
+      addNewProduct.setString(2, entity.getModel());
+      addNewProduct.setString(3, entity.getDescription());
+      addNewProduct.setInt(4, entity.getPrice());
+      addNewProduct.setInt(5, entity.getQuantity());
+      addNewProduct.setInt(6, entity.getCategoryID());
+
+      addImagePathOfProduct.setString(1, entity.getImagePath());
+
+      addNewProduct.executeUpdate();
+      addImagePathOfProduct.executeUpdate();
+
+      productMap = read();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+    return productMap;
   }
 
   @Override
@@ -61,7 +88,17 @@ public class ProductRepositoryImpl implements ProductRepository {
 
   @Override
   public void delete(int id) {
+    try (Connection connection = pool.getConnection()) {
+      PreparedStatement deleteProduct = connection.prepareStatement(DELETE_PRODUCT);
 
+      deleteProduct.setInt(1, id);
+
+      deleteProduct.execute();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 
   @Override
@@ -123,8 +160,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     return searchProduct;
   }
 
-  @Override
-  public Product getProduct(ResultSet resultSet) {
+  private Product getProduct(ResultSet resultSet) {
     Product product = null;
     try {
       int id = resultSet.getInt("id");

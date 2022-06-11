@@ -1,5 +1,6 @@
 package by.tms.carts;
 
+
 import by.tms.entities.Cart;
 import by.tms.entities.Product;
 import java.util.List;
@@ -57,27 +58,30 @@ public class CartTests {
 
   @Test
   public void getUsersCart() {
+    Product cloneProduct = new Product(product1);
     Cart cart = new Cart();
-    cart.addProductToCart(product1);
+    cart.addProductToCart(cloneProduct);
     Assertions.assertEquals(cart, cart1);
   }
 
   @Test
   public void addProductToUserCart() {
+    Product cloneProduct2 = new Product(product2);
     cart2.addProductToCart(product2);
     Cart cart = new Cart();
-    cart.addProductToCart(product2);
+    cart.addProductToCart(cloneProduct2);
     Assertions.assertEquals(cart, cart2);
   }
 
   @Test
   public void deleteProductFromUserCart() {
+    Product cloneProduct1 = new Product(product1);
+    Product cloneProduct2 = new Product(product2);
     Cart cart = new Cart();
-    cart.addProductToCart(product1);
-    cart.addProductToCart(product2);
-    cart.addProductToCart(product1);
-    cart.delUnnecessaryProduct(product1);
-//    cart.delUnnecessaryProduct(product1);
+    cart.addProductToCart(cloneProduct1);
+    cart.addProductToCart(cloneProduct2);
+    cart.addProductToCart(cloneProduct1);
+    cart.delUnnecessaryProduct(cloneProduct1);
     Assertions.assertEquals(cart, cart3);
   }
 }

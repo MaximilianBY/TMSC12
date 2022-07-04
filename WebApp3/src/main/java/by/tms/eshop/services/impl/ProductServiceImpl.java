@@ -1,6 +1,8 @@
 package by.tms.eshop.services.impl;
 
 import static by.tms.eshop.utils.PagesPathEnum.PRODUCT_PAGE;
+import static by.tms.eshop.utils.PagesPathEnum.SEARCH_PAGE;
+import static by.tms.eshop.utils.RequestParamsEnum.DEVICES;
 import static by.tms.eshop.utils.RequestParamsEnum.PRODUCT;
 
 import by.tms.eshop.entities.Product;
@@ -68,5 +70,16 @@ public class ProductServiceImpl implements ProductService {
       modelMap.addAttribute(PRODUCT.getValue(), product);
     }
     return new ModelAndView(PRODUCT_PAGE.getPath(), modelMap);
+  }
+
+  @Override
+  public ModelAndView findProductsFromRequest(String inputString) throws Exception {
+    ModelMap modelMap = new ModelMap();
+    if (Optional.ofNullable(inputString).isPresent()) {
+      String[] searchArr = inputString.split("\\W");
+      modelMap.addAttribute(DEVICES.getValue(),
+          productRepository.findProductByRequestFromSearch(searchArr));
+    }
+    return new ModelAndView(SEARCH_PAGE.getPath(), modelMap);
   }
 }

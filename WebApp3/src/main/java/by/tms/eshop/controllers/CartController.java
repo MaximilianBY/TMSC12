@@ -37,7 +37,6 @@ public class CartController {
   @GetMapping("/add/{id}")
   public ModelAndView addProductToCart(@SessionAttribute("user") User user,
       @PathVariable int id) throws Exception {
-    System.out.println(id);
     return cartService.addProductToCart(id, user.getCart());
   }
 

@@ -13,4 +13,6 @@ public interface ProductService extends BaseService<Product> {
   Set<Product> findProductByRequestFromSearch(String[] searchArray) throws Exception;
 
   ModelAndView getProductData(int id) throws Exception;
+
+  ModelAndView findProductsFromRequest(String inputString) throws Exception;
 }

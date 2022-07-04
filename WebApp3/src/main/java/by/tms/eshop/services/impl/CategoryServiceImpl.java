@@ -1,6 +1,8 @@
 package by.tms.eshop.services.impl;
 
+import static by.tms.eshop.utils.PagesPathEnum.CATEGORY_PAGE;
 import static by.tms.eshop.utils.PagesPathEnum.DEVICES_PAGE;
+import static by.tms.eshop.utils.RequestParamsEnum.CATEGORY;
 import static by.tms.eshop.utils.RequestParamsEnum.DEVICES;
 
 import by.tms.eshop.entities.Category;
@@ -60,5 +62,20 @@ public class CategoryServiceImpl implements CategoryService {
       modelMap.addAttribute(DEVICES.getValue(), category.getProductSet());
     }
     return new ModelAndView(DEVICES_PAGE.getPath(), modelMap);
+  }
+
+  @Override
+  public ModelAndView getCategories() throws Exception {
+    ModelAndView modelAndView = new ModelAndView();
+    ModelMap modelMap = new ModelMap();
+
+    Set<Category> categorySet = categoryRepository.read();
+    modelMap.addAttribute(CATEGORY.getValue(), categorySet);
+
+    modelAndView.setViewName(CATEGORY_PAGE.getPath());
+
+    modelAndView.addAllObjects(modelMap);
+
+    return modelAndView;
   }
 }

@@ -9,6 +9,8 @@ public interface UserService extends BaseService<User> {
 
   ModelAndView registration(User user) throws Exception;
 
+  ModelAndView getAccountData(User user) throws Exception;
+
   int getUserIDByLogin(String login) throws Exception;
 
   User getUserByLogin(String login) throws Exception;

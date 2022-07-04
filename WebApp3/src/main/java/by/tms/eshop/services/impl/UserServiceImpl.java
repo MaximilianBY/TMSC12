@@ -1,14 +1,19 @@
 package by.tms.eshop.services.impl;
 
+import static by.tms.eshop.utils.EshopConstants.USER;
+import static by.tms.eshop.utils.PagesPathEnum.ACCOUNT_PAGE;
 import static by.tms.eshop.utils.PagesPathEnum.CATEGORY_PAGE;
 import static by.tms.eshop.utils.PagesPathEnum.REGISTRATION_PAGE;
 import static by.tms.eshop.utils.PagesPathEnum.SIGN_IN_PAGE;
 import static by.tms.eshop.utils.RequestParamsEnum.CATEGORY;
+import static by.tms.eshop.utils.RequestParamsEnum.ORDER_STORY;
+import static by.tms.eshop.utils.RequestParamsEnum.TOTAL_PRICE;
 
 import by.tms.eshop.entities.Category;
 import by.tms.eshop.entities.User;
 import by.tms.eshop.repositories.UserRepository;
 import by.tms.eshop.services.CategoryService;
+import by.tms.eshop.services.OrderService;
 import by.tms.eshop.services.UserService;
 import java.util.Optional;
 import java.util.Set;
@@ -21,10 +26,13 @@ public class UserServiceImpl implements UserService {
 
   private UserRepository userRepository;
   private CategoryService categoryService;
+  private OrderService orderService;
 
-  public UserServiceImpl(UserRepository userRepository, CategoryService categoryService) {
+  public UserServiceImpl(UserRepository userRepository, CategoryService categoryService,
+      OrderService orderService) {
     this.userRepository = userRepository;
     this.categoryService = categoryService;
+    this.orderService = orderService;
   }
 
   @Override
@@ -78,6 +86,24 @@ public class UserServiceImpl implements UserService {
         modelAndView.setViewName(REGISTRATION_PAGE.getPath());
       }
     }
+    return modelAndView;
+  }
+
+  @Override
+  public ModelAndView getAccountData(User user) throws Exception {
+    ModelAndView modelAndView = new ModelAndView();
+    ModelMap modelMap = new ModelMap();
+    User user1 = userRepository.getUserByLogin(user.getLogin());
+    if (Optional.ofNullable(user1).isPresent()) {
+      modelMap.addAttribute(USER, user1);
+      modelMap.addAttribute(ORDER_STORY.getValue(), orderService.getUserOrders(user1.getId()));
+      modelMap.addAttribute(TOTAL_PRICE.getValue(), orderService.getOrderTotalPrice(
+          orderService.getUserOrders(user1.getId()).stream().toList()));
+      modelAndView.setViewName(ACCOUNT_PAGE.getPath());
+      modelAndView.addAllObjects(modelMap);
+      return modelAndView;
+    }
+    modelAndView.setViewName(ACCOUNT_PAGE.getPath());
     return modelAndView;
   }
 

@@ -20,6 +20,6 @@ public class CategoryController {
 
   @GetMapping()
   public ModelAndView getCategoryPage() throws Exception {
-
+    return categoryService.getCategories();
   }
 }

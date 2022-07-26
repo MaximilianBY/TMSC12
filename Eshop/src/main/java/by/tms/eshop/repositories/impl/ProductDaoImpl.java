@@ -4,34 +4,31 @@ import by.tms.eshop.entities.Product;
 import by.tms.eshop.repositories.ProductDao;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 @Slf4j
+@Transactional
 @Repository
 public class ProductDaoImpl implements ProductDao {
 
-  private final SessionFactory sessionFactory;
-
-  public ProductDaoImpl(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
+  @PersistenceContext
+  private EntityManager entityManager;
 
   @Override
-  public Set<Product> getAllProductsFromDb() {
-    Session session = sessionFactory.getCurrentSession();
-    Query<Product> products = session.createQuery(
+  public Set<Product> getAllProducts() {
+    Query products = entityManager.createQuery(
         "select u from Product u where u.quantity >0");
     return new HashSet<>(products.getResultList());
   }
 
   @Override
-  public Set<Product> getAllProductsByCategoryFromDb(int categoryId) {
-    Session session = sessionFactory.getCurrentSession();
-    Query<Product> products = session.createQuery(
+  public Set<Product> getProductsByCategory(int categoryId) {
+    Query products = entityManager.createQuery(
         "select u from Product u where u.category.id=:categoryId and u.quantity >0");
     products.setParameter("categoryId", categoryId);
     log.info(products.getResultList().toString());
@@ -39,19 +36,18 @@ public class ProductDaoImpl implements ProductDao {
   }
 
   @Override
-  public Product getProductByIdFromDb(int productId) {
-    Session session = sessionFactory.getCurrentSession();
-    Query<Product> product = session.createQuery(
+  public Product getProductById(int productId) {
+    Query product = entityManager.createQuery(
         "select u from Product u where u.id=:productId");
     product.setParameter("productId", productId);
-    return product.getSingleResult();
+    return (Product) product.getSingleResult();
   }
 
   @Override
-  public Set<Product> findProductsByRequestFromSearchDb(String[] searchArray) {
+  public Set<Product> searchProducts(String[] searchArray) {
     Set<Product> products = new HashSet<>();
 
-    for (Product product : getAllProductsFromDb()) {
+    for (Product product : getAllProducts()) {
       int count = 0;
       for (String request : searchArray) {
         if (product.getBrand().toLowerCase().contains(request.toLowerCase()) || product.getModel()
@@ -67,16 +63,9 @@ public class ProductDaoImpl implements ProductDao {
   }
 
   @Override
-  public void updateProductQuantityInDb(Product product) {
-    Session session = sessionFactory.getCurrentSession();
-    session.beginTransaction();
-    javax.persistence.Query updateProd = session.createQuery(
-        "update Product u set u.quantity=:quantity where u.id=:productId");
-    int remainingQuantity =
-        getProductByIdFromDb(product.getId()).getQuantity() - product.getQuantity();
-    updateProd.setParameter("productId", product.getId());
-    updateProd.setParameter("quantity", remainingQuantity);
-    updateProd.executeUpdate();
-    session.getTransaction().commit();
+  public void updateProductQuantity(Product entity) {
+    Product product = entityManager.find(Product.class, entity.getId());
+    product.setQuantity(product.getQuantity() - entity.getQuantity());
+    entityManager.merge(product);
   }
 }

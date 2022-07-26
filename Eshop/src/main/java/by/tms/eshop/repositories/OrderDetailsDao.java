@@ -5,8 +5,7 @@ import by.tms.eshop.entities.User;
 import java.util.Set;
 
 public interface OrderDetailsDao {
-
   void saveOrderDetails(OrderDetails orderDetails);
 
-  Set<OrderDetails> getOrderDetailsFromDb(User user);
+  Set<OrderDetails> getOrderDetails(User user);
 }

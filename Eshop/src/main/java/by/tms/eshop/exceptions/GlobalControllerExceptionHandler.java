@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
-
   @ResponseStatus(HttpStatus.FORBIDDEN)
   @ExceptionHandler(AuthorizationException.class)
   public ModelAndView handleAuthException(Exception ex) {

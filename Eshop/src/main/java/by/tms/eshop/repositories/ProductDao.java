@@ -5,13 +5,13 @@ import java.util.Set;
 
 public interface ProductDao {
 
-  Set<Product> getAllProductsFromDb();
+  Set<Product> getAllProducts();
 
-  Set<Product> getAllProductsByCategoryFromDb(int categoryId);
+  Set<Product> getProductsByCategory(int categoryId);
 
-  Product getProductByIdFromDb(int productId);
+  Product getProductById(int productId);
 
-  Set<Product> findProductsByRequestFromSearchDb(String[] searchArray);
+  Set<Product> searchProducts(String[] searchArray);
 
-  void updateProductQuantityInDb(Product product);
+  void updateProductQuantity(Product product);
 }

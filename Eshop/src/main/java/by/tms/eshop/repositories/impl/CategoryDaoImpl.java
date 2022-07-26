@@ -20,8 +20,7 @@ public class CategoryDaoImpl implements CategoryDao {
 
   @Override
   public Set<Category> getAllCategories() {
-    return new HashSet<>(entityManager
-        .createQuery("select c from Category c")
+    return new HashSet<>(entityManager.createQuery("select c from Category c")
         .getResultList());
   }
 }

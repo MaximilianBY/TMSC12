@@ -2,7 +2,7 @@ package by.tms.eshop.controllers;
 
 import static by.tms.eshop.EshopConstants.SHOPPING_CART;
 import static by.tms.eshop.EshopConstants.USER;
-import static by.tms.eshop.PagesPathEnum.SIGN_IN_PAGE;
+import static by.tms.eshop.PagesPathConstants.SIGN_IN_PAGE;
 
 import by.tms.eshop.entities.Cart;
 import by.tms.eshop.entities.User;
@@ -31,7 +31,7 @@ public class AuthController {
 
   @GetMapping
   public ModelAndView openLoginPage() {
-    return new ModelAndView(SIGN_IN_PAGE.getPath());
+    return new ModelAndView(SIGN_IN_PAGE);
   }
 
   @PostMapping

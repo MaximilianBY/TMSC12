@@ -28,32 +28,32 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public Set<Product> getAllProductsByCategory(int categoryID) throws Exception {
     Optional<Set<Product>> products = Optional.ofNullable(
-        productDao.getAllProductsByCategoryFromDb(categoryID));
+        productDao.getProductsByCategory(categoryID));
     return products.orElse(null);
   }
 
   @Override
   public Product getProductByID(int productID) throws Exception {
-    Optional<Product> product = Optional.ofNullable(productDao.getProductByIdFromDb(productID));
+    Optional<Product> product = Optional.ofNullable(productDao.getProductById(productID));
     return product.orElse(null);
   }
 
   @Override
   public Set<Product> findProductByRequestFromSearch(String[] searchArray) throws Exception {
     Optional<Set<Product>> products = Optional.ofNullable(
-        productDao.findProductsByRequestFromSearchDb(searchArray));
+        productDao.searchProducts(searchArray));
     return products.orElse(null);
   }
 
   @Override
   public void updateProductQuantity(Product product) {
-    productDao.updateProductQuantityInDb(product);
+    productDao.updateProductQuantity(product);
   }
 
   @Override
   public ModelAndView openDevicesPage(int categoryId) {
     ModelMap modelMap = new ModelMap();
-    Set<Product> products = productDao.getAllProductsByCategoryFromDb(categoryId);
+    Set<Product> products = productDao.getProductsByCategory(categoryId);
     if (Optional.ofNullable(products).isPresent()) {
       modelMap.addAttribute(DEVICES.getValue(), products);
     }
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public ModelAndView getProductData(int id) throws Exception {
     ModelMap modelMap = new ModelMap();
-    Product product = productDao.getProductByIdFromDb(id);
+    Product product = productDao.getProductById(id);
     if (Optional.ofNullable(product).isPresent()) {
       modelMap.addAttribute(PRODUCT.getValue(), product);
     }
@@ -76,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
     if (Optional.ofNullable(inputString).isPresent()) {
       String[] searchArr = inputString.split("\\W");
       modelMap.addAttribute(DEVICES.getValue(),
-          productDao.findProductsByRequestFromSearchDb(searchArr));
+          productDao.searchProducts(searchArr));
     }
     return new ModelAndView(SEARCH_PAGE.getPath(), modelMap);
   }

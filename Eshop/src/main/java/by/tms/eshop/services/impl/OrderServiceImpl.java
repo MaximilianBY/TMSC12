@@ -73,7 +73,7 @@ public class OrderServiceImpl implements OrderService {
         .orderDate(LocalDate.now())
         .orderPrice(cart.getUserCartTotalPrice())
         .build();
-    orderDao.saveOrderInDb(order);
+    orderDao.saveOrder(order);
     for (Product product : cart.getUsersCart()) {
       productService.updateProductQuantity(product);
 
@@ -98,8 +98,8 @@ public class OrderServiceImpl implements OrderService {
     ModelMap modelMap = new ModelMap();
     User user = userService.getUserData(entity);
     modelMap.addAttribute(USER_INFO.getValue(), user);
-    Set<Order> userOrders = orderDao.getUserOrdersFromDb(user);
-    Set<OrderDetails> orderDetails = orderDetailsDao.getOrderDetailsFromDb(user);
+    Set<Order> userOrders = orderDao.getUserOrders(user);
+    Set<OrderDetails> orderDetails = orderDetailsDao.getOrderDetails(user);
     if (Optional.ofNullable(orderDetails).isPresent()) {
 //      modelMap.addAttribute(ORDER_STORY.getValue(), userOrders);
       modelMap.addAttribute(ORDER_DETAILS.getValue(), orderDetails);

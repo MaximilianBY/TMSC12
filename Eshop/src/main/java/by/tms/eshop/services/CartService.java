@@ -40,7 +40,7 @@ public class CartService {
   public ModelAndView addProductToCart(int productID, Cart cart) throws Exception {
     ModelMap modelMap = new ModelMap();
 
-    Product product = productDao.getProductByIdFromDb(productID);
+    Product product = productDao.getProductById(productID);
     cart.addProductToCart(product);
 
     modelMap.addAttribute(PRODUCT.getValue(), product);
@@ -52,7 +52,7 @@ public class CartService {
   public ModelAndView deleteProductFromCart(int productID, Cart cart) throws Exception {
     ModelMap modelMap = new ModelMap();
 
-    Product product = productDao.getProductByIdFromDb(productID);
+    Product product = productDao.getProductById(productID);
     cart.delUnnecessaryProduct(product);
 
     modelMap.addAttribute(USER_CART.getValue(), cart.getUsersCart());

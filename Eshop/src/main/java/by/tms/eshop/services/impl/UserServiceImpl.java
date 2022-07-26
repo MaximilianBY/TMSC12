@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public User getUserData(User entity) {
-    User user = userDao.getUserDataFromDbByLogin(entity);
+    User user = userDao.getUserByLogin(entity);
     return user;
   }
 

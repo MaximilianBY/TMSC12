@@ -17,22 +17,22 @@ public class Cart {
     return productInCart;
   }
 
-  public void addProductToCart(Product product1) {
-    if (isExistProductInCart(product1)) {
+  public void addProductToCart(Product addedProduct) {
+    if (isExistProductInCart(addedProduct)) {
       productInCart.stream()
-          .filter(product -> product.getId() == product1.getId())
+          .filter(product -> product.getId() == addedProduct.getId())
           .forEach(product -> {
             product.setQuantity(product.getQuantity() + 1);
-            product.setPrice(product.getQuantity() * product1.getPrice());
+            product.setPrice(product.getQuantity() * addedProduct.getPrice());
           });
     } else {
       productInCart.add(Product.builder()
-          .id(product1.getId())
-          .brand(product1.getBrand())
-          .model(product1.getModel())
+          .id(addedProduct.getId())
+          .brand(addedProduct.getBrand())
+          .model(addedProduct.getModel())
           .quantity(1)
-          .price(product1.getPrice())
-          .imagePath(product1.getImagePath())
+          .price(addedProduct.getPrice())
+          .imagePath(addedProduct.getImagePath())
           .build());
     }
   }
@@ -46,14 +46,14 @@ public class Cart {
     return 0;
   }
 
-  public void delUnnecessaryProduct(Product product1) {
+  public void delUnnecessaryProduct(Product productToRemove) {
     productInCart.removeIf(product -> {
-      if (product.getId() == product1.getId() && product.getQuantity() <= 1) {
+      if (product.getId() == productToRemove.getId() && product.getQuantity() <= 1) {
         return true;
       } else {
-        if (product.getId() == product1.getId()) {
+        if (product.getId() == productToRemove.getId()) {
           product.setQuantity(product.getQuantity() - 1);
-          product.setPrice(product.getPrice() - product1.getPrice());
+          product.setPrice(product.getPrice() - productToRemove.getPrice());
           return false;
         }
       }
@@ -65,8 +65,8 @@ public class Cart {
     productInCart.clear();
   }
 
-  private boolean isExistProductInCart(Product product1) {
-    return productInCart.stream().anyMatch(product -> product.getId() == product1.getId());
+  private boolean isExistProductInCart(Product productToCheck) {
+    return productInCart.stream().anyMatch(product -> product.getId() == productToCheck.getId());
   }
 
   @Override

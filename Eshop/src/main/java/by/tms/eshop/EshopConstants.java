@@ -1,9 +1,12 @@
 package by.tms.eshop;
 
-public interface EshopConstants {
+import lombok.experimental.UtilityClass;
 
-  String USER = "user";
-  String SHOPPING_CART = "cart";
-  String PRODUCT_ID = "product_id";
-  String CATEGORY_ID = "category_id";
+@UtilityClass
+public final class EshopConstants {
+
+  public static final String USER = "user";
+  public static final String SHOPPING_CART = "cart";
+  public static final String PRODUCT_ID = "product_id";
+  public static final String CATEGORY_ID = "category_id";
 }

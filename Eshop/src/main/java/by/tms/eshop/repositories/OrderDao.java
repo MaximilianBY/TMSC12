@@ -6,7 +6,7 @@ import java.util.Set;
 
 public interface OrderDao {
 
-  void saveOrderInDb(Order order);
+  void saveOrder(Order order);
 
-  Set<Order> getUserOrdersFromDb(User user);
+  Set<Order> getUserOrders(User user);
 }

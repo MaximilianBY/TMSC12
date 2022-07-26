@@ -1,7 +1,7 @@
 package by.tms.eshop.controllers;
 
 import static by.tms.eshop.EshopConstants.USER;
-import static by.tms.eshop.PagesPathEnum.REGISTRATION_PAGE;
+import static by.tms.eshop.PagesPathConstants.REGISTRATION_PAGE;
 
 import by.tms.eshop.entities.User;
 import by.tms.eshop.services.UserService;
@@ -26,7 +26,7 @@ public class RegistrationController {
 
   @GetMapping
   public ModelAndView openRegistrationPage() {
-    return new ModelAndView(REGISTRATION_PAGE.getPath());
+    return new ModelAndView(REGISTRATION_PAGE);
   }
 
   @PostMapping

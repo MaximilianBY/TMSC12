@@ -1,16 +1,16 @@
 package by.tms.eshop.services.impl;
 
-import static by.tms.eshop.PagesPathEnum.REGISTRATION_PAGE;
-import static by.tms.eshop.PagesPathEnum.SIGN_IN_PAGE;
-
+import by.tms.eshop.dto.UserDto;
+import by.tms.eshop.dto.converters.UserConverter;
 import by.tms.eshop.entities.User;
 import by.tms.eshop.repositories.UserDao;
 import by.tms.eshop.services.CategoryService;
 import by.tms.eshop.services.UserService;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Service
@@ -18,46 +18,47 @@ public class UserServiceImpl implements UserService {
 
   private final UserDao userDao;
   private final CategoryService categoryService;
+  private final UserConverter userConverter;
 
-  public UserServiceImpl(UserDao userDao, CategoryService categoryService) {
+  public UserServiceImpl(UserDao userDao, CategoryService categoryService,
+      UserConverter userConverter) {
     this.userDao = userDao;
     this.categoryService = categoryService;
+    this.userConverter = userConverter;
   }
 
   @Override
-  public ModelAndView authenticate(User user) {
+  public ResponseEntity<UserDto> authenticate(UserDto user) {
     log.info("inside check user");
-    if (checkUserEntry(user)) {
-      User userFromDb = userDao.findUserByLoginAndPassword(user.getLogin(), user.getPassword());
+    if (checkUserEntry(userConverter.fromDto(user))) {
+      UserDto userFromDb = userConverter.toDto(
+          userDao.findUserByLoginAndPassword(user.getLogin(), user.getPassword()));
       if (Optional.ofNullable(userFromDb).isPresent()) {
         log.info("inside user checked, loading category");
-        return categoryService.openCategoryPage();
+        return new ResponseEntity<>(userFromDb, HttpStatus.OK);
       }
     }
     log.info("user not exist");
-    return new ModelAndView(SIGN_IN_PAGE.getPath());
+    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
   }
 
   @Override
-  public ModelAndView registration(User user) {
+  public ResponseEntity<UserDto> registration(UserDto user) {
     log.info("inside registration user");
-    ModelAndView modelAndView = new ModelAndView();
     log.info(user.getLogin() + " " + user.getName());
-    if (checkUserEntry(user)) {
-      User userFromDb = userDao.findUserByLoginAndPassword(user.getLogin(), user.getPassword());
-      if (Optional.ofNullable(userFromDb).isEmpty()) {
-        userDao.saveNewUser(user);
-        modelAndView.setViewName(SIGN_IN_PAGE.getPath());
-      } else {
-        modelAndView.setViewName(REGISTRATION_PAGE.getPath());
-      }
+    if (checkUserEntry(userConverter.fromDto(user))) {
+//      UserDto newUser = userConverter.toDto(
+//          userDao.findUserByLoginAndPassword(user.getLogin(), user.getPassword()));
+//      if (Optional.ofNullable(newUser).isEmpty()) {
+      return new ResponseEntity<>(user, HttpStatus.OK);
+//      }
     }
-    return modelAndView;
+    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
   }
 
   @Override
   public User getUserData(User entity) {
-    User user = userDao.getUserDataFromDbByLogin(entity);
+    User user = userDao.getUserByLogin(entity);
     return user;
   }
 

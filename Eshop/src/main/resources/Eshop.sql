@@ -67,41 +67,41 @@ CREATE TABLE IF NOT EXISTS ESHOP.CATEGORIES
     PRIMARY KEY (ID)
 );
 
-INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
-    VALUE (
-           'Mobile phones',
-           '/images/categories/mobile.jpg'
-    );
-INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
-    VALUE (
-           'Laptops',
-           '/images/categories/laptop.jpg'
-    );
-INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
-    VALUE (
-           'GPS Navigators',
-           '/images/categories/jps_nav.jpg'
-    );
-INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
-    VALUE (
-           'Fridges',
-           '/images/categories/fridge.jpg'
-    );
-INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
-    VALUE (
-           'Cars',
-           '/images/categories/car.jpg'
-    );
-INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
-    VALUE (
-           'Cameras',
-           '/images/categories/camera.jpg'
-    );
-INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
-    VALUE (
-           'TV-BOX',
-           '/images/categories/tv-box.jpg'
-    );
+# INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
+#     VALUE (
+#            'Mobile phones',
+#            '/images/categories/mobile.jpg'
+#           );
+# INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
+#     VALUE (
+#            'Laptops',
+#            '/images/categories/laptop.jpg'
+#           );
+# INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
+#     VALUE (
+#            'GPS Navigators',
+#            '/images/categories/jps_nav.jpg'
+#           );
+# INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
+#     VALUE (
+#            'Fridges',
+#            '/images/categories/fridge.jpg'
+#           );
+# INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
+#     VALUE (
+#            'Cars',
+#            '/images/categories/car.jpg'
+#           );
+# INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
+#     VALUE (
+#            'Cameras',
+#            '/images/categories/camera.jpg'
+#           );
+# INSERT INTO ESHOP.CATEGORIES (NAME, IMAGE_PATH)
+#     VALUE (
+#            'TV-BOX',
+#            '/images/categories/tv-box.jpg'
+#           );
 
 DROP TABLE IF EXISTS ESHOP.PRODUCTS;
 
@@ -120,66 +120,66 @@ CREATE TABLE IF NOT EXISTS ESHOP.PRODUCTS
         FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORIES (ID) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
-    VALUE (
-           'Asus',
-           'N75SF',
-           '17.3" 1920 x 1080 TN+Film, несенсорный, 2310M 2100 МГц, 4 ГБ DDR3, HDD 750 ГБ, Windows 7 Home Premium, DVD, цвет крышки черный',
-           1500,
-           6,
-           2,
-           '/images/products/asus_n75sf.jpg'
-    );
-INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
-    VALUE (
-           'Asus',
-           'TUF Gaming A17',
-           '17.3" 1920 x 1080 IPS, 120 Гц, несенсорный, AMD Ryzen 7 4800H 2900 МГц, 16 ГБ DDR4, SSD 512 ГБ, видеокарта NVIDIA GeForce GTX 1660 Ti 6 ГБ, без ОС, цвет крышки серый',
-           1500,
-           8,
-           2,
-           '/images/products/asus_tufgaminga17.jpg'
-    );
-INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
-    VALUE (
-           'Xiaomi',
-           'Redmi Note 8',
-           'Android, экран 6.3" IPS (1080x2340), Qualcomm Snapdragon 665, ОЗУ 4 ГБ, флэш-память 64 ГБ, карты памяти, камера 48 Мп, аккумулятор 4000 мАч, 2 SIM',
-           300,
-           5,
-           1,
-           '/images/products/xiaomi_rn8.jpg'
-    );
-INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
-    VALUE (
-           'Xiaomi',
-           'Mi box 4s',
-           'USB, Smart TV, Wi-Fi, 4K, поддержка HDR',
-           90,
-           9,
-           7,
-           '/images/products/xiaomi_mibox4s.jpg'
-    );
-INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
-    VALUE (
-           'Xiaomi',
-           'Poco F1',
-           'Android, экран 6.18" IPS (1080x2246), Qualcomm Snapdragon 845, ОЗУ 6 ГБ, флэш-память 128 ГБ, карты памяти, камера 12 Мп, аккумулятор 4000 мАч, 2 SIM',
-           400,
-           8,
-           1,
-           '/images/products/xiaomi_pocof1.jpg'
-    );
-INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
-    VALUE (
-           'HONOR',
-           'MagicBook X15',
-           '15.6" 1920 x 1080 IPS, 60 Гц, несенсорный, Intel Core i3 10110U 2100 МГц, 8 ГБ DDR4, SSD 256 ГБ, видеокарта встроенная, Windows 10, цвет крышки серый',
-           700,
-           12,
-           2,
-           '/images/products/honor_mbx15.jpg'
-    );
+# INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
+#     VALUE (
+#            'Asus',
+#            'N75SF',
+#            '17.3" 1920 x 1080 TN+Film, несенсорный, 2310M 2100 МГц, 4 ГБ DDR3, HDD 750 ГБ, Windows 7 Home Premium, DVD, цвет крышки черный',
+#            1500,
+#            6,
+#            2,
+#            '/images/products/asus_n75sf.jpg'
+#           );
+# INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
+#     VALUE (
+#            'Asus',
+#            'TUF Gaming A17',
+#            '17.3" 1920 x 1080 IPS, 120 Гц, несенсорный, AMD Ryzen 7 4800H 2900 МГц, 16 ГБ DDR4, SSD 512 ГБ, видеокарта NVIDIA GeForce GTX 1660 Ti 6 ГБ, без ОС, цвет крышки серый',
+#            1500,
+#            8,
+#            2,
+#            '/images/products/asus_tufgaminga17.jpg'
+#           );
+# INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
+#     VALUE (
+#            'Xiaomi',
+#            'Redmi Note 8',
+#            'Android, экран 6.3" IPS (1080x2340), Qualcomm Snapdragon 665, ОЗУ 4 ГБ, флэш-память 64 ГБ, карты памяти, камера 48 Мп, аккумулятор 4000 мАч, 2 SIM',
+#            300,
+#            5,
+#            1,
+#            '/images/products/xiaomi_rn8.jpg'
+#           );
+# INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
+#     VALUE (
+#            'Xiaomi',
+#            'Mi box 4s',
+#            'USB, Smart TV, Wi-Fi, 4K, поддержка HDR',
+#            90,
+#            9,
+#            7,
+#            '/images/products/xiaomi_mibox4s.jpg'
+#           );
+# INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
+#     VALUE (
+#            'Xiaomi',
+#            'Poco F1',
+#            'Android, экран 6.18" IPS (1080x2246), Qualcomm Snapdragon 845, ОЗУ 6 ГБ, флэш-память 128 ГБ, карты памяти, камера 12 Мп, аккумулятор 4000 мАч, 2 SIM',
+#            400,
+#            8,
+#            1,
+#            '/images/products/xiaomi_pocof1.jpg'
+#           );
+# INSERT INTO ESHOP.PRODUCTS (BRAND, MODEL, DESCRIPTION, PRICE, QUANTITY, CATEGORY_ID, IMAGE_PATH)
+#     VALUE (
+#            'HONOR',
+#            'MagicBook X15',
+#            '15.6" 1920 x 1080 IPS, 60 Гц, несенсорный, Intel Core i3 10110U 2100 МГц, 8 ГБ DDR4, SSD 256 ГБ, видеокарта встроенная, Windows 10, цвет крышки серый',
+#            700,
+#            12,
+#            2,
+#            '/images/products/honor_mbx15.jpg'
+#           );
 
 DROP TABLE IF EXISTS ESHOP.ORDERS;
 

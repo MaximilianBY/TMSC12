@@ -14,39 +14,30 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
-@Getter //создаем геттеры для всех полей
-@Setter //создаем сеттеры для всех полей
-@ToString //переопределяем вывод данных полей в виде строк в консоль
-@AllArgsConstructor //создаем конструктор со всеми аргументами и полями
-@RequiredArgsConstructor //создаем конструктор с обязательными полями или отмеченными NonNull
-@SuperBuilder //добавляем возможность работать с полями родительского класса
-@Entity //определяем класс как сущность для дальнейшей работы с Spring, Hibernate, JPA
+@Getter
+@Setter
+@ToString
+@AllArgsConstructor
+@RequiredArgsConstructor
+@SuperBuilder
+@Entity
 @Table(name = "products")
-//определяем приндлежность сущности к таблице в БД, откуда будем брать данные
 public class Product extends BaseEntity {
 
   @Column(name = "BRAND", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private String brand;
   @Column(name = "MODEL", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private String model;
   @Column(name = "DESCRIPTION", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private String description;
   @Column(name = "PRICE", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private int price;
   @Column(name = "QUANTITY", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private int quantity;
   @ManyToOne(optional = false)
-  //определяем связь многие к одному, указываем на невозможность существования нулевой связи
-  @JoinColumn(name = "CATEGORY_ID", nullable = false)
-  //указываем из какого столбца брать данные для данного поля и какому объекту он принадлежит
+  @JoinColumn(name = "CATEGORY_ID", nullable = false, referencedColumnName = "id")
   private Category category;
   @Column(name = "IMAGE_PATH", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private String imagePath;
 
   @Override

@@ -12,5 +12,5 @@ public interface UserDao {
 
   void saveNewUser(User user);
 
-  User getUserDataFromDbByLogin(User entity);
+  User getUserByLogin(User entity);
 }

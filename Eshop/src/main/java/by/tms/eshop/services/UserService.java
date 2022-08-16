@@ -1,13 +1,15 @@
 package by.tms.eshop.services;
 
+import by.tms.eshop.dto.UserDto;
 import by.tms.eshop.entities.User;
-import org.springframework.web.servlet.ModelAndView;
+import by.tms.eshop.exceptions.AuthorizationException;
+import org.springframework.http.ResponseEntity;
 
 public interface UserService {
 
-  ModelAndView authenticate(User user) throws Exception;
+  ResponseEntity<UserDto> authenticate(UserDto user) throws AuthorizationException;
 
-  ModelAndView registration(User user) throws Exception;
+  ResponseEntity<UserDto> registration(UserDto user) throws Exception;
 
   User getUserData(User entity);
 

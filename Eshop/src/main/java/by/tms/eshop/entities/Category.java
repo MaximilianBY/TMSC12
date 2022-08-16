@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,27 +16,22 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
-@AllArgsConstructor //создаем конструктор со всеми аргументами и полями
-@RequiredArgsConstructor //создаем конструктор с обязательными полями или отмеченными NonNull
-@SuperBuilder //добавляем возможность работать с полями родительского класса
-@Getter //создаем геттеры для всех полей
-@Setter //создаем сеттеры для всех полей
-@ToString //переопределяем вывод данных полей в виде строк в консоль
-@Entity //определяем класс как сущность для дальнейшей работы с Spring, Hibernate, JPA
+@AllArgsConstructor
+@RequiredArgsConstructor
+@SuperBuilder
+@Getter
+@Setter
+@ToString
+@Entity
 @Table(name = "categories")
-//определяем приндлежность сущности к таблице в БД, откуда будем брать данные
 public class Category extends BaseEntity {
 
   @Column(name = "NAME", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private String name;
   @Column(name = "IMAGE_PATH", nullable = false)
-  //указываем из какого столбца брать данные для данного поля
   private String imagePath;
-  @OneToMany(mappedBy = "category", orphanRemoval = true, cascade = CascadeType.ALL)
-  //определяем связь один ко многим, задаем двунаправленную связь между категориями и продуктами, указываем весь набор каскадных операций, а так же указываем,
-  // что при удалении будут удаленны все ссылки из БД продукта на категорию при удалении соответствующей категории
-  @ToString.Exclude //исключаем вывод поля в текстовом виде в консоль
+  @OneToMany(mappedBy = "category", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+  @ToString.Exclude
   private Set<Product> productSet;
 
   @Override

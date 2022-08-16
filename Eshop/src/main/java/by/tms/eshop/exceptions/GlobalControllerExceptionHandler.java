@@ -1,6 +1,6 @@
 package by.tms.eshop.exceptions;
 
-import static by.tms.eshop.PagesPathEnum.ERROR_PAGE;
+import static by.tms.eshop.PagesPathConstants.ERROR_PAGE;
 import static by.tms.eshop.RequestParamsEnum.ERROR_PARAM;
 
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ public class GlobalControllerExceptionHandler {
     ModelMap modelMap = new ModelMap();
     modelMap.addAttribute(ERROR_PARAM.getValue(), ex.getMessage());
     ModelAndView model = new ModelAndView();
-    model.setViewName(ERROR_PAGE.getPath());
+    model.setViewName(ERROR_PAGE);
     model.addAllObjects(modelMap);
     return model;
   }

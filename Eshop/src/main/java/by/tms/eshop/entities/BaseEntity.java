@@ -11,16 +11,14 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @MappedSuperclass
-//не создаем для родительского класса отдельную таблицу, наследники преобразуются в независимые таблицы
-@NoArgsConstructor //конструктор без аргументов и полей
-@AllArgsConstructor //конструктор со всеми аргументами и полями
-@SuperBuilder //определяем супер конструктор
-@Data //создаем геттеры, сеттеры, переопределяем toString, equals, hashCode по стандарту
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+@Data
 public abstract class BaseEntity {
 
-  @Id //определяем поле как первичный ключ
-  @Column(name = "ID", nullable = false) //указываем из какой колонки в БД брать данные
+  @Id
+  @Column(name = "ID", nullable = false)
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  //определяем стратегию генерации первичного ключа с помощью идентификаторов в столбце БД
   protected Integer id;
 }

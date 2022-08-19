@@ -26,5 +26,4 @@ public class Order extends BaseEntity {
   private LocalDate orderDate;
   @Column(name = "ORDER_PRICE", nullable = false)
   private int orderPrice;
-
 }

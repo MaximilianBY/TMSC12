@@ -1,8 +1,5 @@
 package by.tms.eshop.services.impl;
 
-import static by.tms.eshop.PagesPathConstants.HOME_PAGE;
-import static by.tms.eshop.RequestParamsEnum.CATEGORY;
-
 import by.tms.eshop.dto.CategoryDto;
 import by.tms.eshop.dto.converters.CategoryConverter;
 import by.tms.eshop.repositories.CategoryDao;
@@ -27,9 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Service
@@ -49,21 +44,22 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public ModelAndView openCategoryPage(HttpSession httpSession) {
-    ModelMap modelMap = new ModelMap();
+  public ResponseEntity<Set<CategoryDto>> openCategoryPage(HttpSession httpSession) {
     Set<CategoryDto> categorySet = categoryDao.getAllCategories();
-    httpSession.setAttribute(CATEGORY.getValue(), categorySet);
-    return new ModelAndView(HOME_PAGE);
+    if (Optional.ofNullable(categorySet).isPresent()) {
+      return new ResponseEntity<>(categorySet, HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 
   @Override
   public ResponseEntity<Set<CategoryDto>> saveCategoriesFromFile(MultipartFile file)
       throws Exception {
-    List<CategoryDto> csvCategories = parseCsv(file);
+    Set<CategoryDto> csvCategories = new HashSet<>(parseCsv(file));
     if (Optional.ofNullable(csvCategories).isPresent()) {
-      return new ResponseEntity<>(new HashSet<>(csvCategories), HttpStatus.CREATED);
+      return new ResponseEntity<>(csvCategories, HttpStatus.OK);
     }
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 
   private List<CategoryDto> parseCsv(MultipartFile file) {
@@ -112,11 +108,10 @@ public class CategoryServiceImpl implements CategoryService {
           .build();
 
       beanToCsv.write(allCategories.stream().toList());
-      return ResponseEntity.ok()
-          .body(allCategories);
+      return new ResponseEntity<>(allCategories, HttpStatus.OK);
     } catch (Exception e) {
       log.info("Error writing category CSV");
     }
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 }

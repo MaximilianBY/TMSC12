@@ -26,11 +26,15 @@ public class UserDaoImpl implements UserDao {
 
   @Override
   public User findUserByLoginAndPassword(String login, String password) {
-    Query query = entityManager.createQuery(
-        "select u from User u where u.login=:login and u.password=:password");
-    query.setParameter("login", login);
-    query.setParameter("password", password);
-    return (User) query.getSingleResult();
+    try {
+      Query query = entityManager.createQuery(
+          "select u from User u where u.login=:login and u.password=:password");
+      query.setParameter("login", login);
+      query.setParameter("password", password);
+      return (User) query.getSingleResult();
+    } catch (NullPointerException e) {
+      return null;
+    }
   }
 
   @Override

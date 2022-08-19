@@ -1,24 +1,24 @@
 package by.tms.eshop.controllers;
 
-import static by.tms.eshop.EshopConstants.USER;
-import static by.tms.eshop.PagesPathConstants.REGISTRATION_PAGE;
-
 import by.tms.eshop.dto.UserDto;
 import by.tms.eshop.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@SessionAttributes({USER})
 @RequestMapping("/registration")
+@Tag(name = "Registration", description = "The registration API")
 public class RegistrationController {
 
   private final UserService userService;
@@ -27,19 +27,24 @@ public class RegistrationController {
     this.userService = userService;
   }
 
-  @GetMapping
-  public ModelAndView openRegistrationPage() {
-    return new ModelAndView(REGISTRATION_PAGE);
-  }
-
+  @Operation(
+      summary = "Registration page",
+      description = "Registration page"
+  )
+  @ApiResponses(value = {
+      @ApiResponse(
+          responseCode = "200",
+          description = "User registered",
+          content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserDto.class)))
+      ),
+      @ApiResponse(
+          responseCode = "400",
+          description = "User existing"
+      )
+  })
   @PostMapping()
-  public ResponseEntity<UserDto> addNewUser(@ModelAttribute @Valid UserDto user, Errors errors)
+  public ResponseEntity<UserDto> addNewUser(@RequestBody @Valid UserDto user)
       throws Exception {
     return userService.registration(user);
-  }
-
-  @ModelAttribute(USER)
-  public UserDto setUpUserForm() {
-    return new UserDto();
   }
 }

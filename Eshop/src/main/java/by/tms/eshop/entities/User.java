@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class User extends BaseEntity {
   @PasswordConstraint
   @Column(name = "PASSWORD", nullable = false)
   private String password;
-  @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
   private Set<Order> order;
 
 

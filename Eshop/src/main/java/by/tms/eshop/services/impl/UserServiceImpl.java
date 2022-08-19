@@ -1,5 +1,6 @@
 package by.tms.eshop.services.impl;
 
+import by.tms.eshop.dto.CategoryDto;
 import by.tms.eshop.dto.UserDto;
 import by.tms.eshop.dto.converters.UserConverter;
 import by.tms.eshop.entities.User;
@@ -7,9 +8,11 @@ import by.tms.eshop.repositories.UserDao;
 import by.tms.eshop.services.CategoryService;
 import by.tms.eshop.services.UserService;
 import java.util.Optional;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -19,41 +22,37 @@ public class UserServiceImpl implements UserService {
   private final UserDao userDao;
   private final CategoryService categoryService;
   private final UserConverter userConverter;
+  private final PasswordEncoder passwordEncoder;
 
   public UserServiceImpl(UserDao userDao, CategoryService categoryService,
-      UserConverter userConverter) {
+      UserConverter userConverter, PasswordEncoder passwordEncoder) {
     this.userDao = userDao;
     this.categoryService = categoryService;
     this.userConverter = userConverter;
+    this.passwordEncoder = passwordEncoder;
   }
 
   @Override
-  public ResponseEntity<UserDto> authenticate(UserDto user) {
+  public ResponseEntity<Set<CategoryDto>> authenticate(UserDto user) {
     log.info("inside check user");
     if (checkUserEntry(userConverter.fromDto(user))) {
       UserDto userFromDb = userConverter.toDto(
           userDao.findUserByLoginAndPassword(user.getLogin(), user.getPassword()));
       if (Optional.ofNullable(userFromDb).isPresent()) {
         log.info("inside user checked, loading category");
-        return new ResponseEntity<>(userFromDb, HttpStatus.OK);
+        return new ResponseEntity<>(categoryService.getAllCategoriesDto(), HttpStatus.OK);
       }
     }
     log.info("user not exist");
-    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
   }
 
   @Override
   public ResponseEntity<UserDto> registration(UserDto user) {
-    log.info("inside registration user");
-    log.info(user.getLogin() + " " + user.getName());
     if (checkUserEntry(userConverter.fromDto(user))) {
-//      UserDto newUser = userConverter.toDto(
-//          userDao.findUserByLoginAndPassword(user.getLogin(), user.getPassword()));
-//      if (Optional.ofNullable(newUser).isEmpty()) {
       return new ResponseEntity<>(user, HttpStatus.OK);
-//      }
     }
-    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
   @Override

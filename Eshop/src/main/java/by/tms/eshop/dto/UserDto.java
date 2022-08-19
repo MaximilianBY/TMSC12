@@ -1,5 +1,7 @@
 package by.tms.eshop.dto;
 
+import by.tms.eshop.entities.Order;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,4 +21,5 @@ public class UserDto {
   private String email;
   private String phoneNumber;
   private String password;
+  private Set<Order> orderSet;
 }

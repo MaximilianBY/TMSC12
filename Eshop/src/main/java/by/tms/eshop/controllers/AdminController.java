@@ -1,7 +1,5 @@
 package by.tms.eshop.controllers;
 
-import static by.tms.eshop.PagesPathConstants.UPLOAD_PAGE;
-
 import by.tms.eshop.dto.CategoryDto;
 import by.tms.eshop.dto.ProductDto;
 import by.tms.eshop.services.CategoryService;
@@ -12,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Set;
 import javax.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +21,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @RestController
 @RequestMapping("/db.eshop")
+@Tag(name = "Admin", description = "The Admin API")
 public class AdminController {
 
   private final CategoryService categoryService;
@@ -37,18 +36,13 @@ public class AdminController {
     this.productService = productService;
   }
 
-  @GetMapping
-  public ModelAndView openUploadPage() {
-    return new ModelAndView(UPLOAD_PAGE);
-  }
-
   @Operation(
       summary = "Upload a category File",
-      description = "Upload all categories from file",
-      tags = {"category"})
+      description = "Upload all categories from file"
+  )
   @ApiResponses(value = {
       @ApiResponse(
-          responseCode = "200",
+          responseCode = "201",
           description = "Category file uploaded",
           content = @Content(array = @ArraySchema(schema = @Schema(implementation = CategoryDto.class)))
       ),
@@ -67,11 +61,11 @@ public class AdminController {
 
   @Operation(
       summary = "Upload a product File",
-      description = "Upload all products from file",
-      tags = {"product"})
+      description = "Upload all products from file"
+  )
   @ApiResponses(value = {
       @ApiResponse(
-          responseCode = "200",
+          responseCode = "201",
           description = "Product file uploaded",
           content = @Content(array = @ArraySchema(schema = @Schema(implementation = ProductDto.class)))
       ),
@@ -91,8 +85,8 @@ public class AdminController {
 
   @Operation(
       summary = "Download a product File",
-      description = "Download all products",
-      tags = {"product"})
+      description = "Download all products"
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
@@ -113,20 +107,22 @@ public class AdminController {
 
   @Operation(
       summary = "Download a category File",
-      description = "Download all categories",
-      tags = {"category"})
+      description = "Download all categories"
+  )
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200",
           description = "Category file downloaded",
-          content = @Content(array = @ArraySchema(schema = @Schema(implementation = CategoryDto.class)))
+          content = @Content(
+              mediaType = "application/json",
+              array = @ArraySchema(schema = @Schema(implementation = CategoryDto.class)))
       ),
       @ApiResponse(
           responseCode = "403",
           description = "Can't download categories file - forbidden operation"
       )
   })
-  @GetMapping("/download/categories.csv")
+  @GetMapping(value = "/download/categories.csv")
   public ResponseEntity<Set<CategoryDto>> downloadCategoriesCsv(HttpServletResponse response)
       throws Exception {
     response.setHeader("Content-Disposition", "attachment; file=categories.csv");

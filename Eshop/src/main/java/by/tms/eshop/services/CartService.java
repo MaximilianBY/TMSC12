@@ -1,19 +1,15 @@
 package by.tms.eshop.services;
 
 
-import static by.tms.eshop.PagesPathConstants.CART_PAGE;
-import static by.tms.eshop.RequestParamsEnum.PRODUCT;
-import static by.tms.eshop.RequestParamsEnum.TOTAL_PRICE;
-import static by.tms.eshop.RequestParamsEnum.USER_CART;
-
 import by.tms.eshop.dto.ProductDto;
 import by.tms.eshop.entities.Cart;
 import by.tms.eshop.entities.User;
 import by.tms.eshop.repositories.ProductDao;
 import java.util.Optional;
+import java.util.Set;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.servlet.ModelAndView;
 
 @Service
 public class CartService {
@@ -28,54 +24,48 @@ public class CartService {
     this.userService = userService;
   }
 
-  public ModelAndView openCartPage(Cart cart) {
-    ModelMap modelMap = new ModelMap();
+  public ResponseEntity<Set<ProductDto>> openCartPage(Cart cart) {
     if (Optional.ofNullable(cart).isPresent()) {
-      modelMap.addAttribute(USER_CART.getValue(), cart.getUsersCart());
+      return new ResponseEntity<>(cart.getUsersCart(), HttpStatus.OK);
     }
-    return new ModelAndView(CART_PAGE, modelMap);
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 
-  public ModelAndView addProductToCart(int productID, Cart cart) throws Exception {
-    ModelMap modelMap = new ModelMap();
-
+  public ResponseEntity<Set<ProductDto>> addProductToCart(int productID, Cart cart)
+      throws Exception {
     ProductDto product = productDao.getProductById(productID);
-    cart.addProductToCart(product);
-
-    modelMap.addAttribute(PRODUCT.getValue(), product);
-    modelMap.addAttribute(USER_CART.getValue(), cart.getUsersCart());
-    modelMap.addAttribute(TOTAL_PRICE.getValue(), cart.getUserCartTotalPrice());
-    return new ModelAndView(CART_PAGE, modelMap);
+    if (Optional.ofNullable(product).isPresent()) {
+      cart.addProductToCart(product);
+      return new ResponseEntity<>(cart.getUsersCart(), HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 
-  public ModelAndView deleteProductFromCart(int productID, Cart cart) throws Exception {
-    ModelMap modelMap = new ModelMap();
-
+  public ResponseEntity<Set<ProductDto>> deleteProductFromCart(int productID, Cart cart)
+      throws Exception {
     ProductDto product = productDao.getProductById(productID);
-    cart.delUnnecessaryProduct(product);
-
-    modelMap.addAttribute(USER_CART.getValue(), cart.getUsersCart());
-    modelMap.addAttribute(TOTAL_PRICE.getValue(), cart.getUserCartTotalPrice());
-    return new ModelAndView(CART_PAGE, modelMap);
+    if (Optional.ofNullable(product).isPresent()) {
+      cart.delUnnecessaryProduct(product);
+      return new ResponseEntity<>(cart.getUsersCart(), HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
-  public ModelAndView clearUserCart(Cart cart) {
-    ModelMap modelMap = new ModelMap();
-
+  public ResponseEntity clearUserCart(Cart cart) {
     cart.flushUserCart();
 
-    modelMap.addAttribute(USER_CART.getValue(), cart.getUsersCart());
-    modelMap.addAttribute(TOTAL_PRICE.getValue(), cart.getUserCartTotalPrice());
-    return new ModelAndView(CART_PAGE, modelMap);
+    if (Optional.ofNullable(cart).isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 
-  public ModelAndView confirmOrder(User entity, Cart cart) throws Exception {
-    ModelMap modelMap = new ModelMap();
-
+  public ResponseEntity confirmOrder(User entity, Cart cart) throws Exception {
     User user = userService.getUserData(entity);
     orderService.createOrder(user, cart);
-    modelMap.addAttribute(USER_CART.getValue(), cart.getUsersCart());
-    modelMap.addAttribute(TOTAL_PRICE.getValue(), cart.getUserCartTotalPrice());
-    return new ModelAndView(CART_PAGE, modelMap);
+    if (Optional.ofNullable(cart).isPresent()) {
+      return new ResponseEntity<>(HttpStatus.OK);
+    }
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 }

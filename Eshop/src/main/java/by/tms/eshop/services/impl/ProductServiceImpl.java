@@ -1,12 +1,6 @@
 package by.tms.eshop.services.impl;
 
 
-import static by.tms.eshop.PagesPathConstants.DEVICES_PAGE;
-import static by.tms.eshop.PagesPathConstants.PRODUCT_PAGE;
-import static by.tms.eshop.PagesPathConstants.SEARCH_PAGE;
-import static by.tms.eshop.RequestParamsEnum.DEVICES;
-import static by.tms.eshop.RequestParamsEnum.PRODUCT;
-
 import by.tms.eshop.dto.ProductDto;
 import by.tms.eshop.dto.converters.ProductConverter;
 import by.tms.eshop.repositories.ProductDao;
@@ -30,9 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Service
@@ -72,34 +64,34 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public ModelAndView openDevicesPage(int categoryId) {
-    ModelMap modelMap = new ModelMap();
+  public ResponseEntity<Set<ProductDto>> openDevicesPage(int categoryId) {
     Set<ProductDto> products = productDao.getProductsByCategory(categoryId);
     if (Optional.ofNullable(products).isPresent()) {
-      modelMap.addAttribute(DEVICES.getValue(), products);
+      return new ResponseEntity<>(products, HttpStatus.OK);
     }
-    return new ModelAndView(DEVICES_PAGE, modelMap);
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
   @Override
-  public ModelAndView getProductData(int id) throws Exception {
-    ModelMap modelMap = new ModelMap();
+  public ResponseEntity<ProductDto> getProductData(int id) throws Exception {
     ProductDto product = productDao.getProductById(id);
     if (Optional.ofNullable(product).isPresent()) {
-      modelMap.addAttribute(PRODUCT.getValue(), product);
+      return new ResponseEntity<>(product, HttpStatus.OK);
     }
-    return new ModelAndView(PRODUCT_PAGE, modelMap);
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
   @Override
-  public ModelAndView findProductsFromRequest(String inputString) throws Exception {
-    ModelMap modelMap = new ModelMap();
+  public ResponseEntity<Set<ProductDto>> findProductsFromRequest(String inputString)
+      throws Exception {
     if (Optional.ofNullable(inputString).isPresent()) {
       String[] searchArr = inputString.split("\\W");
-      modelMap.addAttribute(DEVICES.getValue(),
-          productDao.searchProducts(searchArr));
+      Set<ProductDto> products = productDao.searchProducts(searchArr);
+      if (Optional.ofNullable(products).isPresent()) {
+        return new ResponseEntity<>(products, HttpStatus.OK);
+      }
     }
-    return new ModelAndView(SEARCH_PAGE, modelMap);
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
   @Override
@@ -113,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
     if (Optional.ofNullable(csvProducts).isPresent()) {
       return new ResponseEntity<>(new HashSet<>(csvProducts), HttpStatus.CREATED);
     }
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 
   private List<ProductDto> parseCsv(MultipartFile file) {
@@ -162,11 +154,10 @@ public class ProductServiceImpl implements ProductService {
           .build();
 
       beanToCsv.write(allProducts.stream().toList());
-      return ResponseEntity.ok()
-          .body(allProducts);
+      return new ResponseEntity<>(allProducts, HttpStatus.OK);
     } catch (Exception e) {
       log.info("Error writing product CSV");
     }
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(HttpStatus.FORBIDDEN);
   }
 }

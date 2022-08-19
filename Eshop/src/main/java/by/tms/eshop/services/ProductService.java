@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.Set;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 public interface ProductService {
 
@@ -17,11 +16,11 @@ public interface ProductService {
 
   void updateProductQuantity(ProductDto product);
 
-  ModelAndView getProductData(int id) throws Exception;
+  ResponseEntity<ProductDto> getProductData(int id) throws Exception;
 
-  ModelAndView findProductsFromRequest(String inputString) throws Exception;
+  ResponseEntity<Set<ProductDto>> findProductsFromRequest(String inputString) throws Exception;
 
-  ModelAndView openDevicesPage(int categoryId);
+  ResponseEntity<Set<ProductDto>> openDevicesPage(int categoryId);
 
   Set<ProductDto> getAllProducts();
 
